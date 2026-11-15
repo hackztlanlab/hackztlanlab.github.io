@@ -3,77 +3,184 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Trampa de QR · Hackztlan Lab</title>
-<meta name="description" content="Escaneaste un QR que no conocías. Aprende a protegerte del QRishing con Hackztlan Lab.">
-<style>
-  :root{
-    --bg:#05070c; --panel:#0b1220; --line:#1c2a3e;
-    --fg:#e9eef5; --muted:#8fa6c0;
-    --verde:#8affc1; --verde-s:#3ddc84; --ambar:#f5b949; --rojo:#ff6a6a;
-    --display:'Sora',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
-    color-scheme:dark;
-  }
-  *{margin:0;box-sizing:border-box}
-  html,body{min-height:100%}
-  body{
-    background:
-      radial-gradient(900px 620px at 50% 18%, rgba(245,185,73,.10), transparent 60%),
-      radial-gradient(800px 600px at 50% 120%, rgba(61,220,132,.08), transparent 60%),
-      var(--bg);
-    color:var(--fg); font-family:var(--body); line-height:1.5;
-    display:flex; align-items:center; justify-content:center;
-    padding-left:max(16px, env(safe-area-inset-left,0px));
-    padding-right:max(16px, env(safe-area-inset-right,0px));
-    padding-block:40px;
-  }
-  .grid{position:fixed; inset:0; z-index:0; opacity:.5; pointer-events:none;
-    background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);
-    background-size:46px 46px; -webkit-mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent); mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent)}
-  .card{position:relative; z-index:1; width:100%; max-width:520px; display:flex; flex-direction:column; gap:22px; text-align:center}
-  .brand{font-family:var(--mono); font-size:.9rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase}
-  .brand b{color:var(--verde)}
-  .glyph{font-size:4.2rem; line-height:1; filter:drop-shadow(0 0 30px rgba(245,185,73,.35))}
-  h1{font-family:var(--display); font-weight:800; font-size:clamp(2rem,9vw,2.9rem); line-height:1.04; letter-spacing:-.02em; text-wrap:balance}
-  h1 .a{color:var(--ambar)}
-  .lead{font-size:1.08rem; color:#cdd8e6; max-width:42ch; margin:0 auto}
-  .lead b{color:var(--fg)}
-  .term{font-family:var(--mono); font-size:.92rem; text-align:left; background:#0a0e16; border:1px solid var(--line);
-    border-radius:14px; padding:16px 18px; color:var(--muted); overflow-x:auto}
-  .term .p{color:var(--verde-s)} .term .u{color:var(--rojo)} .term .c{color:#546274}
-  .note{display:flex; gap:12px; align-items:flex-start; text-align:left; background:var(--panel); border:1px solid var(--line);
-    border-left:4px solid var(--verde-s); border-radius:12px; padding:16px 18px; color:#d7e2ee; font-size:1rem}
-  .note .ic{flex:none; font-size:1.3rem; line-height:1.3}
-  .cta{display:inline-flex; align-items:center; justify-content:center; gap:10px; align-self:center;
-    background:var(--verde-s); color:#042016; font-family:var(--display); font-weight:700; font-size:1.12rem;
-    text-decoration:none; padding:16px 30px; border-radius:14px; box-shadow:0 12px 34px rgba(61,220,132,.28);
-    transition:transform .12s ease, box-shadow .12s ease}
-  .cta:hover{transform:translateY(-2px); box-shadow:0 16px 40px rgba(61,220,132,.38)}
-  .cta:focus-visible{outline:3px solid var(--verde); outline-offset:3px}
-  .foot{font-family:var(--mono); font-size:.82rem; color:var(--muted); letter-spacing:.03em}
-  @media (prefers-reduced-motion:reduce){ .cta{transition:none} }
-</style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<title>Hackztlan Lab · Ciberseguridad en español, desde la base</title>
+<meta name="description" content="Aprende ciberseguridad en español, gratis y en orden: empieza con el curso Linux desde cero y su libro. Hackztlan Lab, desde México.">
+<meta name="theme-color" content="#070a1c">
+<meta property="og:title" content="Hackztlan Lab · Primero la base">
+<meta property="og:description" content="Curso gratis de Linux desde cero, su libro y más ciberseguridad explicada en español.">
+<meta property="og:image" content="https://hackztlan.com/img/libro-portada.webp">
+<meta property="og:url" content="https://hackztlan.com/">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; frame-src https://www.youtube-nocookie.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="img/pinguino.png">
+<link rel="stylesheet" href="estilo.css?v=3">
 </head>
 <body>
-<div class="grid"></div>
-<main class="card">
-  <div class="brand">Hack<b>ztlan</b> Lab · lección en vivo</div>
-  <div class="glyph">🫢</div>
-  <h1>Escaneaste un QR<br>que <span class="a">no conocías</span></h1>
-  <p class="lead">Y ese fue justo el <b>primer paso que no debías dar</b>. Tranquilo: esta página es segura. Pero una estafa real ya te habría mandado a un sitio falso para robarte.</p>
+<div class="fondo" aria-hidden="true"><div class="rejilla"></div><div class="halo h1"></div><div class="halo h2"></div><canvas id="red"></canvas></div>
+<div class="visitas" id="visitas" aria-hidden="true"></div>
 
-  <div class="term">
-    <div><span class="p">$</span> zbarimg tu-qr.png</div>
-    <div><span class="u">https://hackztlanlab.github.io</span> <span class="c"># ← te trajo aquí 😏</span></div>
+<div class="aviso" id="aviso">
+  <div class="wrap">
+    <span>📷 <b>¿Llegaste escaneando un QR de un video?</b> Esa era la lección: no escanees un QR que no conoces. Esta vez caíste en un lugar seguro. <a href="https://www.youtube.com/@HackztlanLAB" rel="noopener">Aprende a protegerte →</a></span>
+    <button class="x" type="button" aria-label="Cerrar aviso">×</button>
   </div>
+</div>
 
-  <div class="note"><span class="ic">🛡️</span><div>La próxima vez, antes de escanear pregúntate: <b>¿sé a dónde lleva?</b> Casi nadie lo sabe — por eso el QRishing funciona.</div></div>
+<header class="barra">
+  <div class="wrap">
+    <a class="logo" href="./"><img src="img/pinguino.png" alt="" width="36" height="36"><span>Hack<b>ztlan</b> Lab</span></a>
+    <nav class="menu">
+      <a href="#curso">Curso</a>
+      <a href="#libro">Libro</a>
+      <a href="#base">La ruta</a>
+      <a class="cta-mini" href="#apoya">Apoya</a>
+    </nav>
+  </div>
+</header>
 
-  <a class="cta" href="https://www.youtube.com/@HackztlanLAB" target="_blank" rel="noopener">▶ Aprende a protegerte</a>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="ceja rev">Ciberseguridad en español · desde México</div>
+      <h1 class="rev d1">Aprende a defenderte.<br><span class="t">Empieza por la base.</span></h1>
+      <p class="lead rev d2">Clases gratis, en orden y con comandos reales. Primero Linux, después redes, el SOC y el análisis de amenazas. Sin humo y sin necesitar ser experto.</p>
+      <div class="botones rev d3">
+        <a class="btn pri" href="#curso"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Empieza el curso</a>
+        <a class="btn sec" href="#libro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg>Descarga el libro</a>
+      </div>
+      <div class="sellos rev d3"><span>Gratis</span><span>Sin inscripción</span><span>En español</span></div>
+    </div>
+    <div class="term rev d2" aria-label="Terminal de ejemplo">
+      <div class="tb"><i></i><i></i><i></i><span>ana@linux: ~</span></div>
+      <pre id="tty"></pre>
+      <img class="tux" src="img/tux-cool.png" alt="">
+    </div>
+  </div>
+</section>
 
-  <div class="foot">Ciberseguridad con datos, no humo.</div>
+<section id="curso">
+  <div class="wrap">
+    <div class="titulo rev">
+      <div class="ceja">Curso gratis</div>
+      <h2>Linux <span class="l">desde cero</span>, en orden.</h2>
+      <p>¿Por dónde empiezo? Aquí. Cada clase resuelve un problema real y te enseña a leer lo que la terminal te contesta.</p>
+    </div>
+    <div class="ruta" id="ruta">
+      <div class="riel"><b></b></div>
+      <a class="clase aqui rev" href="https://www.facebook.com/reel/1859753295071713" rel="noopener"><span class="n">0.5</span><span class="nom">Instala Linux sin borrar Windows<small>WSL o máquina virtual, paso a paso</small></span><span class="est">EMPIEZA AQUÍ</span></a>
+      <a class="clase ya rev" data-yt="UuTXOO-yXRk" href="https://youtu.be/UuTXOO-yXRk" rel="noopener"><span class="n">#0</span><span class="nom">Conociendo Linux<small>Qué es, de dónde sale y tus primeros comandos</small></span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="KGFi0O0WTfc" href="https://youtu.be/KGFi0O0WTfc" rel="noopener"><span class="n">#1</span><span class="nom">Manejar archivos</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="yUdYH8ciYGs" href="https://youtu.be/yUdYH8ciYGs" rel="noopener"><span class="n">#2</span><span class="nom">Permisos</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="XJ4TNZcJGrA" href="https://youtu.be/XJ4TNZcJGrA" rel="noopener"><span class="n">#3</span><span class="nom">Buscar</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="L5TAFkLtBQw" href="https://youtu.be/L5TAFkLtBQw" rel="noopener"><span class="n">#4</span><span class="nom">Procesos</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="MaCcjx-TTcM" href="https://youtu.be/MaCcjx-TTcM" rel="noopener"><span class="n">#5</span><span class="nom">Instalar programas</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="9wpsXg4xYgY" href="https://youtu.be/9wpsXg4xYgY" rel="noopener"><span class="n">#6</span><span class="nom">La red</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="UZ6Z_HgH7M8" href="https://youtu.be/UZ6Z_HgH7M8" rel="noopener"><span class="n">#7</span><span class="nom">Automatizar</span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="kWFVQ5ts2GI" href="https://youtu.be/kWFVQ5ts2GI" rel="noopener"><span class="n">#8</span><span class="nom">Disco lleno</span><span class="est">VER ▸</span></a>
+      <div class="clase pronto rev"><span class="n">#9</span><span class="nom">Logs</span><span class="est">PRONTO</span></div>
+      <div class="clase pronto rev"><span class="n">#10</span><span class="nom">Usuarios y grupos</span><span class="est">PRONTO</span></div>
+      <div class="clase pronto rev"><span class="n">#11</span><span class="nom">SSH</span><span class="est">PRONTO</span></div>
+    </div>
+    <div class="ruta-pie rev">
+      <a class="btn sec" href="https://youtube.com/playlist?list=PLB48mfVmbJaU" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h12v2H3zm0 5h12v2H3zm0 5h8v2H3zm14-3v8l6-4z"/></svg>Lista completa en YouTube</a>
+    </div>
+  </div>
+</section>
+
+<section id="libro" class="libro">
+  <div class="wrap">
+    <div class="portada3d rev"><div class="lib"><img src="img/libro-portada.webp" alt="Portada del libro Linux desde cero, Capítulo 0" width="680" height="880" loading="lazy"></div></div>
+    <div>
+      <div class="titulo rev sin-margen">
+        <div class="ceja">El libro del curso</div>
+        <h2>Lo que el video no alcanza a <span class="t">contar</span>.</h2>
+        <p>Cada clase tiene su capítulo: más a fondo, con dibujos, trucos de terminal, errores típicos y retos para practicar.</p>
+      </div>
+      <ul class="lista-libro rev d1">
+        <li>Comandos probados en un Ubuntu Server real, con su salida tal cual.</li>
+        <li>Revisado por un principiante, alguien con nivel medio y un experto en Linux.</li>
+        <li>Fuentes citadas, para que sepas de dónde sale cada dato.</li>
+      </ul>
+      <div class="botones fila rev d2">
+        <a class="btn pri" href="libro/linux-desde-cero-capitulo-0.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>Capítulo 0 gratis (PDF)</a>
+        <a class="btn sec" href="#apoya">Siguientes capítulos</a>
+      </div>
+      <p class="nota-libro rev d3">El Capítulo 0 es <b>abierto para todos</b>. Los siguientes llegan primero a los <b>miembros de Patreon</b>, con el video de su clase en MP4.</p>
+    </div>
+  </div>
+</section>
+
+<section id="base" class="base">
+  <div class="wrap">
+    <div class="piramide rev"><img src="img/piramide.webp" alt="Pirámide escalonada con un templo en la cima" width="825" height="1024" loading="lazy"><canvas id="energia"></canvas></div>
+    <div>
+      <div class="titulo rev">
+        <div class="ceja">La ruta</div>
+        <h2>Primero <span class="l">la base.</span><br>El SOC viene después.</h2>
+        <p>Un analista que no entiende el sistema que defiende solo copia y pega. Por eso vamos escalón por escalón.</p>
+      </div>
+      <ol class="escalones">
+        <li class="hoy rev"><div><b>Linux</b><span>Terminal, archivos, permisos, procesos, logs. Estás aquí.</span></div></li>
+        <li class="rev d1"><div><b>Redes y firewall</b><span>Cómo viaja un paquete y cómo se filtra, con OPNsense.</span></div></li>
+        <li class="rev d2"><div><b>El SOC en casa</b><span>Wazuh y amigos: ver lo que pasa en tu red y reaccionar.</span></div></li>
+        <li class="rev d3"><div><b>Analizar amenazas</b><span>Cómo funcionan los ataques reales, explicados para defenderte.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="titulo rev">
+      <div class="ceja">También en el canal</div>
+      <h2>Ciberseguridad <span class="t">explicada</span>, no recitada.</h2>
+    </div>
+    <div class="tarjetas">
+      <a class="tarjeta rev" href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><div class="ico">// web</div><h3>Vulnerabilidades web</h3><p>SQLi, XSS, IDOR, CSRF, SSRF y más: cómo funcionan y cómo se cierran, animado.</p></a>
+      <a class="tarjeta rev d1" href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><div class="ico">// amenazas</div><h3>Análisis de ataques</h3><p>Robo de cuentas, ClickFix, RATs: el mecanismo paso a paso, con fuentes públicas.</p></a>
+      <a class="tarjeta rev d2" href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><div class="ico">// soc</div><h3>Monta tu SOC</h3><p>Firewall, DNS que bloquea y Wazuh, armados en un laboratorio en casa.</p></a>
+    </div>
+  </div>
+</section>
+
+<section id="apoya" class="apoya">
+  <div class="wrap">
+    <div class="caja rev">
+      <img src="img/tux-guerrero.png" alt="">
+      <div>
+        <h2>Si te sirve, apoya al canal.</h2>
+        <p>En Patreon recibes primero cada capítulo del libro en PDF con el MP4 de su clase, más retos para practicar. Y ayudas a que el curso siga gratis para todos. También puedes apoyar con la suscripción de Facebook.</p>
+        <div class="redes">
+          <a href="https://www.patreon.com/HackztlanLAB" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="15" cy="9.5" r="6.5"/><rect x="2" y="3" width="4" height="18"/></svg>Patreon</a>
+          <a href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-4.5 31 31 0 0 0-.4-4.5zM9.8 15V9l5.2 3z"/></svg>YouTube</a>
+          <a href="https://www.tiktok.com/@hackztlan" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.4 2.4 2 4 4.5 4.2v3.4a8 8 0 0 1-4.4-1.3V15a6 6 0 1 1-6-6h.6v3.5a2.6 2.6 0 1 0 2 2.5V3z"/></svg>TikTok</a>
+          <a href="https://www.instagram.com/hackztlan" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a>
+        </div>
+      </div>
+      <a class="btn pri" href="https://www.patreon.com/HackztlanLAB" rel="noopener">Únete en Patreon</a>
+    </div>
+  </div>
+</section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b>Hackztlan Lab</b> · Ciberseguridad explicada en español, desde México.<br>
+      Contacto: <a href="mailto:contacto@hackztlan.com">contacto@hackztlan.com</a>
+    </div>
+    <div class="regla">Todo lo que mostramos sale de fuentes públicas y de nuestro laboratorio. <b>No recibimos ni aceptamos muestras de malware</b>, ni las entregamos.</div>
+    <div class="lic">Contenido bajo licencia CC BY-NC-SA 4.0 salvo que se indique otra cosa.</div>
+  </div>
+</footer>
+
+<div class="visor" id="visor" hidden>
+  <div class="visor-caja" role="dialog" aria-modal="true" aria-label="Reproductor de la clase">
+    <div class="visor-barra"><span id="visor-titulo"></span><a id="visor-yt" href="#" rel="noopener">Ver en YouTube ↗</a><button class="x" type="button" aria-label="Cerrar">×</button></div>
+    <div class="visor-video" id="visor-video"></div>
+  </div>
+</div>
+<script src="sitio.js?v=3" defer></script>
 </body>
 </html>
