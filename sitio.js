@@ -25,7 +25,7 @@
   const P = '<span class="p">ana@linux</span>:<span class="d">~</span>$ ';
   const guion = [
     { cmd: 'whoami', out: 'ana' },
-    { cmd: 'ls cursos/', out: '<span class="d">linux-desde-cero/</span>  <span class="g">redes/  soc-en-casa/  (pronto)</span>' },
+    { cmd: 'ls cursos/', out: '<span class="d">linux-desde-cero/</span>  <span class="d">monta-tu-soc/</span>' },
     { cmd: 'cat cursos/linux-desde-cero/LEEME', out: '12 clases · gratis · en orden\nempieza por la <span class="m">0.5</span>: instala Linux sin borrar Windows' },
     { cmd: './empezar.sh', out: '<span class="ok">[✓]</span> terminal lista\n<span class="ok">[✓]</span> libro descargado\n<span class="ok">[✓]</span> vamos.' },
   ];
@@ -54,19 +54,21 @@
   escribir();
 
   // ---- ruta del curso: el riel se llena y los puntos se encienden al bajar
-  const ruta = document.getElementById('ruta');
-  const clases = [...ruta.querySelectorAll('.clase')];
+  const rutas = [...document.querySelectorAll('.ruta')];
+  const clases = [...document.querySelectorAll('.ruta .clase')];
   function avanceRuta() {
-    const r = ruta.getBoundingClientRect();
     const mira = innerHeight * 0.62;
-    const k = Math.min(1, Math.max(0, (mira - r.top) / r.height));
-    ruta.style.setProperty('--avance', (k * 100).toFixed(1) + '%');
+    rutas.forEach(ruta => {
+      const r = ruta.getBoundingClientRect();
+      const k = Math.min(1, Math.max(0, (mira - r.top) / r.height));
+      ruta.style.setProperty('--avance', (k * 100).toFixed(1) + '%');
+    });
     clases.forEach(c => {
       const cr = c.getBoundingClientRect();
       c.classList.toggle('lit', !c.classList.contains('pronto') && cr.top + cr.height / 2 < mira);
     });
   }
-  if (quieto) { ruta.style.setProperty('--avance', '100%'); clases.forEach(c => c.classList.toggle('lit', !c.classList.contains('pronto'))); }
+  if (quieto) { rutas.forEach(r => r.style.setProperty('--avance', '100%')); clases.forEach(c => c.classList.toggle('lit', !c.classList.contains('pronto'))); }
   else { addEventListener('scroll', avanceRuta, { passive: true }); addEventListener('resize', avanceRuta); avanceRuta(); }
 
   // ---- ver las clases aquí mismo: el reproductor de YouTube se carga solo al dar clic
@@ -101,42 +103,107 @@
 
   if (quieto) return;
 
-  // ---- fondo: red de nodos muy tenue (paquetes que viajan)
-  const red = document.getElementById('red');
-  const rc = red.getContext('2d');
-  let W, H, nodos = [], dpr = Math.min(devicePixelRatio || 1, 2);
-  function tam() {
-    W = red.clientWidth; H = red.clientHeight;
-    red.width = W * dpr; red.height = H * dpr; rc.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.round(Math.min(70, W * H / 26000));
-    nodos = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18 }));
+  // ---- fondo: el mapa del SOC del video "El mapa de tu SOC", en vivo (solo roles, sin IPs ni nombres reales)
+  const mapa = document.getElementById('mapa');
+  const escenario = mapa.querySelector('.mapa-esc');
+  const mc = document.getElementById('mapa-c').getContext('2d');
+  let dpr = Math.min(devicePixelRatio || 1, 2);
+  const ICON = {
+    globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+    monitor: '<rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>',
+    server: '<rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>',
+    wifi: '<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>',
+    user: '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
+    skull: '<path d="M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="12" r="1"/>',
+  };
+  const N = {
+    internet: { x: 330, y: 160, r: 48, c: 'cy', ic: 'globe', lb: 'Internet' },
+    opnsense: { x: 720, y: 160, r: 66, c: 'cy', lo: 'opnsense', lb: 'OPNsense', sub: 'Firewall', ids: 1 },
+    wifi: { x: 1060, y: 165, r: 42, c: 'cy', ic: 'wifi', lb: 'Wi-Fi' },
+    honeypot: { x: 1620, y: 165, r: 48, c: 'am', lo: 't-pot', lb: 'Honeypot', sub: 'nube ⟡', rm: 1 },
+    pihole: { x: 250, y: 445, r: 46, c: 'gr', lo: 'pi-hole', lb: 'Pi-hole', sub: 'DNS' },
+    remnux: { x: 520, y: 445, r: 44, c: 'gr', ic: 'monitor', lb: 'REMnux', ag: 1 },
+    endpoint: { x: 900, y: 445, r: 44, c: 'gr', ic: 'monitor', lb: 'Endpoint', sub: 'Sysmon', ag: 1 },
+    servidor: { x: 1180, y: 445, r: 44, c: 'gr', ic: 'server', lb: 'Servidor', ag: 1 },
+    kali: { x: 1180, y: 290, r: 42, c: 'rd', ic: 'skull', lb: 'Kali', sub: 'ataque' },
+    wazuh: { x: 720, y: 700, r: 82, c: 'bl', lo: 'wazuh', lb: 'Wazuh', sub: 'el cerebro' },
+    analista: { x: 1120, y: 700, r: 42, c: 'cy', ic: 'user', lb: 'Analista' },
+    wireshark: { x: 1430, y: 700, r: 46, c: 'cy', lo: 'wireshark', lb: 'Wireshark', sub: 'lupa' },
+    thehive: { x: 430, y: 945, r: 42, c: 'cy', lo: 'thehive', lb: 'TheHive+Cortex', rm: 1 },
+    misp: { x: 720, y: 945, r: 42, c: 'cy', lo: 'misp', lb: 'MISP', rm: 1 },
+    greenbone: { x: 1040, y: 945, r: 42, c: 'cy', lo: 'greenbone', lb: 'GreenBone', rm: 1 },
+  };
+  const E = [
+    ['internet', 'opnsense', 'cy', 0], ['internet', 'honeypot', 'am', 1, [[1620, 160]]],
+    ['opnsense', 'wifi', 'cy', 0], ['opnsense', 'pihole', 'cy', 0], ['opnsense', 'remnux', 'cy', 0], ['opnsense', 'endpoint', 'cy', 0], ['opnsense', 'servidor', 'cy', 0],
+    ['opnsense', 'wazuh', 'verde', 0], ['remnux', 'wazuh', 'verde', 0], ['endpoint', 'wazuh', 'verde', 0], ['servidor', 'wazuh', 'verde', 0],
+    ['kali', 'servidor', 'rojo', 0, null, 'attack'], ['honeypot', 'wazuh', 'am', 1, [[1620, 700]]],
+    ['analista', 'wazuh', 'cy', 0], ['wireshark', 'analista', 'cy', 0],
+    ['wazuh', 'thehive', 'cy', 1], ['wazuh', 'misp', 'cy', 1], ['wazuh', 'greenbone', 'cy', 1],
+  ];
+  const COL = { cy: '86,214,255', verde: '55,255,133', am: '245,185,73', rojo: '255,85,102' };
+  const cont = mapa.querySelector('.mapa-nodos');
+  for (const id in N) {
+    const n = N[id], d = document.createElement('div');
+    d.className = 'm-nodo ' + n.c + (n.rm ? ' rm' : ''); d.style.left = n.x + 'px'; d.style.top = n.y + 'px';
+    const anillo = document.createElement('div'); anillo.className = 'm-anillo';
+    anillo.style.width = anillo.style.height = (n.r * 2) + 'px';
+    anillo.innerHTML = (n.lo ? `<img src="img/mapa/${n.lo}.png" alt="">` : `<svg viewBox="0 0 24 24">${ICON[n.ic]}</svg>`)
+      + (n.ag ? '<i class="m-agente"></i>' : '')
+      + (n.ids ? '<span class="m-ids d"><img src="img/mapa/suricata.png" alt=""></span><span class="m-ids i"><img src="img/mapa/zeek.png" alt=""></span>' : '');
+    d.appendChild(anillo);
+    d.insertAdjacentHTML('beforeend', `<b>${n.lb}</b>` + (n.sub ? `<small>${n.sub}</small>` : ''));
+    cont.appendChild(d); n.el = d;
   }
-  tam(); addEventListener('resize', tam);
-  const pulsos = [];
-  function cuadroRed() {
-    rc.clearRect(0, 0, W, H);
-    for (const p of nodos) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
-    const D = 150;
-    for (let i = 0; i < nodos.length; i++) for (let j = i + 1; j < nodos.length; j++) {
-      const a = nodos[i], b = nodos[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (d < D) { rc.strokeStyle = `rgba(45,212,191,${(1 - d / D) * .22})`; rc.lineWidth = 1; rc.beginPath(); rc.moveTo(a.x, a.y); rc.lineTo(b.x, b.y); rc.stroke(); }
-    }
-    rc.fillStyle = 'rgba(45,212,191,.55)';
-    for (const p of nodos) { rc.beginPath(); rc.arc(p.x, p.y, 1.4, 0, 6.29); rc.fill(); }
-    if (Math.random() < .03 && nodos.length > 2) {
-      const a = nodos[Math.random() * nodos.length | 0];
-      const b = nodos.filter(q => q !== a && Math.hypot(q.x - a.x, q.y - a.y) < D)[0];
-      if (b) pulsos.push({ a, b, t: 0 });
-    }
-    for (let i = pulsos.length - 1; i >= 0; i--) {
-      const q = pulsos[i]; q.t += .02;
-      if (q.t >= 1) { pulsos.splice(i, 1); continue; }
-      const x = q.a.x + (q.b.x - q.a.x) * q.t, y = q.a.y + (q.b.y - q.a.y) * q.t;
-      rc.fillStyle = 'rgba(163,230,53,.9)'; rc.beginPath(); rc.arc(x, y, 2, 0, 6.29); rc.fill();
-    }
-    requestAnimationFrame(cuadroRed);
+  const trazo = e => { const a = N[e[0]], b = N[e[1]]; return [[a.x, a.y], ...(e[4] || []), [b.x, b.y]]; };
+  function along(p, f) {
+    let len = 0; const seg = [];
+    for (let i = 0; i < p.length - 1; i++) { const d = Math.hypot(p[i + 1][0] - p[i][0], p[i + 1][1] - p[i][1]); seg.push(d); len += d; }
+    let d = f * len;
+    for (let i = 0; i < seg.length; i++) { if (d <= seg[i] || i === seg.length - 1) { const k = seg[i] ? d / seg[i] : 0; return [p[i][0] + (p[i + 1][0] - p[i][0]) * k, p[i][1] + (p[i + 1][1] - p[i][1]) * k]; } d -= seg[i]; }
+    return p[p.length - 1];
   }
-  requestAnimationFrame(cuadroRed);
+  // cámara: recorre el mapa despacio (vista completa → acercamientos → vista completa)
+  const PASEO = [[940, 560, 1], [720, 250, 1.35], [940, 560, 1], [760, 700, 1.3], [940, 560, 1], [1180, 380, 1.3]];
+  const suave = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  const chico = () => innerWidth < 700;
+  let ataque = -99;
+  function cuadroMapa(now) {
+    const t = now / 1000, W = innerWidth, H = innerHeight;
+    const base = Math.max(W / 1920, H / 1080) * (chico() ? 1.6 : 1.05);
+    const tramo = 9, k = (t / tramo) % PASEO.length, i = Math.floor(k), p = suave(Math.min(1, (k - i) / .45));
+    const A = PASEO[i], B = PASEO[(i + 1) % PASEO.length];
+    const cx = A[0] + (B[0] - A[0]) * p, cy = A[1] + (B[1] - A[1]) * p, s = base * (A[2] + (B[2] - A[2]) * p);
+    escenario.style.transform = `translate(${(W / 2 - cx * s).toFixed(1)}px,${(H / 2 - cy * s).toFixed(1)}px) scale(${s.toFixed(4)})`;
+    // ataque de Kali cada 12 s: el servidor y Wazuh se encienden en rojo
+    if (t - ataque > 12) ataque = t;
+    const fa = t - ataque, alerta = fa > 1.4 && fa < 4 ? 1 - (fa - 1.4) / 2.6 : 0;
+    N.wazuh.el.classList.toggle('alerta', alerta > .05);
+    N.servidor.el.classList.toggle('alerta', fa > .9 && fa < 2.6);
+    // líneas y paquetes
+    mc.setTransform(1, 0, 0, 1, 0, 0); mc.clearRect(0, 0, 1920, 1080);
+    E.forEach((e, n) => {
+      const col = COL[e[2]], P = trazo(e), atq = e[5] === 'attack';
+      mc.strokeStyle = `rgba(${col},${e[3] ? .3 : .5})`; mc.lineWidth = atq ? 4 : 3;
+      if (e[3]) { mc.setLineDash([9, 13]); mc.lineDashOffset = -(t * 40) % 22; } else mc.setLineDash([]);
+      mc.beginPath(); mc.moveTo(P[0][0], P[0][1]); for (let j = 1; j < P.length; j++) mc.lineTo(P[j][0], P[j][1]); mc.stroke(); mc.setLineDash([]);
+      if (atq && fa > 1.2) return;
+      const cuantos = atq ? 1 : 2;
+      for (let q = 0; q < cuantos; q++) {
+        const f = atq ? Math.min(1, fa / 1.2) : ((t * .42) + n * .13 + q * .5) % 1;
+        const [qx, qy] = along(P, f), cerca = atq ? 1 : .5 + .5 * Math.sin(f * Math.PI);
+        mc.fillStyle = `rgba(${col},${cerca.toFixed(2)})`;
+        if (!chico()) { mc.shadowColor = `rgb(${col})`; mc.shadowBlur = 14; }
+        mc.beginPath(); mc.arc(qx, qy, atq ? 9 : 6, 0, 6.29); mc.fill(); mc.shadowBlur = 0;
+      }
+    });
+    if (alerta > 0) {
+      const w = N.wazuh; mc.strokeStyle = `rgba(255,85,102,${alerta.toFixed(2)})`; mc.lineWidth = 4;
+      mc.beginPath(); mc.arc(w.x, w.y, w.r + 20 + (1 - alerta) * 90, 0, 6.29); mc.stroke();
+    }
+    requestAnimationFrame(cuadroMapa);
+  }
+  requestAnimationFrame(cuadroMapa);
 
   // ---- pirámide: energía que sube de la base al templo (solo cuando se ve)
   const en = document.getElementById('energia');

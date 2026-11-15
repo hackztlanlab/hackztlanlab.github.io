@@ -13,10 +13,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; frame-src https://www.youtube-nocookie.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="img/pinguino.png">
-<link rel="stylesheet" href="estilo.css?v=3">
+<link rel="stylesheet" href="estilo.css?v=6">
 </head>
 <body>
-<div class="fondo" aria-hidden="true"><div class="rejilla"></div><div class="halo h1"></div><div class="halo h2"></div><canvas id="red"></canvas></div>
+<div class="fondo" aria-hidden="true"><div class="rejilla"></div><div class="halo h1"></div><div class="halo h2"></div><div class="mapa" id="mapa"><div class="mapa-esc"><canvas id="mapa-c" width="1920" height="1080"></canvas><div class="mapa-nodos"></div></div></div></div>
 <div class="visitas" id="visitas" aria-hidden="true"></div>
 
 <div class="aviso" id="aviso">
@@ -30,7 +30,8 @@
   <div class="wrap">
     <a class="logo" href="./"><img src="img/pinguino.png" alt="" width="36" height="36"><span>Hack<b>ztlan</b> Lab</span></a>
     <nav class="menu">
-      <a href="#curso">Curso</a>
+      <a href="#curso">Linux</a>
+      <a href="#soc">SOC</a>
       <a href="libro/leer/">Leer el libro</a>
       <a href="#base">La ruta</a>
       <a class="cta-mini" href="#apoya">Apoya</a>
@@ -68,7 +69,7 @@
     </div>
     <div class="ruta" id="ruta">
       <div class="riel"><b></b></div>
-      <a class="clase aqui rev" href="https://www.facebook.com/reel/1859753295071713" rel="noopener"><span class="n">0.5</span><span class="nom">Instala Linux sin borrar Windows<small>WSL o máquina virtual, paso a paso</small></span><span class="est">EMPIEZA AQUÍ</span></a>
+      <a class="clase aqui rev" data-yt="9uGD_OIsQkE" href="https://youtu.be/9uGD_OIsQkE" rel="noopener"><span class="n">0.5</span><span class="nom">Instala Linux sin borrar Windows<small>WSL o máquina virtual, paso a paso</small></span><span class="est">EMPIEZA AQUÍ</span></a>
       <a class="clase ya rev" data-yt="UuTXOO-yXRk" href="https://youtu.be/UuTXOO-yXRk" rel="noopener"><span class="n">#0</span><span class="nom">Conociendo Linux<small>Qué es, de dónde sale y tus primeros comandos</small></span><span class="est">VER ▸</span></a>
       <a class="clase ya rev" data-yt="KGFi0O0WTfc" href="https://youtu.be/KGFi0O0WTfc" rel="noopener"><span class="n">#1</span><span class="nom">Manejar archivos</span><span class="est">VER ▸</span></a>
       <a class="clase ya rev" data-yt="yUdYH8ciYGs" href="https://youtu.be/yUdYH8ciYGs" rel="noopener"><span class="n">#2</span><span class="nom">Permisos</span><span class="est">VER ▸</span></a>
@@ -84,6 +85,25 @@
     </div>
     <div class="ruta-pie rev">
       <a class="btn sec" href="https://youtube.com/playlist?list=PLB48mfVmbJaU" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h12v2H3zm0 5h12v2H3zm0 5h8v2H3zm14-3v8l6-4z"/></svg>Lista completa en YouTube</a>
+    </div>
+  </div>
+</section>
+
+<section id="soc">
+  <div class="wrap">
+    <div class="titulo rev">
+      <div class="ceja">Serie · Monta tu SOC</div>
+      <h2>Tu propio <span class="t">SOC en casa</span>, gratis.</h2>
+      <p>Firewall, DNS que bloquea y monitoreo, armados pieza por pieza en un laboratorio real con herramientas open source.</p>
+    </div>
+    <div class="ruta">
+      <div class="riel"><b></b></div>
+      <a class="clase ya rev" data-yt="UNTIRKblYWk" href="https://youtu.be/UNTIRKblYWk" rel="noopener"><span class="n">MAPA</span><span class="nom">El mapa de tu SOC<small>Cómo se conecta todo antes de instalar nada</small></span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="h1_Ezm2RbP0" href="https://youtu.be/h1_Ezm2RbP0" rel="noopener"><span class="n">OP #0</span><span class="nom">¿Qué es OPNsense?<small>El firewall gratis que protege tu red</small></span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="p9fIpiJ5VCQ" href="https://youtu.be/p9fIpiJ5VCQ" rel="noopener"><span class="n">OP #1</span><span class="nom">De cero a firewall funcionando<small>Descarga, máquina virtual, instalación y panel</small></span><span class="est">VER ▸</span></a>
+      <a class="clase ya rev" data-yt="-HHjUq1gKf0" href="https://youtu.be/-HHjUq1gKf0" rel="noopener"><span class="n">OP #2</span><span class="nom">Tu primera regla<small>Bloquea un equipo paso a paso</small></span><span class="est">VER ▸</span></a>
+      <div class="clase pronto rev"><span class="n">OP #3</span><span class="nom">Lo que sigue en OPNsense</span><span class="est">PRONTO</span></div>
+      <div class="clase pronto rev"><span class="n">WAZUH</span><span class="nom">El corazón del SOC: ver lo que pasa en tu red</span><span class="est">PRONTO</span></div>
     </div>
   </div>
 </section>
@@ -122,7 +142,7 @@
       </div>
       <ol class="escalones">
         <li class="hoy rev"><div><b>Linux</b><span>Terminal, archivos, permisos, procesos, logs. Estás aquí.</span></div></li>
-        <li class="rev d1"><div><b>Redes y firewall</b><span>Cómo viaja un paquete y cómo se filtra, con OPNsense.</span></div></li>
+        <li class="rev d1"><div><b>Redes y firewall</b><span>Cómo viaja un paquete y cómo se filtra, con OPNsense. Ya empezó.</span></div></li>
         <li class="rev d2"><div><b>El SOC en casa</b><span>Wazuh y amigos: ver lo que pasa en tu red y reaccionar.</span></div></li>
         <li class="rev d3"><div><b>Analizar amenazas</b><span>Cómo funcionan los ataques reales, explicados para defenderte.</span></div></li>
       </ol>
@@ -139,7 +159,7 @@
     <div class="tarjetas">
       <a class="tarjeta rev" href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><div class="ico">// web</div><h3>Vulnerabilidades web</h3><p>SQLi, XSS, IDOR, CSRF, SSRF y más: cómo funcionan y cómo se cierran, animado.</p></a>
       <a class="tarjeta rev d1" href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><div class="ico">// amenazas</div><h3>Análisis de ataques</h3><p>Robo de cuentas, ClickFix, RATs: el mecanismo paso a paso, con fuentes públicas.</p></a>
-      <a class="tarjeta rev d2" href="https://www.youtube.com/@HackztlanLAB" rel="noopener"><div class="ico">// soc</div><h3>Monta tu SOC</h3><p>Firewall, DNS que bloquea y Wazuh, armados en un laboratorio en casa.</p></a>
+      <a class="tarjeta rev d2" href="#soc"><div class="ico">// soc</div><h3>Monta tu SOC</h3><p>Firewall, DNS que bloquea y Wazuh, armados en un laboratorio en casa.</p></a>
     </div>
   </div>
 </section>
@@ -181,6 +201,6 @@
     <div class="visor-video" id="visor-video"></div>
   </div>
 </div>
-<script src="sitio.js?v=3" defer></script>
+<script src="sitio.js?v=6" defer></script>
 </body>
 </html>

@@ -109,3 +109,14 @@ figcaption { font-size: 14.5px; }
 .visor-video iframe { width: 100%; height: 100%; border: 0; display: block; }
 :focus-visible { outline: 3px solid #2DD4BF; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* botón "En el video · m:ss" bajo el título de cada sección */
+.momento { display: inline-flex; align-items: center; gap: 8px; margin: -.2em 0 1.1em; padding: 6px 14px 6px 6px; border-radius: 999px; cursor: pointer;
+  border: 1.4px solid #0F9D8A; background: #F0FAF6; color: #0C0E2C; font: 600 14px var(--sans); transition: background .2s, transform .2s; }
+.momento span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #0C0E2C; color: #A3E635; font-size: 10px; padding-left: 2px; }
+.momento b { color: #0F9D8A; }
+.momento:hover { background: #dff5ec; transform: translateY(-1px); }
+.cab-sticker + .momento { margin-top: 0; }
+
+/* nada se sale de lado en el celular */
+html { overflow-x: clip; }

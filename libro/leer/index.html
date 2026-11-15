@@ -11,8 +11,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; frame-src https://www.youtube-nocookie.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="../../img/pinguino.png">
-<link rel="stylesheet" href="libro.css?v=1">
-<link rel="stylesheet" href="leer.css?v=1">
+<link rel="stylesheet" href="libro.css?v=2">
+<link rel="stylesheet" href="leer.css?v=3">
 </head>
 <body class="leer">
 <div class="avance" aria-hidden="true"><b></b></div>
@@ -116,6 +116,7 @@
 <article class="capitulo">
 <section class="s-antes-de-empezar" id="antes-de-empezar">
 <h2>Antes de empezar</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="0"><span>▶</span>En el video · <b>0:00</b> · La pantalla negra que asusta</button>
 <p>Este libro se lee con la terminal abierta. El video de la Clase #0 te enseña el recorrido; aquí lo vamos a hacer con calma, a ver qué hay debajo de cada cosa y a comprobarlo con tus propios ojos. Nada de lo que hay aquí se echa a perder si lo lees antes de tener Linux: los ejercicios te esperan.</p>
 <p class="sigue">Tres acuerdos entre tú y yo:</p>
 <ol>
@@ -144,6 +145,7 @@
 
 <section class="s-el-tablero-de-la-nave" id="s1-el-tablero-de-la-nave">
 <h2><span class="num">1</span>El tablero de la nave</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="23"><span>▶</span>En el video · <b>0:23</b> · ¿Qué es un sistema operativo?</button>
 <p>En el prólogo te conté que mi primera computadora me parecía una nave espacial y que yo no sabía cómo volaba. Empecemos por ahí, porque casi nadie lo explica: ¿qué hay entre tú y la máquina?</p>
 <p>Por dentro, tu computadora es fierro (<em>hardware</em>): un procesador que hace cuentas, una memoria que recuerda mientras está encendida, un disco que recuerda aunque la apagues, y dispositivos, aparatos, para hablar con el mundo: teclado, pantalla, red. Tú nunca le hablas directo a ese fierro. Cuando abres una foto no le dices al disco «dame estos datos»; se lo pides a un programa, y ese programa se lo pide a otro más grande que manda sobre todo lo demás. Ese programa grande es el <strong>sistema operativo</strong>.</p>
 <figure id="fig-0-1">
@@ -203,6 +205,7 @@
 
 <section class="s-los-cuatro-trabajos-del-kernel" id="s2-los-cuatro-trabajos-del-kernel">
 <h2><span class="num">2</span>Los cuatro trabajos del kernel</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="23"><span>▶</span>En el video · <b>0:23</b> · ¿Qué es un sistema operativo?</button>
 <p>El video dice «el kernel reparte». Vale la pena saber <em>qué</em> reparte, porque cuando lleguemos a procesos, a discos y a permisos vas a descubrir que son las cuatro caras del mismo programa.</p>
 <p>El kernel es un programa, uno solo y grande, que arranca antes que cualquier otro programa del sistema y no se cierra mientras la máquina esté prendida. Cualquier libro de sistemas operativos dedica sus primeros capítulos a sus cuatro trabajos<sup class="llamada"><a href="#nota-3">3</a></sup>; para Linux en particular, el libro de Ward es una buena puerta<sup class="llamada"><a href="#nota-4">4</a></sup>.</p>
 <figure id="fig-0-2">
@@ -490,6 +493,7 @@
 
 <section class="s-una-historia-de-tres-necios" id="s5-una-historia-de-tres-necios">
 <h2><span class="num">5</span>Una historia de tres necios</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="70"><span>▶</span>En el video · <b>1:10</b> · Unix, GNU y Linus</button>
 <p>A mí las historias me ayudan a que las cosas se queden. Esta además explica por qué Linux es como es.</p>
 <p><strong>1969. Unix.</strong> En los laboratorios Bell, en Estados Unidos, Ken Thompson y Dennis Ritchie hacen un sistema operativo y le ponen Unix<sup class="llamada"><a href="#nota-15">15</a></sup>. En 1973 reescriben su kernel en un lenguaje que habían inventado ahí mismo, el lenguaje C, y eso hace posible llevarlo de una máquina a otra. Unix dejó ideas que seguimos usando: que varias personas usen la misma máquina a la vez, que corran muchas tareas al mismo tiempo, que los programas chicos se puedan conectar unos con otros y que, dentro del sistema, todo se trate como un archivo. De la primera y la última vamos a hablar bastante.</p>
 <p><strong>1983. GNU.</strong> Con los años, Unix se volvió cada vez más caro y con candados para estudiarlo y compartirlo. A un programador, Richard Stallman, eso le pareció mal, y el 27 de septiembre de 1983 anunció un proyecto con una meta necia: escribir un sistema completo, compatible con Unix, y regalarlo a quien lo quisiera usar<sup class="llamada"><a href="#nota-16">16</a></sup>. Lo llamó GNU. Para principios de los noventa ya tenía todo el sistema listo… menos el núcleo<sup class="llamada"><a href="#nota-17">17</a></sup>. Tenía el cuerpo y le faltaba el corazón.</p>
@@ -548,6 +552,7 @@
 
 <section class="s-libre-abierto-y-la-gpl" id="s6-libre-abierto-y-la-gpl">
 <h2><span class="num">6</span>Libre, abierto y la GPL</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="100"><span>▶</span>En el video · <b>1:40</b> · El software libre y GNU</button>
 <p>El video dice «libre y abierto» de corrido, como si fuera una sola palabra. Son dos palabras con dos historias, y la licencia GPL es una de las razones por las que Linux no terminó cerrado como le pasó a Unix.</p>
 <p>Un programa es <strong>libre</strong> si quien lo usa tiene cuatro libertades, que el proyecto GNU numera desde el cero<sup class="llamada"><a href="#nota-22">22</a></sup>: <strong>0</strong>, ejecutarlo como quieras, con cualquier propósito; <strong>1</strong>, estudiar cómo funciona y cambiarlo, para lo que hace falta el código fuente; <strong>2</strong>, redistribuir copias; <strong>3</strong>, distribuir copias de tus versiones modificadas. «Libre» como en «libertad de expresión», no como en «cerveza gratis». A mí la libertad 1 me tomó años apreciarla. Yo venía de discos del tianguis; que alguien te dejara abrir el cofre y mirar el motor era otra cosa.</p>
 <p>La GPL es la licencia que cuida esas cuatro libertades: quien reparte un programa con GPL, igual o modificado, tiene que repartir también su código fuente y con la misma licencia. A esa idea se le llama <em>copyleft</em>. El kernel Linux va bajo la GPL versión 2.</p>
@@ -557,6 +562,7 @@
 
 <section class="s-que-clase-de-sistema-es" id="s7-que-clase-de-sistema-es">
 <h2><span class="num">7</span>Qué clase de sistema es</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="220"><span>▶</span>En el video · <b>3:40</b> · ¿Qué tipo de sistema es?</button>
 <p>Cuatro rasgos definen a Linux. Los tres primeros los vas a ir viviendo; el cuarto lo puedes comprobar hoy.</p>
 <ol>
 <li><strong>Es libre y de código abierto.</strong> Su código está abierto: cualquiera puede revisar cómo funciona.</li>
@@ -577,6 +583,7 @@
 
 <section class="s-por-que-hay-cientos-de-linux" id="s8-por-que-hay-cientos-de-linux">
 <h2><span class="num">8</span>¿Por qué hay cientos de Linux?</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="281"><span>▶</span>En el video · <b>4:41</b> · Las distros</button>
 <p>Esto confunde a todo el que empieza, y a mí me confundió también. Buscas «descargar Linux» y no hay uno: hay Ubuntu, Debian, Fedora, Mint, Arch y cien más.</p>
 <p>La razón es sencilla. Linux, el kernel, es solo el motor. Alguien tiene que armar el coche completo: el motor, las herramientas de GNU, un <strong>gestor de paquetes</strong> (el programa con el que instalas otros programas) y un escritorio. A ese coche ya armado se le llama <strong>distribución</strong>, o <strong>distro</strong>.</p>
 <figure id="fig-0-6">
@@ -650,6 +657,7 @@
 
 <section class="s-linux-visto-desde-windows" id="s9-linux-visto-desde-windows">
 <h2><span class="num">9</span>Linux visto desde Windows</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="342"><span>▶</span>En el video · <b>5:42</b> · Linux vs Windows</button>
 <p class="sigue">Yo llegué de Windows, y seguramente tú también. Estas son las diferencias que más me costaron, para que a ti te cuesten menos:</p>
 <table><thead><tr><th></th><th>Windows</th><th>Linux</th></tr></thead><tbody>
 <tr><td>Los discos</td><td>Letras: <code>C:</code>, <code>D:</code>… cada una su mundo</td><td>Un solo árbol que empieza en <code>/</code></td></tr>
@@ -760,6 +768,7 @@
 
 <section class="s-el-mapa-un-solo-arbol" id="s11-el-mapa-un-solo-arbol">
 <h2><span class="num">11</span>El mapa: un solo árbol</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="387"><span>▶</span>En el video · <b>6:27</b> · La estructura: el árbol</button>
 <p>En Windows cada disco es su propio mundo. En Linux hay un solo punto de partida, que se escribe con una diagonal, <code>/</code>, y se llama <strong>la raíz</strong>. Todo lo demás cuelga de ahí. Si conectas una memoria USB, no aparece una letra nueva: el sistema la <strong>monta</strong>, es decir, la cuelga de una carpeta del árbol, y por esa carpeta ves lo que tiene.</p>
 <p class="sigue">Esto es lo que hay colgando de la raíz en un Ubuntu:</p>
 <div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">ls /</span>
@@ -872,6 +881,7 @@
 
 <section class="s-primer-paseo-por-la-terminal" id="s12-primer-paseo-por-la-terminal">
 <h2><span class="num">12</span>Primer paseo por la terminal</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="430"><span>▶</span>En el video · <b>7:10</b> · Práctica: moverte</button>
 <p>Ya estuvo bueno de teoría. Abre la terminal.</p>
 <p class="sigue">Lo primero que ves es esto, esperándote:</p>
 <div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span></code></pre></div>
@@ -1079,6 +1089,7 @@
 
 <section class="s-rutas-completas-y-rutas-cortas" id="s13-rutas-completas-y-rutas-cortas">
 <h2><span class="num">13</span>Rutas completas y rutas cortas</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="430"><span>▶</span>En el video · <b>7:10</b> · Práctica: moverte</button>
 <p class="sigue">Una <strong>ruta</strong> es la lista de carpetas que hay que cruzar para llegar a algo. Hay dos maneras de darla, y la diferencia está en <strong>el primer carácter</strong>:</p>
 <ul>
 <li>Si empieza con <code>/</code>, es una ruta <strong>completa</strong> (en los libros y en internet la vas a encontrar como <em>absoluta</em>). Se camina desde la raíz, y sirve igual estés donde estés.</li>
@@ -1166,6 +1177,7 @@
 
 <section class="s-todo-es-un-archivo-comprobado" id="s14-todo-es-un-archivo-comprobado">
 <h2><span class="num">14</span>Todo es un archivo, comprobado</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="257"><span>▶</span>En el video · <b>4:17</b> · Todo es un archivo</button>
 <p class="sigue">En la sección 7 viste la <code>c</code> de <code>/dev/null</code>. La primera letra de cada renglón de <code>ls -l</code> dice qué clase de cosa es. Mira estos dos:</p>
 <div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">ls -l /dev/null /bin</span>
 <span class="out">lrwxrwxrwx 1 root root    7 Apr 22  2024 /bin -&gt; usr/bin</span>
@@ -1190,6 +1202,7 @@
 
 <section class="s-el-dueno-de-todo" id="s15-el-dueno-de-todo">
 <h2><span class="num">15</span>El dueño de todo</h2>
+<button class="momento" type="button" data-yt="UuTXOO-yXRk" data-t="545"><span>▶</span>En el video · <b>9:05</b> · root y sudo</button>
 <p class="sigue">Queda una pieza, y es de las importantes. En todo Linux hay un usuario que puede absolutamente todo. Se llama <strong>root</strong> y su casa es esa carpeta <code>/root</code> del mapa. Ana, que es una usuaria normal, intenta asomarse:</p>
 <div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">ls /root</span>
 <span class="out">ls: cannot open directory '/root': Permission denied</span></code></pre></div>
@@ -1647,6 +1660,6 @@
     <div class="visor-video" id="visor-video"></div>
   </div>
 </div>
-<script src="leer.js?v=1" defer></script>
+<script src="leer.js?v=2" defer></script>
 </body>
 </html>

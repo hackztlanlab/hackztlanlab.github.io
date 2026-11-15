@@ -27,7 +27,7 @@ a{color:inherit}
 .fondo .halo{position:absolute;width:900px;height:900px;border-radius:50%;filter:blur(40px);opacity:.35}
 .fondo .h1{left:-300px;top:-380px;background:radial-gradient(circle,rgba(45,212,191,.35),transparent 65%);animation:deriva 26s ease-in-out infinite alternate}
 .fondo .h2{right:-360px;top:40vh;background:radial-gradient(circle,rgba(225,29,155,.22),transparent 65%);animation:deriva 32s ease-in-out infinite alternate-reverse}
-#red{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+#red{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
 @keyframes deriva{to{transform:translate(120px,80px) scale(1.08)}}
 
 /* aviso del QR */
@@ -220,3 +220,29 @@ main{position:relative;z-index:1}
 .visor-video iframe{width:100%;height:100%;border:0;display:block}
 @keyframes aparece{from{opacity:0}}
 @keyframes sube{from{transform:translateY(24px) scale(.97);opacity:0}}
+
+/* fondo: el mapa del SOC (escena del video "El mapa de tu SOC") */
+#red{display:none}
+.mapa{position:absolute;inset:0;overflow:hidden;opacity:.42}
+.mapa-esc{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;will-change:transform}
+.mapa-esc canvas{position:absolute;inset:0;width:1920px;height:1080px}
+.mapa-nodos{position:absolute;inset:0}
+.m-nodo{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px;width:200px;font-family:var(--body)}
+.m-nodo.rm{opacity:.6}
+.m-anillo{position:relative;border-radius:50%;border:3px solid;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 34%,#111a2b 0%,#080d16 72%);transition:box-shadow .3s,border-color .3s}
+.m-anillo img{width:64%;height:64%;object-fit:contain}
+.m-anillo svg{width:52%;height:52%;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.m-nodo b{font:800 26px/1.05 var(--display);text-align:center;text-shadow:0 2px 8px #000}
+.m-nodo small{font:700 19px var(--mono);color:#a9c0de;margin-top:-2px}
+.m-agente{position:absolute;top:2px;right:2px;width:22px;height:22px;border-radius:50%;background:#37ff85;box-shadow:0 0 12px #37ff85;border:3px solid #080d16}
+.m-ids{position:absolute;bottom:-6px;width:46px;height:46px;border-radius:50%;background:#0b1322;border:2px solid #56d6ff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px rgba(86,214,255,.5)}
+.m-ids img{width:66%;height:66%}
+.m-ids.d{right:-4px}.m-ids.i{left:-4px}
+.m-nodo.cy .m-anillo{border-color:#56d6ff;box-shadow:0 0 30px rgba(86,214,255,.4)} .m-nodo.cy b{color:#8ef0ff} .m-nodo.cy svg{stroke:#8ef0ff}
+.m-nodo.gr .m-anillo{border-color:#37ff85;box-shadow:0 0 30px rgba(55,255,133,.35)} .m-nodo.gr b{color:#8affc1} .m-nodo.gr svg{stroke:#8affc1}
+.m-nodo.rd .m-anillo{border-color:#ff5566;box-shadow:0 0 32px rgba(255,85,102,.5)} .m-nodo.rd b{color:#ff8a95} .m-nodo.rd svg{stroke:#ff8a95}
+.m-nodo.am .m-anillo{border-color:#f5b949;box-shadow:0 0 30px rgba(245,185,73,.4)} .m-nodo.am b{color:#f5b949}
+.m-nodo.bl .m-anillo{border-color:#3b82f6;box-shadow:0 0 54px rgba(59,130,246,.55)} .m-nodo.bl b{color:#bcd6ff}
+.m-nodo.bl .m-anillo img{width:84%;height:84%}
+.m-nodo.alerta .m-anillo{border-color:#ff5566;box-shadow:0 0 70px rgba(255,85,102,.85)}
+@media (prefers-reduced-motion:reduce){.mapa{opacity:.3}}

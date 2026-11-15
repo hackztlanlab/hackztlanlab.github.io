@@ -26,9 +26,10 @@
   // video de la clase: el reproductor de YouTube (sin cookies) se carga solo al dar clic
   const visor = document.getElementById('visor'), vv = document.getElementById('visor-video');
   function cerrar() { visor.hidden = true; vv.textContent = ''; document.body.style.overflow = ''; }
-  document.querySelectorAll('.ver-clase').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.ver-clase, .momento').forEach(b => b.addEventListener('click', () => {
     const f = document.createElement('iframe');
-    f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(b.dataset.yt)}?autoplay=1&rel=0&modestbranding=1`;
+    const ini = parseInt(b.dataset.t || '0', 10) || 0;
+    f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(b.dataset.yt)}?autoplay=1&rel=0&modestbranding=1&start=${ini}`;
     f.title = 'Video de la clase';
     f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
     f.allowFullscreen = true;
