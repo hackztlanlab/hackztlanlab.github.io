@@ -13,7 +13,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; frame-src https://www.youtube-nocookie.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="img/pinguino.png">
-<link rel="stylesheet" href="estilo.css?v=6">
+<link rel="stylesheet" href="estilo.css?v=7">
 </head>
 <body>
 <div class="fondo" aria-hidden="true"><div class="rejilla"></div><div class="halo h1"></div><div class="halo h2"></div><div class="mapa" id="mapa"><div class="mapa-esc"><canvas id="mapa-c" width="1920" height="1080"></canvas><div class="mapa-nodos"></div></div></div></div>
@@ -60,14 +60,41 @@
   </div>
 </section>
 
-<section id="curso">
+<section id="cursos">
   <div class="wrap">
     <div class="titulo rev">
-      <div class="ceja">Curso gratis</div>
-      <h2>Linux <span class="l">desde cero</span>, en orden.</h2>
-      <p>¿Por dónde empiezo? Aquí. Cada clase resuelve un problema real y te enseña a leer lo que la terminal te contesta.</p>
+      <div class="ceja">Cursos gratis</div>
+      <h2>Elige <span class="l">por dónde empezar</span>.</h2>
+      <p>Cada curso va en orden, con comandos reales y casos de la vida diaria. Toca uno para ver sus clases.</p>
     </div>
-    <div class="ruta" id="ruta">
+    <div class="cursos">
+      <button class="curso-card cc-linux rev" type="button" data-panel="curso" data-avance="83" aria-expanded="false" aria-controls="curso">
+        <span class="cc-arte" aria-hidden="true"><span class="cc-term">ana@linux:~$ <i></i></span><img src="img/tux-cool.png" alt=""></span>
+        <span class="cc-info">
+          <span class="cc-ceja">Curso · empieza aquí</span>
+          <span class="cc-tit">Linux desde cero</span>
+          <span class="cc-txt">De instalarlo sin borrar Windows a leer logs como en un servidor real.</span>
+          <span class="cc-meta"><b>10 clases</b> publicadas · 2 en camino · con libro</span>
+          <span class="cc-barra"><b></b></span>
+          <span class="cc-abrir">Ver las clases <em>▾</em></span>
+        </span>
+      </button>
+      <button class="curso-card cc-soc rev d1" type="button" data-panel="soc" data-avance="40" aria-expanded="false" aria-controls="soc">
+        <span class="cc-arte" aria-hidden="true"><img class="lg l1" src="img/mapa/opnsense.png" alt=""><img class="lg l2" src="img/mapa/wazuh.png" alt=""><img class="lg l3" src="img/mapa/pi-hole.png" alt=""></span>
+        <span class="cc-info">
+          <span class="cc-ceja">Serie · Monta tu SOC</span>
+          <span class="cc-tit">Tu SOC en casa</span>
+          <span class="cc-txt">Firewall, DNS que bloquea y monitoreo, armados pieza por pieza con open source.</span>
+          <span class="cc-meta"><b>4 videos</b> publicados · más en camino</span>
+          <span class="cc-barra"><b></b></span>
+          <span class="cc-abrir">Ver los videos <em>▾</em></span>
+        </span>
+      </button>
+    </div>
+
+    <div class="panel-curso" id="curso" hidden>
+      <div class="pc-cab"><span>Linux desde cero · clases en orden</span><button class="pc-cerrar" type="button" data-cierra="curso">Cerrar ▴</button></div>
+      <div class="ruta" id="ruta">
       <div class="riel"><b></b></div>
       <a class="clase aqui rev" data-yt="9uGD_OIsQkE" href="https://youtu.be/9uGD_OIsQkE" rel="noopener"><span class="n">0.5</span><span class="nom">Instala Linux sin borrar Windows<small>WSL o máquina virtual, paso a paso</small></span><span class="est">EMPIEZA AQUÍ</span></a>
       <a class="clase ya rev" data-yt="UuTXOO-yXRk" href="https://youtu.be/UuTXOO-yXRk" rel="noopener"><span class="n">#0</span><span class="nom">Conociendo Linux<small>Qué es, de dónde sale y tus primeros comandos</small></span><span class="est">VER ▸</span></a>
@@ -86,17 +113,11 @@
     <div class="ruta-pie rev">
       <a class="btn sec" href="https://youtube.com/playlist?list=PLB48mfVmbJaU" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h12v2H3zm0 5h12v2H3zm0 5h8v2H3zm14-3v8l6-4z"/></svg>Lista completa en YouTube</a>
     </div>
-  </div>
-</section>
-
-<section id="soc">
-  <div class="wrap">
-    <div class="titulo rev">
-      <div class="ceja">Serie · Monta tu SOC</div>
-      <h2>Tu propio <span class="t">SOC en casa</span>, gratis.</h2>
-      <p>Firewall, DNS que bloquea y monitoreo, armados pieza por pieza en un laboratorio real con herramientas open source.</p>
     </div>
-    <div class="ruta">
+
+    <div class="panel-curso" id="soc" hidden>
+      <div class="pc-cab"><span>Monta tu SOC · videos en orden</span><button class="pc-cerrar" type="button" data-cierra="soc">Cerrar ▴</button></div>
+      <div class="ruta">
       <div class="riel"><b></b></div>
       <a class="clase ya rev" data-yt="UNTIRKblYWk" href="https://youtu.be/UNTIRKblYWk" rel="noopener"><span class="n">MAPA</span><span class="nom">El mapa de tu SOC<small>Cómo se conecta todo antes de instalar nada</small></span><span class="est">VER ▸</span></a>
       <a class="clase ya rev" data-yt="h1_Ezm2RbP0" href="https://youtu.be/h1_Ezm2RbP0" rel="noopener"><span class="n">OP #0</span><span class="nom">¿Qué es OPNsense?<small>El firewall gratis que protege tu red</small></span><span class="est">VER ▸</span></a>
@@ -104,6 +125,7 @@
       <a class="clase ya rev" data-yt="-HHjUq1gKf0" href="https://youtu.be/-HHjUq1gKf0" rel="noopener"><span class="n">OP #2</span><span class="nom">Tu primera regla<small>Bloquea un equipo paso a paso</small></span><span class="est">VER ▸</span></a>
       <div class="clase pronto rev"><span class="n">OP #3</span><span class="nom">Lo que sigue en OPNsense</span><span class="est">PRONTO</span></div>
       <div class="clase pronto rev"><span class="n">WAZUH</span><span class="nom">El corazón del SOC: ver lo que pasa en tu red</span><span class="est">PRONTO</span></div>
+    </div>
     </div>
   </div>
 </section>
@@ -201,6 +223,6 @@
     <div class="visor-video" id="visor-video"></div>
   </div>
 </div>
-<script src="sitio.js?v=6" defer></script>
+<script src="sitio.js?v=7" defer></script>
 </body>
 </html>

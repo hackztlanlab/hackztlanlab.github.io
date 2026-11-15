@@ -94,6 +94,34 @@
   visor.addEventListener('click', e => { if (e.target === visor) cerrarVisor(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !visor.hidden) cerrarVisor(); });
 
+  // ---- cursos: la tarjeta despliega su lista de clases (una a la vez)
+  const tarjetas = [...document.querySelectorAll('.curso-card')];
+  tarjetas.forEach(t => {
+    const io2 = new IntersectionObserver(es => { if (es[0].isIntersecting) { t.style.setProperty('--avance', (t.dataset.avance || 0) + '%'); io2.disconnect(); } });
+    io2.observe(t);
+  });
+  function abrirCurso(id, desplazar) {
+    tarjetas.forEach(t => {
+      const p = document.getElementById(t.dataset.panel), abre = t.dataset.panel === id && p.hidden;
+      p.hidden = !abre; t.setAttribute('aria-expanded', abre);
+      if (abre) p.querySelectorAll('.rev').forEach(el => el.classList.add('vis'));
+    });
+    const p = document.getElementById(id);
+    if (desplazar && p && !p.hidden) setTimeout(() => p.scrollIntoView({ behavior: quieto ? 'auto' : 'smooth', block: 'start' }), 60);
+    avanceRuta();
+  }
+  tarjetas.forEach(t => t.addEventListener('click', () => abrirCurso(t.dataset.panel, true)));
+  document.querySelectorAll('.pc-cerrar').forEach(b => b.addEventListener('click', () => {
+    abrirCurso(b.dataset.cierra, false);
+    document.getElementById('cursos').scrollIntoView({ behavior: quieto ? 'auto' : 'smooth' });
+  }));
+  // los enlaces #curso y #soc (menú, botón "Empieza el curso") abren su tarjeta
+  document.querySelectorAll('a[href="#curso"], a[href="#soc"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); const id = a.getAttribute('href').slice(1);
+    if (document.getElementById(id).hidden) abrirCurso(id, true); else document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }));
+  if (location.hash === '#curso' || location.hash === '#soc') abrirCurso(location.hash.slice(1), true);
+
   // ---- tarjetas: brillo que sigue al mouse
   document.querySelectorAll('.tarjeta').forEach(t => t.addEventListener('pointermove', e => {
     const r = t.getBoundingClientRect();
