@@ -1,0 +1,111 @@
+/* Lectura en línea: se carga DESPUÉS de libro.css (la hoja del PDF) y la adapta a pantalla. */
+html { background: #e9e3cf; scroll-behavior: smooth; scroll-padding-top: 76px; }
+body.leer { background: #e9e3cf; padding: 0; font-size: 18px; line-height: 1.68; }
+
+/* barra de avance y cabecera */
+.avance { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 30; }
+.avance b { display: block; height: 100%; width: var(--a, 0%); background: linear-gradient(90deg, #E21EC8, #2DD4BF 40%, #A3E635); }
+.arriba { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 12px; height: 58px; padding: 0 18px;
+  background: rgba(12,14,44,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #F0E6C8; font: 600 15px var(--sans); }
+.arriba .marca { display: flex; align-items: center; gap: 9px; color: #F0E6C8; text-decoration: none; font-weight: 800; }
+.arriba .marca img { border-radius: 50%; }
+.arriba .marca b { color: #2DD4BF; }
+.arriba .donde { color: #8a90b8; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.arriba .b-indice, .arriba .b-pdf { margin-left: auto; background: none; border: 1px solid #3a3f78; color: #F0E6C8; font: 600 14px var(--sans); padding: 7px 12px; border-radius: 9px; cursor: pointer; text-decoration: none; }
+.arriba .b-pdf { margin-left: 0; border-color: #2DD4BF; color: #2DD4BF; }
+.arriba .b-indice { display: none; }
+@media (max-width: 1100px) { .arriba .b-indice { display: inline-block; } }
+@media (max-width: 560px) { .arriba .donde { display: none; } }
+
+/* índice lateral */
+.indice { position: fixed; top: 58px; left: 0; bottom: 0; width: 290px; overflow-y: auto; z-index: 15;
+  padding: 22px 16px 30px 22px; background: #0C0E2C; color: #c6cbdb; font: 14px/1.4 var(--sans); }
+.indice .i-tit { margin: 0 0 14px; font-weight: 800; color: #F0E6C8; letter-spacing: .02em; }
+.indice ol { list-style: none; margin: 0 0 18px; padding: 0; }
+.indice li { margin: 0; padding: 0; }
+.indice li::marker { content: none; }
+.indice a { display: flex; gap: 10px; padding: 6px 8px; border-radius: 8px; color: #c6cbdb; text-decoration: none; transition: background .2s, color .2s; }
+.indice a b { flex: none; min-width: 22px; color: #2DD4BF; font-weight: 700; }
+.indice a:hover { background: #1B1E48; color: #fff; }
+.indice a.aqui { background: #1B1E48; color: #fff; box-shadow: inset 3px 0 0 #A3E635; }
+@media (max-width: 1100px) {
+  .indice { transform: translateX(-102%); transition: transform .3s ease; box-shadow: 10px 0 40px rgba(0,0,0,.4); width: min(320px, 86vw); }
+  .indice.abierto { transform: none; }
+}
+
+/* la hoja: texto fluido, sin páginas carta */
+.hoja { max-width: 760px; margin: 0 auto; padding: 36px 22px 80px; }
+@media (min-width: 1101px) { .hoja { margin-left: max(320px, calc(50% - 380px + 145px)); } }
+.hoja > div > section, .hoja > article, .hoja > section { width: auto; margin: 0 0 26px; padding: 34px clamp(18px, 5vw, 56px) 30px;
+  background: var(--papel); border-radius: 14px; box-shadow: 0 10px 40px rgba(12,14,44,.12); height: auto; }
+body > .prologo { padding: 0; }
+.hoja .prologo { max-width: none; font-size: 1.04em; }
+.hoja .prologo h1 { margin: 10px 0 34px; }
+
+/* apertura del capítulo: deja de ser una página fija */
+.hoja .portadilla { height: auto; overflow: visible; }
+.portadilla .cabeza { height: auto; display: grid; grid-template-columns: auto 1fr; grid-template-areas: "num masc" "eti eti" "tit tit"; align-items: start; margin-bottom: 18px; }
+.portadilla .numero, .portadilla .etiqueta, .portadilla h1, .portadilla .mascota { position: static; }
+.portadilla .numero { grid-area: num; font-size: clamp(80px, 16vw, 130px); }
+.portadilla .mascota { grid-area: masc; justify-self: end; width: clamp(90px, 22vw, 150px); height: auto; }
+.portadilla .etiqueta { grid-area: eti; margin-top: 4px; }
+.portadilla h1 { grid-area: tit; margin-top: 8px; font-size: clamp(30px, 6vw, 44px); }
+.apertura-medio { flex-wrap: wrap; gap: 18px; }
+.apertura-qr { width: auto; flex: 0 1 220px; display: flex; flex-direction: column; justify-content: center; }
+.apertura-pie { flex-wrap: wrap; gap: 14px; }
+.apertura-pie .dato { min-width: 220px; }
+@media (max-width: 600px) { .apertura-qr, .objetivos { flex: 1 1 100%; } }
+
+/* botón "Ver la clase" */
+.ver-clase { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px 18px; border: 0; border-radius: 14px; cursor: pointer;
+  background: #0C0E2C; color: #F0E6C8; font: 800 17px var(--sans); box-shadow: 0 8px 24px rgba(12,14,44,.3); transition: transform .18s, box-shadow .18s; }
+.ver-clase span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #A3E635; color: #0C0E2C; font-size: 14px; padding-left: 3px; }
+.ver-clase:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(12,14,44,.4); }
+.ver-clase.chico { font-size: 14px; padding: 11px 12px; background: #1B1E48; }
+.ver-clase.chico span { width: 26px; height: 26px; font-size: 11px; }
+
+/* tamaños de lectura en pantalla (la hoja del PDF usa pt pequeños) */
+h2 { font-size: 1.55em; }
+h3 { font-size: 1.12em; }
+.terminal pre { font-size: 14.5px; line-height: 1.55; }
+.confundas, .truco, .pruebalo, .wsl, .servidor, .ruta { font-size: .93em; }
+.notas { font-size: 13.5px; }
+table { font-size: 15px; display: block; overflow-x: auto; }
+th { font-size: 13px; }
+.s-errores-tipicos table, .s-lo-que-te-llevas table { font-size: 14px; }
+figure svg { width: 100%; max-height: none; }
+figcaption { font-size: 14.5px; }
+.cita { font-size: 1.25em; margin-left: 0; margin-right: 0; }
+.s-referencias p { font-size: 15px; padding-left: 2em; text-indent: -2em; }
+.s-respuestas { break-before: auto; }
+@media (max-width: 600px) {
+  body.leer { font-size: 17px; }
+  .confundas, .truco, .pruebalo, .wsl, .servidor, .ruta { padding-left: 16px; padding-top: 58px; }
+  .confundas img, .truco img, .pruebalo img, .wsl img, .servidor img, .ruta img { top: 8px; left: 12px; margin-top: 0; width: 44px; height: 44px; }
+  .terminal pre { font-size: 13px; }
+}
+
+/* cierre: sigue con el libro */
+.sigue-libro { text-align: center; background: #0C0E2C !important; color: #F0E6C8; font-family: var(--sans); }
+.sigue-libro img { width: 110px; margin: 0 auto 10px; display: block; }
+.sigue-libro h2 { border: 0; padding: 0; margin: 0 0 12px; color: #2DD4BF; }
+.sigue-libro p { max-width: 54ch; margin: 0 auto 1em; color: #d8dcef; }
+.botones-libro { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px !important; }
+.botones-libro a { text-decoration: none; font-weight: 700; padding: 13px 18px; border-radius: 12px; }
+.b-pat { background: #A3E635; color: #122003; }
+.b-sec { border: 1px solid #3a3f78; color: #F0E6C8; }
+.b-sec:hover { border-color: #2DD4BF; }
+.sigue-libro .lic { margin-top: 26px; font-size: 12.5px; line-height: 1.5; color: #8a90b8; }
+
+/* reproductor de la clase */
+.visor { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(3,5,15,.85); }
+.visor[hidden] { display: none; }
+.visor-caja { width: min(1000px, 100%); border-radius: 16px; overflow: hidden; background: #05071a; box-shadow: 0 40px 100px rgba(0,0,0,.7); }
+.visor-barra { display: flex; align-items: center; gap: 14px; padding: 10px 12px 10px 18px; color: #F0E6C8; font: 600 15px var(--sans); }
+.visor-barra span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.visor-barra a { color: #2DD4BF; text-decoration: none; font-size: 14px; white-space: nowrap; }
+.visor-barra .x { background: none; border: 0; color: #8a90b8; font-size: 26px; line-height: 1; cursor: pointer; padding: 2px 8px; }
+.visor-video { aspect-ratio: 16/9; background: #000; }
+.visor-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+:focus-visible { outline: 3px solid #2DD4BF; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }

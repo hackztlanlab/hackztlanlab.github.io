@@ -1,0 +1,508 @@
+/* ==========================================================================
+   Linux desde cero · El libro del curso — hoja de estilo (Hackztlan Lab)
+   Reutilizable: todos los capítulos usan esta misma hoja. Ver GUIA-DE-ESTILO.md
+   Solo fuentes del sistema. Pensada para imprimir en Carta con Chromium.
+   ========================================================================== */
+
+:root {
+  /* marca */
+  --turquesa: #2DD4BF;
+  --turquesa-osc: #0F9D8A;   /* sobre papel */
+  --magenta: #E21EC8;
+  --magenta-osc: #B5179E;    /* sobre papel */
+  --marino: #0C0E2C;
+  --hueso: #F0E6C8;
+  --limon: #A3E635;          /* solo acento */
+  /* derivados */
+  --papel: #FBF8EE;
+  --hueso-claro: #F4EEDA;
+  --gris-tinta: #5E6282;
+  --term-fondo: #0C0E2C;
+  --term-barra: #1B1E48;
+  --term-salida: #C6CBDB;
+  /* tipografía */
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: 'Segoe UI', system-ui, Arial, sans-serif;
+  --mono: 'Cascadia Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
+}
+
+/* ---------- Página ---------- */
+@page {
+  size: Letter;
+  margin: 18mm 23mm 22mm 23mm;
+  background: #FBF8EE;
+  @bottom-left {
+    content: "Linux desde cero · Hackztlan Lab";
+    font: 600 7.6pt 'Segoe UI', Arial, sans-serif;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: #5E6282;
+  }
+  @bottom-right {
+    content: counter(page);
+    font: 700 9.5pt 'Segoe UI', Arial, sans-serif;
+    color: #0F9D8A;
+  }
+}
+/* portada y contraportada: a sangre, sin pie */
+@page portada {
+  margin: 0;
+  background: #0C0E2C;
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+/* créditos y portadilla: con márgenes, sin pie */
+@page limpia {
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+
+* { box-sizing: border-box; }
+html { background: var(--papel); }
+body {
+  margin: 0;
+  font: 10.8pt/1.52 var(--serif);
+  color: var(--marino);
+  background: var(--papel);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  orphans: 3;
+  widows: 3;
+}
+p { margin: 0 0 .75em; text-wrap: pretty; }
+strong { font-weight: 700; }
+img { max-width: 100%; }
+.pixel { image-rendering: pixelated; }
+
+/* ---------- Portada ---------- */
+.portada, .contraportada {
+  page: portada;
+  width: 8.5in;
+  height: 11in;
+  overflow: hidden;
+  position: relative;
+  background: var(--marino);
+  color: var(--hueso);
+  font-family: var(--sans);
+}
+.portada .marco, .contraportada .marco {
+  position: absolute; inset: 11mm;
+  border: 1.6pt solid var(--turquesa);
+  border-radius: 5mm;
+}
+.portada .franja {
+  position: absolute; left: 0; right: 0; top: 150mm; height: 3.2mm;
+  background: var(--magenta);
+}
+.portada .sello {
+  position: absolute; top: 22mm; left: 24mm;
+  display: flex; align-items: center; gap: 4mm;
+  font-weight: 700; font-size: 10.5pt; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--turquesa);
+}
+.portada .sello img { width: 15mm; height: 15mm; }
+.portada .titulo {
+  position: absolute; top: 58mm; left: 24mm; right: 24mm;
+  margin: 0;
+  font-weight: 900; font-size: 68pt; line-height: .96; letter-spacing: -.01em;
+  color: var(--hueso);
+}
+.portada .titulo span { display: block; color: var(--turquesa); }
+.portada .prompt-deco {
+  position: absolute; top: 121mm; left: 24mm;
+  font: 15pt var(--mono); color: var(--turquesa);
+}
+.portada .prompt-deco b { display: inline-block; width: .62em; height: 1.05em; background: var(--limon); vertical-align: -.18em; margin-left: .35em; }
+.portada .mascota {
+  position: absolute; right: 16mm; top: 137mm; width: 100mm; height: 100mm;
+}
+.portada .subtitulo {
+  position: absolute; left: 24mm; top: 166mm; width: 78mm; text-wrap: balance;
+  font-size: 17pt; line-height: 1.35; font-weight: 600; color: var(--hueso);
+}
+.portada .subtitulo small {
+  display: block; margin-bottom: 3mm;
+  font-size: 9.5pt; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--magenta);
+}
+.portada .firma {
+  position: absolute; left: 24mm; bottom: 23mm;
+  font-size: 13pt; font-weight: 700; letter-spacing: .12em; color: var(--turquesa);
+}
+.portada .firma::before {
+  content: ""; display: block; width: 18mm; height: 1.2mm; background: var(--limon); margin-bottom: 4mm;
+}
+
+/* ---------- Contraportada ---------- */
+.contraportada { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.contraportada img.mascota { width: 46mm; height: 46mm; margin-bottom: 10mm; }
+.contraportada blockquote {
+  margin: 0; max-width: 132mm; text-wrap: balance;
+  font: italic 21pt/1.4 var(--serif); color: var(--hueso);
+}
+.contraportada .linea { width: 22mm; height: 1.2mm; background: var(--magenta); margin: 11mm 0 8mm; }
+.contraportada .serie { font-size: 10pt; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--turquesa); }
+.contraportada .marca { margin-top: 3mm; font-size: 10pt; letter-spacing: .12em; color: var(--hueso); opacity: .85; }
+.contraportada .emblema { position: absolute; bottom: 24mm; left: 50%; margin-left: -8mm; width: 16mm; height: 16mm; }
+
+/* ---------- Créditos ---------- */
+.creditos {
+  page: limpia;
+  height: 236mm;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  font: 9.6pt/1.6 var(--sans); color: var(--marino);
+}
+.creditos h2 { margin: 0; font: 800 13pt var(--sans); letter-spacing: .14em; }
+.creditos .sub { margin: 0 0 7mm; color: var(--turquesa-osc); font-weight: 600; }
+.creditos p { margin: 0 0 3mm; max-width: 105mm; }
+.creditos .fino { color: var(--gris-tinta); font-size: 8.6pt; }
+.creditos img { width: 18mm; height: 18mm; margin-bottom: 6mm; }
+
+/* ---------- Prólogo: de libro, columna angosta, sin recuadros ---------- */
+.prologo {
+  break-before: page;
+  max-width: 118mm;
+  margin: 0 auto;
+  font-size: 12pt;
+  line-height: 1.72;
+}
+.prologo h1 {
+  margin: 30mm 0 16mm;
+  text-align: center;
+  font: 400 15pt var(--serif);
+  letter-spacing: .42em; text-transform: uppercase;
+  color: var(--marino);
+}
+.prologo h1::after {
+  content: ""; display: block; width: 14mm; height: .8mm; background: var(--turquesa-osc); margin: 6mm auto 0;
+}
+.prologo p { margin: 0 0 1em; }
+/* letra capital alzada (no hundida): el primer párrafo es de un solo renglón */
+.prologo h1 + p { font-size: 1.14em; line-height: 1.3; margin-bottom: 1.3em; }
+.prologo h1 + p::first-letter {
+  font: 400 3.5em/1 var(--serif);
+  margin-right: .04em;
+  color: var(--turquesa-osc);
+}
+.prologo .firma {
+  margin-top: 2.2em; text-align: right;
+  font-size: 15pt; color: var(--marino);
+  break-before: avoid;
+}
+
+/* ---------- Apertura de capítulo (portadilla): una sola página ----------
+   cabeza (número, mascota, etiqueta, título) · nota de entrada · QR + objetivos · necesitas + tiempo */
+.portadilla {
+  page: limpia;
+  height: 236mm;
+  overflow: hidden;
+}
+.portadilla .cabeza { position: relative; height: 73mm; }
+.portadilla .numero {
+  position: absolute; top: 0; left: 0;
+  font: 900 112pt/1 var(--sans);
+  color: var(--turquesa);
+  -webkit-text-stroke: 2pt var(--marino);
+}
+.portadilla .etiqueta {
+  position: absolute; top: 45mm; left: 0;
+  font: 700 10.5pt var(--sans); letter-spacing: .34em; text-transform: uppercase; color: var(--magenta-osc);
+}
+.portadilla h1 {
+  position: absolute; top: 52mm; left: 0; right: 0; margin: 0;
+  font: 800 34pt/1.08 var(--sans); letter-spacing: -.01em; color: var(--marino);
+}
+.portadilla h1::after {
+  content: ""; display: block; width: 26mm; height: 1.4mm; background: var(--turquesa-osc); margin-top: 5mm;
+}
+.portadilla .mascota { position: absolute; right: 0; top: 0; width: 48mm; height: 48mm; }
+.portadilla .nota-entrada {
+  margin: 0 0 5mm; padding-left: 5mm; border-left: 1.2mm solid var(--hueso);
+  font: italic 11.5pt/1.5 var(--serif); color: #2A2D52;
+}
+.portadilla .nota-entrada p { margin: 0; }
+.apertura-medio { display: flex; gap: 7mm; align-items: stretch; }
+.apertura-qr { flex: none; width: 44mm; text-align: center; }
+.apertura-qr .qr img { width: 40mm; height: 40mm; display: block; margin: 0 auto; border: 1.2pt solid var(--marino); border-radius: 3mm; }
+.apertura-qr .qr code { display: inline-block; margin-top: 2.5mm; font-size: 8.6pt; white-space: nowrap; }
+.apertura-qr p { margin: 2mm 0 0; font: 600 8.6pt/1.35 var(--sans); color: var(--gris-tinta); }
+.portadilla h3 { margin: 0 0 2.5mm; font: 800 10.5pt var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--turquesa-osc); }
+.portadilla h3::before { content: none; }
+.objetivos {
+  flex: 1; padding: 4mm 5mm 3mm;
+  border: 1.6pt solid var(--turquesa-osc); border-radius: 10px; background: #F0FAF6;
+  font-size: 10.4pt; line-height: 1.45;
+}
+.objetivos ul { margin: 0; padding-left: 1.3em; }
+.objetivos li { margin: 0 0 1.6mm; }
+.objetivos li::marker { content: "✓  "; color: var(--turquesa-osc); }
+.apertura-pie { display: flex; gap: 7mm; margin-top: 5mm; }
+.apertura-pie .dato {
+  flex: 1; padding: 3.5mm 5mm 1mm; border-top: 1.4pt solid var(--hueso); background: var(--hueso-claro); border-radius: 0 0 8px 8px;
+  font-size: 10pt; line-height: 1.5;
+}
+.apertura-pie .dato:first-child { flex: 1.7; }
+.apertura-pie .dato h3 { color: var(--magenta-osc); }
+.portadilla .ruta { margin: 4mm 0 0; font-size: 9.8pt; line-height: 1.45; min-height: 0; padding: 8px 14px 8px 64px; }
+.portadilla .ruta img { width: 44px; height: 44px; margin-top: -22px; }
+
+/* ---------- Capítulo ---------- */
+.capitulo { break-before: page; }
+.capitulo > section:first-child > h2 { margin-top: 0; border-top: 0; padding-top: 0; }
+
+h2 {
+  margin: 1.4em 0 .6em;
+  padding-top: .75em;
+  border-top: 1.4pt solid var(--hueso);
+  font: 700 19pt/1.2 var(--sans);
+  letter-spacing: -.005em;
+  color: var(--marino);
+  break-after: avoid;
+  break-inside: avoid;
+}
+h2 .num {
+  display: inline-block; min-width: 1.55em; height: 1.55em; line-height: 1.5em;
+  margin-right: .5em; text-align: center;
+  background: var(--turquesa-osc); color: #fff; border-radius: 6px;
+  font-size: .82em; vertical-align: .08em;
+}
+h3 {
+  margin: 1.7em 0 .5em;
+  font: 700 12.6pt/1.25 var(--sans);
+  color: var(--magenta-osc);
+  break-after: avoid;
+}
+h3::before { content: "› "; color: var(--turquesa-osc); }
+
+.sigue { break-after: avoid; break-inside: avoid; }      /* párrafo que presenta un bloque: no se separa de él ni se parte */
+
+code {
+  font: .86em var(--mono);
+  background: var(--hueso-claro);
+  border: .5pt solid #E3D9B8;
+  border-radius: 3px;
+  padding: .06em .32em;
+  white-space: nowrap;
+  color: var(--marino);
+}
+strong code { font-weight: 700; }
+
+ol, ul { margin: 0 0 1em; padding-left: 1.7em; }
+li { margin: 0 0 .5em; padding-left: .2em; }
+li::marker { color: var(--turquesa-osc); font: 700 .95em var(--sans); }
+li > p { margin: 0 0 .5em; }
+
+/* Terminal */
+.terminal {
+  margin: .8em 0 1em;
+  background: var(--term-fondo);
+  border-radius: 8px;
+  overflow: hidden;
+  break-inside: avoid;
+}
+.terminal .barra {
+  height: 19px; padding-left: 12px;
+  display: flex; align-items: center; gap: 6px;
+  background: var(--term-barra);
+}
+.terminal .barra i { width: 8px; height: 8px; border-radius: 50%; background: var(--magenta); }
+.terminal .barra i:nth-child(2) { background: var(--hueso); }
+.terminal .barra i:nth-child(3) { background: var(--turquesa); }
+.terminal pre {
+  margin: 0; padding: 8px 16px 10px;
+  font: 8.9pt/1.4 var(--mono);
+  color: var(--term-salida);
+  white-space: pre-wrap;          /* los renglones muy largos (PATH, file) siguen abajo en vez de cortarse */
+  overflow-wrap: break-word;      /* se parten en espacios o en los <wbr> que pone armar-libro.mjs tras ":" y "," */
+  tab-size: 8;
+}
+.terminal pre code { font: inherit; background: none; border: 0; padding: 0; white-space: inherit; color: inherit; }
+.terminal .prompt { color: var(--turquesa); }
+.terminal .cmd { color: #fff; }
+.terminal .out { color: var(--term-salida); }
+.terminal .corte { color: var(--turquesa); }   /* ↵: el renglón sigue abajo (lo parte armar-libro.mjs) */
+li .terminal { margin: .45em 0 .6em; }
+
+/* No te confundas */
+.confundas {
+  position: relative;
+  margin: 1.1em 0 1.2em;
+  padding: 10px 16px 10px 72px;
+  min-height: 64px;
+  border: 1.6pt solid var(--magenta-osc);
+  border-radius: 10px;
+  background: #FDF4FB;
+  font-size: 10.2pt; line-height: 1.5;
+  break-inside: avoid;
+}
+.confundas img { position: absolute; left: 10px; top: 50%; margin-top: -27px; width: 54px; height: 54px; }
+.confundas p { margin: 0; }
+.confundas p > strong:first-child { font-family: var(--sans); color: var(--magenta-osc); }
+
+/* Truco y Pruébalo tú: misma forma que «No te confundas», otro color */
+.truco, .pruebalo, .wsl, .servidor, .ruta {
+  position: relative;
+  margin: 1.1em 0 1.2em;
+  padding: 10px 16px 10px 72px;
+  min-height: 64px;
+  border-radius: 10px;
+  font-size: 10.2pt; line-height: 1.5;
+  break-inside: avoid;
+}
+.truco { border: 1.6pt solid var(--turquesa-osc); background: #F0FAF6; }
+.pruebalo { border: 1.6pt dashed var(--marino); background: var(--hueso-claro); }
+.truco img, .pruebalo img, .wsl img, .servidor img, .ruta img { position: absolute; left: 10px; top: 50%; margin-top: -27px; width: 54px; height: 54px; }
+.truco p, .pruebalo p, .wsl p, .servidor p, .ruta p, .confundas p + p { margin: 0; }
+.truco p + p, .pruebalo p + p, .confundas p + p, .wsl * + p, .servidor * + p, .ruta * + p { margin-top: .5em; }
+.wsl ul, .servidor ul, .ruta ul { margin: .4em 0 0; }
+.wsl li, .servidor li { margin-bottom: .25em; }
+.wsl .terminal, .servidor .terminal { margin: .5em 0 .6em; }
+.truco p > strong:first-child { font-family: var(--sans); color: var(--turquesa-osc); }
+.pruebalo p > strong:first-child { font-family: var(--sans); color: var(--marino); }
+/* Si usas WSL: turquesa punteado · En un servidor real: marino sólido · Ruta rápida: magenta */
+.wsl { border: 1.6pt dashed var(--turquesa-osc); background: #F0FAF6; }
+.servidor { border: 1.6pt solid var(--marino); background: #EEF0F7; }
+.ruta { border: 1.6pt solid var(--magenta-osc); background: #FDF4FB; }
+.wsl p > strong:first-child { font-family: var(--sans); color: var(--turquesa-osc); }
+.servidor p > strong:first-child { font-family: var(--sans); color: var(--marino); }
+.ruta p > strong:first-child { font-family: var(--sans); color: var(--magenta-osc); }
+.wsl img, .servidor img { top: 14px; margin-top: 0; }
+/* terminal "para copiar" (```comandos): todo es lo que tecleas */
+.terminal.copiar .barra::after { content: "para copiar tal cual"; margin-left: 8px; font: 600 7.4pt var(--sans); letter-spacing: .06em; color: var(--term-salida); }
+
+/* Notas: número volado en el texto, lista al final de cada sección */
+sup.llamada { font: 700 .66em/0 var(--sans); vertical-align: .62em; margin-left: .06em; }
+sup.llamada a { color: var(--turquesa-osc); text-decoration: none; }
+.notas {
+  margin: 1.1em 0 .4em; padding-top: 2mm;
+  border-top: .7pt solid #D9CFAE;
+  font: 8.5pt/1.42 var(--sans); color: #3A3D63;
+  break-inside: avoid;
+  break-before: avoid;   /* las notas no se quedan solas arriba de la página siguiente */
+}
+.notas ol { margin: 0; padding-left: 1.7em; }
+.notas li { margin: 0 0 .15em; padding-left: .1em; }
+.notas li::marker { font: 700 .95em var(--sans); color: var(--turquesa-osc); }
+.notas code { font-size: .92em; }
+
+/* Cita grande */
+.cita {
+  margin: 1.5em 6mm 1.6em;
+  padding: 2mm 0 2mm 7mm;
+  border-left: 1.4mm solid var(--turquesa-osc);
+  font: italic 15.5pt/1.45 var(--serif);
+  color: var(--marino);
+  break-inside: avoid;
+}
+.cita p { margin: 0; }
+.cita .comilla { font-style: normal; font-size: 1.7em; line-height: 0; vertical-align: -.12em; color: var(--turquesa-osc); }
+
+/* Tablas */
+table {
+  width: 100%;
+  margin: 1.1em 0 1.4em;
+  border-collapse: collapse;
+  font-size: 10.3pt; line-height: 1.42;
+  break-inside: auto;   /* se puede partir entre filas; el encabezado se repite (ver abajo) */
+}
+th {
+  background: var(--turquesa-osc); color: #fff;
+  font: 700 9.2pt var(--sans); letter-spacing: .05em; text-transform: uppercase;
+  text-align: left; padding: 7px 11px;
+}
+td { padding: 6px 11px; vertical-align: top; border-bottom: .6pt solid #E3D9B8; }
+td code { white-space: nowrap; }   /* el código en tablas no se parte (Documentos, ID_LIKE=debian) */
+.s-errores-tipicos td code { white-space: normal; overflow-wrap: anywhere; }
+
+/* Errores típicos: el mensaje, tal cual sale, en letra de terminal */
+.s-errores-tipicos table { font-size: 9.2pt; line-height: 1.34; }
+.s-errores-tipicos td { padding: 4px 9px; }
+.s-errores-tipicos td:first-child { width: 38%; }
+.s-errores-tipicos td:first-child code { background: none; border: 0; padding: 0; font-size: 1em; color: var(--magenta-osc); font-weight: 700; }
+
+/* Trucos y atajos: cada truco es un h3 con su explicación */
+.s-trucos-y-atajos h3 { margin-top: 1.3em; }
+tbody tr:nth-child(even) td { background: var(--hueso-claro); }
+tbody tr:nth-child(even) td code { background: #FBF8EE; }
+
+/* Figuras */
+figure { margin: 1.2em 0 1.3em; break-inside: avoid; }
+figure svg { display: block; width: 90%; max-height: 96mm; height: auto; margin: 0 auto; }   /* a 90 %, 14 unidades del SVG ≈ 9.2 pt impresos */
+#dibujo-3 svg { width: 90%; }
+figcaption {
+  margin-top: 3mm; text-align: center;
+  font: italic 9.4pt/1.45 var(--serif); color: #2A2D52;
+}
+figcaption strong { color: var(--turquesa-osc); }
+
+/* Tu turno / Respuestas */
+.s-tu-turno {
+  margin-top: 2.2em;
+  padding: 16px 24px 12px;
+  border: 1.6pt solid var(--turquesa-osc);
+  border-radius: 12px;
+  background: #F0FAF6;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.s-tu-turno li { break-inside: avoid; margin-bottom: .4em; }
+.s-tu-turno .cab-sticker img { width: 64px; height: 64px; }
+.cab-sticker { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; break-after: avoid; }
+.cab-sticker img { width: 78px; height: 78px; flex: none; }
+.cab-sticker h2 { margin: 0; padding: 0; border: 0; font-size: 23pt; }
+.s-tu-turno .cab-sticker h2 { color: var(--turquesa-osc); text-transform: uppercase; letter-spacing: .06em; }
+.s-respuestas { break-before: page; }
+.s-respuestas .cab-sticker { margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1.4pt solid var(--hueso); }
+.s-respuestas .cab-sticker img { width: 64px; height: 64px; }
+
+/* Para los curiosos: lo pesado, al final y en letra un poco menor */
+.s-para-los-curiosos { font-size: 10.2pt; }
+.s-para-los-curiosos h3 { margin-top: 1.2em; }
+.s-para-los-curiosos table { break-inside: avoid; }
+
+/* Referencias: APA 7, sangría francesa; las direcciones se pueden partir */
+.s-referencias p {
+  margin: 0 0 .55em; padding-left: 12.7mm; text-indent: -12.7mm;
+  font-size: 9.8pt; line-height: 1.5; text-align: left; text-wrap: wrap;
+  overflow-wrap: anywhere; break-inside: avoid;
+}
+.s-para-saber-mas li { font-size: 10.4pt; overflow-wrap: anywhere; }
+
+/* QR en créditos */
+.qr-creditos { display: flex; align-items: center; gap: 5mm; margin: 2mm 0 5mm; }
+.qr-creditos img { width: 26mm; height: 26mm; border: 1pt solid var(--marino); border-radius: 2mm; }
+.qr-creditos p { margin: 0; font-weight: 700; max-width: 60mm; }
+.creditos .licencia { max-width: 125mm; padding: 3mm 0 0; border-top: 1pt solid var(--hueso); }
+
+/* Cierre del capítulo: la última sección no se parte y su última línea remata */
+.s-lo-que-sigue { break-inside: avoid; }
+.s-lo-que-sigue p:last-child {
+  margin: 1.6em 0 0; text-align: center; text-wrap: balance;
+  font: italic 14pt/1.45 var(--serif); color: var(--marino);
+}
+.s-lo-que-sigue p:last-child::before {
+  content: ""; display: block; width: 14mm; height: .9mm; background: var(--magenta-osc); margin: 0 auto 5mm;
+}
+
+/* ---------- En pantalla (al abrir libro.html en el navegador) ---------- */
+@media screen {
+  html { background: #2a2c44; }
+  body { background: none; padding: 24px 0; }
+  body > section, body > article {
+    width: 8.5in; margin: 0 auto 24px; background: var(--papel);
+    padding: 18mm 23mm 22mm; box-shadow: 0 6px 30px rgba(0,0,0,.4);
+  }
+  body > .portada, body > .contraportada { padding: 0; background: var(--marino); }
+  body > .prologo { max-width: none; padding-left: 49mm; padding-right: 49mm; }
+  body > .creditos, body > .portadilla { height: 11in; }
+}
+
+/* Resumen: tabla compacta para que las cinco ideas quepan en la misma página */
+.s-lo-que-te-llevas table { font-size: 9.4pt; line-height: 1.32; margin: .6em 0 .9em; }
+.s-lo-que-te-llevas td { padding: 3.5px 10px; }
+.s-lo-que-te-llevas ul { break-inside: avoid; }
+/* figuras anchas y bajas: se leen mejor a casi todo el ancho */
+#fig-0-4 svg, #fig-0-5 svg, #fig-0-11 svg { width: 100%; }
+
+/* tablas largas (errores típicos, siete tipos): se pueden partir entre páginas, pero no a media fila; el encabezado se repite */
+tr { break-inside: avoid; }
+thead { display: table-header-group; }
