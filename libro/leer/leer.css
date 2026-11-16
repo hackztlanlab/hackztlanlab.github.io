@@ -120,3 +120,22 @@ figcaption { font-size: 14.5px; }
 
 /* nada se sale de lado en el celular */
 html { overflow-x: clip; }
+
+/* capítulos del libro: lista en el índice y anterior/siguiente al final */
+.indice .i-caps { margin-top: 26px; padding-top: 18px; border-top: 1px solid #23275a; }
+.indice .caps a.aqui-cap { background: #1B1E48; color: #fff; box-shadow: inset 3px 0 0 #2DD4BF; }
+.indice .pronto { display: flex; gap: 10px; align-items: baseline; padding: 6px 8px; color: #6b7099; }
+.indice .pronto b { flex: none; min-width: 22px; color: #4a4f80; font-weight: 700; }
+.indice .pronto small { margin-left: auto; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #8a90b8; border: 1px solid #3a3f78; border-radius: 999px; padding: 1px 8px; }
+.sigue-libro p b { color: #A3E635; }
+.entre-caps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 620px; margin: 22px auto 0; text-align: left; }
+.entre-caps a, .entre-caps .pronto { display: block; padding: 14px 16px; border-radius: 12px; border: 1px solid #3a3f78; color: #F0E6C8; text-decoration: none; font-weight: 700; line-height: 1.35; }
+.entre-caps small { display: block; font-size: 12.5px; font-weight: 600; color: #8a90b8; margin-bottom: 2px; }
+.entre-caps .cap-sig { text-align: right; }
+.entre-caps a.cap-sig { background: #A3E635; border-color: #A3E635; color: #122003; }
+.entre-caps a.cap-sig small { color: #2f4a08; }
+.entre-caps a:hover { border-color: #2DD4BF; }
+.entre-caps .pronto { color: #8a90b8; border-style: dashed; font-weight: 600; }
+@media (max-width: 560px) { .entre-caps { grid-template-columns: 1fr; } .entre-caps > span:empty { display: none; } }
+.sigue-libro .apoyo { margin-top: 28px; font-size: .95em; color: #b9bfdc; }
+.sigue-libro .apoyo + .botones-libro { margin-top: 10px !important; }

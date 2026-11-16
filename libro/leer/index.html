@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Linux desde cero · Capítulo 0: Introducción a Linux · Hackztlan Lab</title>
-<meta name="description" content="Capítulo 0 del libro Linux desde cero, para leer en línea: qué es un sistema operativo, el kernel, el arranque, la terminal, rutas y cómo pedir ayuda. Gratis, en español.">
+<meta name="description" content="Capítulo 0 del libro Linux desde cero, para leer en línea: qué es un sistema operativo, el kernel, el arranque, la terminal, rutas y cómo pedir ayuda. Gratis y abierto, en español.">
 <meta name="theme-color" content="#0C0E2C">
 <meta property="og:title" content="Linux desde cero · Capítulo 0: Introducción a Linux">
 <meta property="og:image" content="https://hackztlan.com/img/libro-portada.webp">
@@ -12,7 +12,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="../../img/pinguino.png">
 <link rel="stylesheet" href="libro.css?v=2">
-<link rel="stylesheet" href="leer.css?v=3">
+<link rel="stylesheet" href="leer.css?v=4">
 </head>
 <body class="leer">
 <div class="avance" aria-hidden="true"><b></b></div>
@@ -56,6 +56,12 @@
 <li><a href="#lo-que-sigue"><b>·</b>Lo que sigue</a></li>
   </ol>
   <button class="ver-clase chico" type="button" data-yt="UuTXOO-yXRk"><span>▶</span>Ver la Clase #0</button>
+  <p class="i-tit i-caps">Capítulos del libro</p>
+  <ol class="caps">
+<li><a class="aqui-cap" href="./" aria-current="page"><b>0</b>Introducción a Linux</a></li>
+<li><a href="1/"><b>1</b>Manejar archivos</a></li>
+<li><span class="pronto"><b>2</b>Permisos<small>pronto</small></span></li>
+  </ol>
 </nav>
 
 <main class="hoja">
@@ -310,7 +316,7 @@
 <span class="out">cfg80211             1368064  0</span>
 <span class="out">binfmt_misc            24576  1</span>
 <span class="out">intel_rapl_msr         20480  0</span></code></pre></div>
-<p>Muchos módulos son controladores. <code>cfg80211</code>, por ejemplo, es el que configura las tarjetas de red inalámbrica. En tu máquina los números y los nombres van a ser otros: ese es justo el chiste.</p>
+<p>Muchos módulos son controladores (el programa que sabe hablarle a un aparato concreto) y otros son piezas que los ayudan. <code>cfg80211</code>, por ejemplo, no es el controlador de ninguna tarjeta: es la pieza común que usan los controladores de red inalámbrica para configurarse. En tu máquina los números y los nombres van a ser otros: ese es justo el chiste.</p>
 <aside class="notas"><ol start="3"><li id="nota-3" value="3">Silberschatz et al. (2018); Tanenbaum y Bos (2023).</li><li id="nota-4" value="4">Ward (2021), cap. 1.</li><li id="nota-5" value="5">Arpaci-Dusseau y Arpaci-Dusseau (2023), cap. 2.</li><li id="nota-6" value="6">Linux man-pages project (s. f.-a).</li></ol></aside></section>
 
 <section class="s-dos-mundos-y-una-ventanilla" id="s3-dos-mundos-y-una-ventanilla">
@@ -1648,8 +1654,14 @@
 <section class="sigue-libro">
   <img class="pixel" src="img/tux-guerrero.svg" alt="">
   <h2>Sigue con el libro</h2>
-  <p>Este capítulo es abierto para todos. Los siguientes, uno por clase, llegan primero a los miembros de Patreon, cada uno con el video de su clase en MP4 y retos para practicar. Así el curso sigue gratis para todos.</p>
-  <p class="botones-libro"><a class="b-pat" href="https://www.patreon.com/HackztlanLAB" rel="noopener">Únete en Patreon</a><a class="b-sec" href="../linux-desde-cero-capitulo-0.pdf" download>Descargar este capítulo en PDF</a><a class="b-sec" href="/#curso">Ver el curso gratis</a></p>
+  <p>El libro es <b>gratis y abierto</b>: un capítulo por clase, y sale uno nuevo cada semana. Léelo aquí, descárgalo y compártelo.</p>
+  <nav class="entre-caps" aria-label="Otros capítulos">
+<span></span>
+<a class="cap-sig" href="1/"><small>Siguiente →</small>Cap. 1 · Manejar archivos</a>
+</nav>
+  <p class="botones-libro"><a class="b-sec" href="../linux-desde-cero-capitulo-0.pdf" download>Descargar este capítulo en PDF</a><a class="b-sec" href="/#curso">Ver el curso gratis</a></p>
+  <p class="apoyo">¿Te sirvió? Apoya para que siga gratis, en Patreon o con la suscripción de Facebook.</p>
+  <p class="botones-libro"><a class="b-sec b-apoyo" href="https://www.patreon.com/HackztlanLAB" rel="noopener">Apoyar en Patreon</a></p>
   <div class="lic">© Hackztlan Lab. Este libro se distribuye bajo la licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0). Puedes copiarlo, compartirlo y adaptarlo sin fines comerciales, dando crédito a Hackztlan Lab y conservando esta misma licencia. Para uso comercial, escríbenos por la página de Facebook de Hackztlan Lab.</div>
 </section>
 </main>

@@ -1,0 +1,1527 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Linux desde cero · Capítulo 1: Manejar archivos · Hackztlan Lab</title>
+<meta name="description" content="Capítulo 1 del libro Linux desde cero, para leer en línea: crear carpetas y archivos, mirarlos, editarlos con nano, copiar, mover y borrar sin miedo. Gratis y abierto, en español.">
+<meta name="theme-color" content="#0C0E2C">
+<meta property="og:title" content="Linux desde cero · Capítulo 1: Manejar archivos">
+<meta property="og:image" content="https://hackztlan.com/img/libro-portada.webp">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-src https://www.youtube-nocookie.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="../../../img/pinguino.png">
+<link rel="stylesheet" href="../libro.css?v=2">
+<link rel="stylesheet" href="../leer.css?v=4">
+</head>
+<body class="leer">
+<div class="avance" aria-hidden="true"><b></b></div>
+<header class="arriba">
+  <a class="marca" href="/"><img src="../../../img/pinguino.png" alt="" width="30" height="30"><span>Hack<b>ztlan</b> Lab</span></a>
+  <span class="donde">Linux desde cero · Cap. 1</span>
+  <button class="b-indice" type="button" aria-expanded="false" aria-controls="indice">Índice</button>
+  <a class="b-pdf" href="../../linux-desde-cero-capitulo-1.pdf" download>PDF</a>
+</header>
+
+<nav class="indice" id="indice" aria-label="Índice del capítulo">
+  <p class="i-tit">Capítulo 1 · Manejar archivos</p>
+  <ol>
+    <li><a href="#apertura"><b>·</b>Apertura</a></li>
+<li><a href="#antes-de-empezar"><b>·</b>Antes de empezar</a></li>
+<li><a href="#s1-tu-cuartel-general-mkdir-y-cd"><b>1</b>Tu cuartel general: mkdir y cd</a></li>
+<li><a href="#s2-varias-carpetas-de-un-jalon-y-lo-que-de-verdad-hace-p"><b>2</b>Varias carpetas de un jalón, y lo que de verdad hace -p</a></li>
+<li><a href="#s3-archivos-touch-echo-y-la-flecha"><b>3</b>Archivos: touch, echo y la flecha</a></li>
+<li><a href="#s4-mirar-lo-que-tienes-ls-lh-cat-y-el-arbol"><b>4</b>Mirar lo que tienes: ls -lh, cat y el árbol</a></li>
+<li><a href="#s5-editar-de-verdad-con-nano"><b>5</b>Editar de verdad con nano</a></li>
+<li><a href="#s6-copiar-con-cp"><b>6</b>Copiar con cp</a></li>
+<li><a href="#s7-mover-y-renombrar-con-mv"><b>7</b>Mover y renombrar con mv</a></li>
+<li><a href="#s8-borrar-con-respeto-rm"><b>8</b>Borrar con respeto: rm</a></li>
+<li><a href="#s9-el-nombre-y-el-archivo-no-son-lo-mismo"><b>9</b>El nombre y el archivo no son lo mismo</a></li>
+<li><a href="#s10-quien-entiende-el-asterisco"><b>10</b>Quién entiende el asterisco</a></li>
+<li><a href="#s11-llaves-muchos-nombres-de-un-jalon"><b>11</b>Llaves: muchos nombres de un jalón</a></li>
+<li><a href="#s12-lo-que-ya-existe-se-pisa-sin-avisar"><b>12</b>Lo que ya existe se pisa sin avisar</a></li>
+<li><a href="#s13-nombres-con-espacios-mayusculas-y-otras-rarezas"><b>13</b>Nombres con espacios, mayúsculas y otras rarezas</a></li>
+<li><a href="#s14-lo-que-contesta-y-lo-que-se-queja-y"><b>14</b>Lo que contesta y lo que se queja: &gt;, &gt;&gt; y |</a></li>
+<li><a href="#trucos-y-atajos"><b>·</b>Trucos y atajos</a></li>
+<li><a href="#errores-tipicos"><b>·</b>Errores típicos</a></li>
+<li><a href="#tu-turno"><b>·</b>Tu turno</a></li>
+<li><a href="#respuestas"><b>·</b>Respuestas</a></li>
+<li><a href="#lo-que-te-llevas"><b>·</b>Lo que te llevas</a></li>
+<li><a href="#para-los-curiosos"><b>·</b>Para los curiosos</a></li>
+<li><a href="#referencias"><b>·</b>Referencias</a></li>
+<li><a href="#para-saber-mas"><b>·</b>Para saber más</a></li>
+<li><a href="#lo-que-sigue"><b>·</b>Lo que sigue</a></li>
+  </ol>
+  <button class="ver-clase chico" type="button" data-yt="KGFi0O0WTfc"><span>▶</span>Ver la Clase #1</button>
+  <p class="i-tit i-caps">Capítulos del libro</p>
+  <ol class="caps">
+<li><a href="../"><b>0</b>Introducción a Linux</a></li>
+<li><a class="aqui-cap" href="./" aria-current="page"><b>1</b>Manejar archivos</a></li>
+<li><span class="pronto"><b>2</b>Permisos<small>pronto</small></span></li>
+  </ol>
+</nav>
+
+<main class="hoja">
+<div id="apertura">
+<section class="portadilla">
+<div class="cabeza">
+<div class="numero">1</div>
+<img class="mascota pixel" src="../img/tux-feliz.svg" alt="">
+<div class="etiqueta">Capítulo 1</div>
+<h1>Manejar archivos</h1>
+</div>
+<blockquote class="nota-entrada"><p>Acompaña a la Clase #1 del curso <em>Linux desde cero</em>.</p></blockquote>
+<div class="apertura-medio">
+<div class="apertura-qr"><button class="ver-clase" type="button" data-yt="KGFi0O0WTfc"><span>▶</span>Ver la Clase #1</button><p>El video que acompaña a este capítulo</p></div>
+<div class="objetivos"><h3>En este capítulo vas a aprender a:</h3>
+<ul>
+<li>Crear carpetas y archivos, y armar tu carpeta <code>trabajo</code>.</li>
+<li>Escribir en un archivo con <code>&gt;</code> y <code>&gt;&gt;</code> sin perder lo que había.</li>
+<li>Editar un archivo de texto con <code>nano</code>.</li>
+<li>Copiar, mover, renombrar y borrar sin sustos.</li>
+<li>Entender qué hace la shell con <code>*</code>, <code>{ }</code> y los espacios.</li>
+<li>Leer los mensajes de <code>mkdir</code>, <code>cp</code>, <code>mv</code> y <code>rm</code>.</li>
+</ul></div>
+</div>
+<div class="apertura-pie"><div class="dato"><h3>Necesitas:</h3>
+<p>El capítulo 0, o saber moverte con <code>pwd</code>, <code>ls</code> y <code>cd</code>. Una terminal de Linux a la mano: este capítulo es de hacer.</p></div>
+<div class="dato"><h3>Tiempo estimado</h3>
+<p>Hora y media con la terminal abierta, más media hora para <em>Tu turno</em>.</p></div></div>
+<aside class="ruta"><img class="pixel" src="../img/tux-cool.svg" alt=""><p><strong>Ruta rápida.</strong> ¿Ya usas <code>mkdir</code>, <code>cp</code>, <code>mv</code> y <code>rm</code> sin pensarlo? Lee la sección 2, el <em>No te confundas</em> de la 6, el <em>Truco</em> de la 7 y lo de <code>rmdir</code> en la 8. Luego salta a la 9 y, antes de teclear nada, pega la receta del recuadro que viene ahí: deja tu casa lista. Remata con <em>Trucos y atajos</em> y los retos.</p></aside>
+</section>
+</div>
+<article class="capitulo">
+<section class="s-antes-de-empezar" id="antes-de-empezar">
+<h2>Antes de empezar</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="0"><span>▶</span>En el video · <b>0:00</b> · ¿Dónde estoy?</button>
+<p>En el capítulo 0 aprendiste a mirar. Hoy vas a tocar: crear, copiar, mover y borrar. Es el capítulo en que la terminal deja de ser una ventana para asomarse y se vuelve una herramienta. También es el primero en que puedes perder algo de verdad, así que vamos a ir con calma en las partes filosas.</p>
+<p>Las secciones 1 a 8 siguen el video, paso por paso; de la 9 en adelante va lo que el video no alcanza a explicar. Al terminar la 8 hay un buen lugar para una pausa, y te dejo ahí unos ejercicios cortos para comprobar que vas bien.</p>
+<p>Los mismos tres acuerdos de siempre: teclea, no copies; equivócate a gusto; y lee lo que la terminal te contesta. Hoy le agrego un cuarto: <strong>antes de borrar o pisar algo, mira qué vas a borrar o pisar.</strong> En este capítulo te enseño cómo.</p>
+<p class="sigue">Todo lo que hagas vive en una carpeta nueva, <code>trabajo</code>, dentro de tu casa. Al terminar el capítulo se va a ver así, y así la vamos a encontrar al empezar el capítulo 2:</p>
+<figure id="fig-1-1">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 372" role="img" aria-label="Árbol de la carpeta trabajo al terminar el capítulo: documentos con apuntes.txt, fotos, lista.txt y tareas.txt; entrega con final.txt; proyectos con web; respaldos con notas.txt y pendientes.txt." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <!-- raíz -->
+  <rect x="250" y="8" width="160" height="42" rx="9" fill="#0C0E2C"/>
+  <text x="330" y="36" font-family="Consolas, 'Courier New', monospace" font-size="18" font-weight="700" text-anchor="middle" fill="#F0E6C8">~/trabajo/</text>
+  <circle cx="400" cy="17" r="4" fill="#A3E635"/>
+  <g stroke="#0C0E2C" stroke-width="3.5" fill="none" stroke-linecap="round">
+    <line x1="330" y1="50" x2="330" y2="72"/>
+    <line x1="85" y1="72" x2="575" y2="72"/>
+    <line x1="85" y1="72" x2="85" y2="92"/><line x1="248" y1="72" x2="248" y2="92"/>
+    <line x1="412" y1="72" x2="412" y2="92"/><line x1="575" y1="72" x2="575" y2="92"/>
+  </g>
+  <!-- carpetas de primer nivel -->
+  <g stroke="#0C0E2C" stroke-width="3" fill="#F0E6C8">
+    <rect x="12" y="92" width="146" height="34" rx="8"/>
+    <rect x="175" y="92" width="146" height="34" rx="8"/>
+    <rect x="339" y="92" width="146" height="34" rx="8"/>
+    <rect x="502" y="92" width="146" height="34" rx="8"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="16" font-weight="700" text-anchor="middle">
+    <text x="85" y="115">documentos/</text>
+    <text x="248" y="115">entrega/</text>
+    <text x="412" y="115">proyectos/</text>
+    <text x="575" y="115">respaldos/</text>
+  </g>
+  <!-- ramas -->
+  <g stroke="#0C0E2C" stroke-width="2.5" fill="none">
+    <line x1="30" y1="126" x2="30" y2="286"/>
+    <line x1="30" y1="160" x2="42" y2="160"/><line x1="30" y1="202" x2="42" y2="202"/><line x1="30" y1="244" x2="42" y2="244"/><line x1="30" y1="286" x2="42" y2="286"/>
+    <line x1="193" y1="126" x2="193" y2="160"/><line x1="193" y1="160" x2="205" y2="160"/>
+    <line x1="357" y1="126" x2="357" y2="160"/><line x1="357" y1="160" x2="369" y2="160"/>
+    <line x1="520" y1="126" x2="520" y2="202"/><line x1="520" y1="160" x2="532" y2="160"/><line x1="520" y1="202" x2="532" y2="202"/>
+  </g>
+  <!-- contenido -->
+  <g stroke="#0C0E2C" stroke-width="2.5">
+    <rect x="42" y="146" width="124" height="28" rx="6" fill="#FFFFFF"/>
+    <rect x="42" y="188" width="124" height="28" rx="6" fill="#F0E6C8"/>
+    <rect x="42" y="230" width="124" height="28" rx="6" fill="#FFFFFF"/>
+    <rect x="42" y="272" width="124" height="28" rx="6" fill="#FFFFFF"/>
+    <rect x="205" y="146" width="124" height="28" rx="6" fill="#FFFFFF"/>
+    <rect x="369" y="146" width="124" height="28" rx="6" fill="#F0E6C8"/>
+    <rect x="532" y="146" width="124" height="28" rx="6" fill="#FFFFFF"/>
+    <rect x="532" y="188" width="124" height="28" rx="6" fill="#FFFFFF"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="14.5" text-anchor="middle">
+    <text x="104" y="165">apuntes.txt</text>
+    <text x="104" y="207" font-weight="700">fotos/</text>
+    <text x="104" y="249">lista.txt</text>
+    <text x="104" y="291">tareas.txt</text>
+    <text x="267" y="165">final.txt</text>
+    <text x="431" y="165" font-weight="700">web/</text>
+    <text x="594" y="165">notas.txt</text>
+    <text x="594" y="207">pendientes.txt</text>
+  </g>
+  <!-- leyenda -->
+  <line x1="12" y1="322" x2="648" y2="322" stroke="#0C0E2C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="150" y="338" width="40" height="22" rx="5" fill="#F0E6C8" stroke="#0C0E2C" stroke-width="2.5"/>
+  <text x="200" y="355" font-size="14.5">carpeta (termina en /)</text>
+  <rect x="390" y="338" width="40" height="22" rx="5" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="2.5"/>
+  <text x="440" y="355" font-size="14.5">archivo</text>
+</svg>
+<figcaption><strong>Figura 1.1.</strong> Tu carpeta <code>trabajo</code> al terminar el capítulo: seis carpetas y seis archivos. Las carpetas van en hueso; los archivos, en blanco.</figcaption></figure>
+<p>Las salidas de este capítulo, como las del anterior, son reales: salieron de la misma máquina virtual con Ubuntu Server 24.04 LTS, en una sola corrida. Igual que antes, <code>ls</code> sale aquí con un nombre por renglón y sin colores, y los renglones que no caben en la página los parto y marco con ↵. Unas pocas salidas, las de <code>nano</code>, <code>rm -i</code> y <code>cp -i</code>, necesitan un teclado de verdad: esas las tomé de una terminal real, de 80 columnas, y en ellas <code>ls</code> sí acomoda en columnas, como en tu pantalla. Si tienes la 26.04 LTS, todo funciona igual; algunos mensajes de error de <code>cp</code>, <code>mv</code> o <code>rm</code> pueden estar redactados distinto, porque en esa versión esas herramientas vienen de una reescritura en el lenguaje Rust, como te conté en el capítulo 0. La forma de leerlos es la misma. Y en tu máquina van a cambiar las horas y algunos números, como los números de ficha de la sección 9: es normal. Lo que importa es cómo se leen, y eso no cambia.</p>
+<aside class="wsl"><img class="pixel" src="../img/tux-feliz.svg" alt=""><p><strong>Si tu casa no se parece a la de Ana.</strong> Este capítulo empieza en tu casa, <code>~</code>, y ahí crea la carpeta <code>trabajo</code>. Si llegaste directo aquí sin pasar por el capítulo 0, esta receta deja tu casa como la de Ana. Aquí sí pega en lugar de teclear: son seis renglones, uno por uno, cada uno con su <code>Enter</code>. Es segura. Si ya tenías <code>nota.txt</code> o <code>pendientes.txt</code> en <code>Documentos</code>, no los toca: Bash te avisa <code>cannot overwrite existing file</code> y sigue (ese seguro lo ves en la sección 12). Y si ya tenías una carpeta <code>trabajo</code> con cosas tuyas, el último renglón le cambia el nombre a <code>trabajo-viejo-</code> seguido de un número, sin meterla en ninguna otra; si no la tenías, no hace nada. Si se renombró, vas a ver esa <code>trabajo-viejo-…</code> en tus <code>ls</code>: es la tuya, y no estorba. Si al copiar del PDF los renglones se te juntan en uno solo, cópialos de uno en uno.</p>
+<div class="terminal copiar"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="cmd">cd ~ &amp;&amp; mkdir -p Documentos Descargas Imágenes</span>
+<span class="cmd">cd Documentos &amp;&amp; set -o noclobber</span>
+<span class="cmd">printf 'Hola, Linux.\nEsta es mi primera nota.\n' &gt; nota.txt</span>
+<span class="cmd">printf 'pendientes de la semana\n' &gt; pendientes.txt</span>
+<span class="cmd">set +o noclobber &amp;&amp; cd ~</span>
+<span class="cmd">test -d trabajo &amp;&amp; mv -T trabajo trabajo-viejo-$(date +%s)</span></code></pre></div></aside>
+<aside class="wsl"><img class="pixel" src="../img/tux-feliz.svg" alt=""><p><strong>Si usas WSL.</strong> Haz todo dentro de tu casa de Linux, la que te da <code>cd</code> a secas, y no en <code>/mnt/c</code>. Lo que está en <code>/mnt/c</code> son archivos de Windows vistos desde Linux, y ahí algunas cosas de este capítulo pueden portarse distinto. Si quieres ver tu carpeta <code>trabajo</code> con el Explorador de Windows, teclea <code>explorer.exe .</code> estando dentro de ella (con el punto al final, que quiere decir «aquí»).</p></aside>
+</section>
+
+<section class="s-tu-cuartel-general-mkdir-y-cd" id="s1-tu-cuartel-general-mkdir-y-cd">
+<h2><span class="num">1</span>Tu cuartel general: mkdir y cd</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="22"><span>▶</span>En el video · <b>0:22</b> · pwd, mkdir y cd</button>
+<p class="sigue">Primera regla antes de tocar nada: saber dónde estás parado. Ya la conoces:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">pwd</span>
+<span class="out">/home/ana</span></code></pre></div>
+<p class="sigue">En casa. Ahí vamos a crear la carpeta que nos acompaña todo el libro. Para crear carpetas el comando es <code>mkdir</code>, de <em>make directory</em>, «haz un directorio»:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">mkdir trabajo</span>
+<span class="prompt">ana@linux:~$</span> <span class="cmd">ls</span>
+<span class="out">Descargas</span>
+<span class="out">Documentos</span>
+<span class="out">Imágenes</span>
+<span class="out">trabajo</span></code></pre></div>
+<p class="sigue"><code>mkdir</code> no contestó nada. Ya sabes leer ese silencio: salió bien. <code>ls</code> lo confirma: ahí está <code>trabajo</code>, junto a las carpetas del capítulo 0. Ahora, a meterse:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">cd trabajo</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">pwd</span>
+<span class="out">/home/ana/trabajo</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cd ..</span>
+<span class="prompt">ana@linux:~$</span> <span class="cmd">pwd</span>
+<span class="out">/home/ana</span>
+<span class="prompt">ana@linux:~$</span> <span class="cmd">cd trabajo</span></code></pre></div>
+<p class="sigue">Léelo conmigo:</p>
+<ul>
+<li>El prompt cambió de <code>~</code> a <code>~/trabajo</code>: ya estás adentro, y <code>pwd</code> lo dice con la ruta completa.</li>
+<li><code>ls</code> no contestó nada porque la carpeta está vacía. Aquí el silencio no es «salió bien», es «no hay nada que enseñar». Las dos lecturas son buenas noticias.</li>
+<li><code>cd ..</code> sube un piso: los dos puntos son «la carpeta de arriba», como viste en el capítulo 0. Y <code>cd trabajo</code> te regresa. Si viste el video, este ida y vuelta era su primer «Tu turno».</li>
+</ul>
+<p>De aquí en adelante, casi todo el capítulo pasa con el prompt <code>ana@linux:~/trabajo$</code>. Si alguna vez un comando no te sale igual que a Ana, lo primero es mirar tu prompt: ¿estás en <code>trabajo</code>?</p>
+</section>
+
+<section class="s-varias-carpetas-de-un-jalon-y-lo-que-de-verdad-hace-p" id="s2-varias-carpetas-de-un-jalon-y-lo-que-de-verdad-hace-p">
+<h2><span class="num">2</span>Varias carpetas de un jalón, y lo que de verdad hace -p</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="144"><span>▶</span>En el video · <b>2:24</b> · mkdir -p: carpetas anidadas</button>
+<p class="sigue">Dentro de <code>trabajo</code> quiero cuatro cajones: <code>documentos</code>, <code>proyectos</code>, <code>fotos</code> y <code>respaldos</code>. Se pueden crear de uno en uno, o los cuatro en un solo comando, porque <code>mkdir</code> acepta varios nombres:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir documentos proyectos fotos respaldos</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls</span>
+<span class="out">documentos</span>
+<span class="out">fotos</span>
+<span class="out">proyectos</span>
+<span class="out">respaldos</span></code></pre></div>
+<p>Aquí tengo que corregir algo del video. En la clase lo hice con <code>mkdir -p documentos proyectos fotos respaldos</code>, y dije que el <code>-p</code> «crea toda la ruta sin quejarse». Lo que dije de <code>-p</code> es cierto, pero en ese ejemplo no hacía nada: con cuatro nombres sueltos, <code>mkdir</code> los crea igual con <code>-p</code> o sin él, como acabas de ver. El <code>-p</code> sirve para otra cosa, y vale la pena verla bien.</p>
+<p class="sigue">Primero, una carpeta dentro de otra. La diagonal separa una carpeta de la que tiene adentro:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir proyectos/web</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls proyectos</span>
+<span class="out">web</span></code></pre></div>
+<p class="sigue">Funcionó porque <code>proyectos</code> ya existía. Ahora Ana quiere guardar cosas por año y por mes, en <code>archivo/2026/enero</code>, y ninguna de esas tres carpetas existe todavía:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir archivo/2026/enero</span>
+<span class="out">mkdir: cannot create directory ‘archivo/2026/enero’: No such file or directory</span></code></pre></div>
+<p class="sigue">Léelo con cuidado, porque engaña. Habla <code>mkdir</code>, sobre <code>archivo/2026/enero</code>, y dice «no existe ese archivo o directorio». Pero claro que <code>enero</code> no existe: ¡eso es justo lo que le pedimos que creara! Lo que no existe es lo de <strong>en medio</strong>: <code>mkdir</code> solo crea el último eslabón de la ruta, y para crear <code>enero</code> necesita que <code>archivo/2026</code> ya esté ahí. Ahora sí, con <code>-p</code>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir -p archivo/2026/enero</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -R archivo</span>
+<span class="out">archivo:</span>
+<span class="out">2026</span>
+<span class="out"></span>
+<span class="out">archivo/2026:</span>
+<span class="out">enero</span>
+<span class="out"></span>
+<span class="out">archivo/2026/enero:</span></code></pre></div>
+<p><code>-p</code> viene de <em>parents</em>, «padres»: crea las carpetas de en medio que falten<sup class="llamada"><a href="#nota-1">1</a></sup>. <code>ls -R</code>, que te presento bien en la sección 4, lo comprueba: se crearon las tres, una dentro de otra.</p>
+<figure id="fig-1-2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" role="img" aria-label="Sin -p, mkdir archivo/2026/enero falla porque faltan archivo y 2026; con -p, mkdir crea las tres carpetas." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <g font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700">
+    <text x="18" y="28">mkdir archivo/2026/enero</text>
+    <text x="352" y="28">mkdir -p archivo/2026/enero</text>
+  </g>
+  <line x1="330" y1="8" x2="330" y2="292" stroke="#0C0E2C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- izquierda: escalones que faltan -->
+  <g stroke="#0C0E2C" stroke-width="3" fill="#FFFFFF" stroke-dasharray="7 5">
+    <rect x="22" y="196" width="170" height="44" rx="8"/>
+    <rect x="72" y="146" width="170" height="44" rx="8"/>
+    <rect x="122" y="96" width="170" height="44" rx="8"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="16" font-weight="700">
+    <text x="36" y="224">archivo</text>
+    <text x="86" y="174">2026</text>
+    <text x="136" y="124">enero</text>
+  </g>
+  <g font-size="14" font-style="italic">
+    <text x="128" y="224">falta</text>
+    <text x="150" y="174">falta</text>
+    <text x="190" y="124">no se crea</text>
+  </g>
+  <line x1="296" y1="104" x2="312" y2="132" stroke="#E21EC8" stroke-width="4"/>
+  <line x1="312" y1="104" x2="296" y2="132" stroke="#E21EC8" stroke-width="4"/>
+  <text x="22" y="268" font-size="14.5">sin -p solo pone el último escalón,</text>
+  <text x="22" y="287" font-size="14.5">y necesita que los de abajo ya estén</text>
+  <!-- derecha: con -p -->
+  <g stroke="#0C0E2C" stroke-width="3">
+    <rect x="356" y="196" width="170" height="44" rx="8" fill="#F0E6C8"/>
+    <rect x="406" y="146" width="170" height="44" rx="8" fill="#F0E6C8"/>
+    <rect x="456" y="96" width="170" height="44" rx="8" fill="#2DD4BF"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="16" font-weight="700">
+    <text x="370" y="224">archivo</text>
+    <text x="420" y="174">2026</text>
+    <text x="470" y="124">enero</text>
+  </g>
+  <g font-size="14" font-style="italic">
+    <text x="458" y="224">creada</text>
+    <text x="490" y="174">creada</text>
+    <text x="540" y="124">creada</text>
+  </g>
+  <text x="356" y="268" font-size="14.5">con -p crea las de en medio que falten</text>
+  <text x="356" y="287" font-size="14.5">(y no se queja si ya existen)</text>
+</svg>
+<figcaption><strong>Figura 1.2.</strong> Sin <code>-p</code>, <code>mkdir</code> solo pone el último escalón y necesita que los de abajo ya estén. Con <code>-p</code>, pone los que falten.</figcaption></figure>
+<p class="sigue">La otra mitad de <code>-p</code> es «sin quejarse si ya existe»:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir fotos</span>
+<span class="out">mkdir: cannot create directory ‘fotos’: File exists</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir -p fotos</span></code></pre></div>
+<p>Sin <code>-p</code>, <code>mkdir</code> avisa que ya hay algo llamado <code>fotos</code>. Con <code>-p</code> se queda callado: tú querías que existiera, y ya existe. Por eso <code>-p</code> es tan común en recetas y scripts: se puede correr dos veces sin errores. Y por eso la receta de <em>Antes de empezar</em> lo usa: si ya tenías <code>Documentos</code>, no se queja ni toca lo que hay adentro.</p>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «<code>-p</code> crea varias carpetas a la vez». No: eso lo hace <code>mkdir</code> solo, con varios nombres. <code>-p</code> hace dos cosas: crea las carpetas <strong>de en medio</strong> que falten y no se queja si la carpeta ya existe. Y un detalle de las comillas: en el sistema de Ana, los errores de <code>mkdir</code> citan los nombres con comillas curvas, <code>‘fotos’</code>, y casi todo lo demás, con rectas. Depende del idioma del sistema; no es error de imprenta.</p></aside>
+<aside class="notas"><ol start="1"><li id="nota-1" value="1">Free Software Foundation (s. f.-c).</li></ol></aside></section>
+
+<section class="s-archivos-touch-echo-y-la-flecha" id="s3-archivos-touch-echo-y-la-flecha">
+<h2><span class="num">3</span>Archivos: touch, echo y la flecha</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="189"><span>▶</span>En el video · <b>3:09</b> · touch y echo >: crear archivos</button>
+<p class="sigue">Carpetas ya hay. Ahora, archivos. La forma más rápida de crear uno vacío es <code>touch</code>, «tocar»:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">touch documentos/lista.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -l documentos</span>
+<span class="out">total 0</span>
+<span class="out">-rw-rw-r-- 1 ana ana 0 Nov 15 05:<wbr>13 lista.txt</span></code></pre></div>
+<p>El <code>0</code> antes de la fecha es el tamaño: cero bytes, vacío. En el video dije que lo tocas y, si no existe, nace. Es cierto, pero es la mitad de la historia: el trabajo principal de <code>touch</code> es poner al día la fecha de un archivo, y crearlo vacío es lo que hace cuando no existe<sup class="llamada"><a href="#nota-2">2</a></sup>. Si se lo haces a un archivo que ya existe, no le cambia el contenido: solo le pone la hora de ahora. Si te pica la curiosidad, en <em>Para los curiosos</em> están las tres fechas que guarda cada archivo.</p>
+<p class="sigue">Muchas veces quieres que el archivo nazca con algo escrito. Para eso está <code>echo</code>, «eco»: repite lo que le das. Solo, lo repite en la pantalla. Con una flecha, <code>&gt;</code>, lo repite <strong>dentro de un archivo</strong>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">echo "mis apuntes" &gt; documentos/notas.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cat documentos/notas.txt</span>
+<span class="out">mis apuntes</span></code></pre></div>
+<p>El primer comando no enseñó nada en la pantalla, porque lo que iba a decir se fue al archivo. El segundo lo comprueba. A ese cambio de rumbo se le llama <strong>redirección</strong>, y quien lo hace no es <code>echo</code>: es la shell, que prepara la flecha antes de arrancar el comando. <code>echo</code> ni se entera de que su respuesta no va a la pantalla. En la sección 14 lo vemos a fondo.</p>
+<p class="sigue">Ahora, el detalle que más trabajo cuesta, y la razón de esta sección. Ana anota su primer pendiente y luego otro:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">echo "comprar pan" &gt; documentos/tareas.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cat documentos/tareas.txt</span>
+<span class="out">comprar pan</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">echo "pagar la luz" &gt; documentos/tareas.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cat documentos/tareas.txt</span>
+<span class="out">pagar la luz</span></code></pre></div>
+<p class="sigue">¿Y el pan? Se perdió. Una sola flecha, <code>&gt;</code>, <strong>primero vacía el archivo</strong> y luego escribe; si el archivo ya tenía algo, lo borra sin preguntar y sin avisar<sup class="llamada"><a href="#nota-3">3</a></sup>. Para agregar al final sin tocar lo que hay, son dos flechas, <code>&gt;&gt;</code>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">echo "comprar pan" &gt;&gt; documentos/tareas.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cat documentos/tareas.txt</span>
+<span class="out">pagar la luz</span>
+<span class="out">comprar pan</span></code></pre></div>
+<p>Ahora sí, dos renglones: el de antes y el nuevo, abajo.</p>
+<figure id="fig-1-3">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 290" role="img" aria-label="Con una flecha, echo vacía tareas.txt y escribe: se pierde comprar pan. Con dos flechas, agrega abajo: quedan los dos renglones." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <!-- fila 1: > -->
+  <text x="10" y="25" font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700">&gt;</text>
+  <text x="34" y="23" font-size="15" font-weight="700">vacía y escribe</text>
+  <path d="M14 40 h140 l16 16 v62 h-156 z" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="24" y="70" font-family="Consolas, 'Courier New', monospace" font-size="14">comprar pan</text>
+  <text x="92" y="140" font-size="14" font-style="italic" text-anchor="middle">antes</text>
+  <rect x="190" y="58" width="280" height="40" rx="8" fill="#E21EC8" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="330" y="83" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle" fill="#FFFFFF">echo "pagar la luz" &gt; tareas.txt</text>
+  <line x1="170" y1="78" x2="190" y2="78" stroke="#0C0E2C" stroke-width="3"/>
+  <line x1="470" y1="78" x2="478" y2="78" stroke="#0C0E2C" stroke-width="3"/>
+  <polygon points="476,70 490,78 476,86"/>
+  <path d="M490 40 h140 l16 16 v62 h-156 z" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="500" y="70" font-family="Consolas, 'Courier New', monospace" font-size="14">pagar la luz</text>
+  <text x="568" y="140" font-size="14" font-style="italic" text-anchor="middle">después: el pan se perdió</text>
+  <line x1="10" y1="156" x2="650" y2="156" stroke="#0C0E2C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- fila 2: >> -->
+  <text x="10" y="184" font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700">&gt;&gt;</text>
+  <text x="46" y="182" font-size="15" font-weight="700">agrega al final</text>
+  <path d="M14 200 h140 l16 16 v62 h-156 z" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="24" y="230" font-family="Consolas, 'Courier New', monospace" font-size="14">pagar la luz</text>
+  <rect x="190" y="218" width="280" height="40" rx="8" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="330" y="243" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle">echo "comprar pan" &gt;&gt; tareas.txt</text>
+  <line x1="170" y1="238" x2="190" y2="238" stroke="#0C0E2C" stroke-width="3"/>
+  <line x1="470" y1="238" x2="478" y2="238" stroke="#0C0E2C" stroke-width="3"/>
+  <polygon points="476,230 490,238 476,246"/>
+  <path d="M490 200 h140 l16 16 v62 h-156 z" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="500" y="230" font-family="Consolas, 'Courier New', monospace" font-size="14">pagar la luz</text>
+  <text x="500" y="252" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700">comprar pan</text>
+  <rect x="498" y="257" width="96" height="4" fill="#A3E635"/>
+</svg>
+<figcaption><strong>Figura 1.3.</strong> <code>&gt;</code> tira lo que había y escribe; <code>&gt;&gt;</code> escribe abajo de lo que había. Si dudas, usa <code>&gt;&gt;</code>: lo peor que pasa es un renglón de más.</figcaption></figure>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «La flecha es para mandar cosas a un archivo nuevo». También a uno que ya existe, y ahí está el peligro: <code>&gt;</code> no distingue. Si el archivo existe, lo vacía. Si te equivocaste de nombre y le diste a uno importante, se fue. En la sección 12 te enseño a ponerle un seguro.</p></aside>
+<aside class="notas"><ol start="2"><li id="nota-2" value="2">Free Software Foundation (s. f.-g).</li><li id="nota-3" value="3">Fox y Ramey (s. f.).</li></ol></aside></section>
+
+<section class="s-mirar-lo-que-tienes-ls-lh-cat-y-el-arbol" id="s4-mirar-lo-que-tienes-ls-lh-cat-y-el-arbol">
+<h2><span class="num">4</span>Mirar lo que tienes: ls -lh, cat y el árbol</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="254"><span>▶</span>En el video · <b>4:14</b> · ls, cat y tree: ver lo que hay</button>
+<p class="sigue">Antes de seguir moviendo cosas hay que saber mirar. Ya conoces <code>ls -l</code>; con la <code>h</code> de <em>human</em> los tamaños salen en K y M, para humanos:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -lh documentos</span>
+<span class="out">total 8.0K</span>
+<span class="out">-rw-rw-r-- 1 ana ana  0 Nov 15 05:<wbr>13 lista.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 12 Nov 15 05:<wbr>13 notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 25 Nov 15 05:<wbr>13 tareas.txt</span></code></pre></div>
+<p class="sigue">Los permisos del principio, <code>-rw-rw-r--</code>, los desarmamos en el capítulo 2; hoy fíjate en el guion inicial, que ya sabes leer: son archivos normales. Lo nuevo está en los números:</p>
+<ul>
+<li><code>lista.txt</code> pesa 0 bytes: es la que hizo <code>touch</code>, vacía.</li>
+<li><code>notas.txt</code> y <code>tareas.txt</code> pesan lo que sus letras y espacios, más un carácter invisible de fin de renglón por cada renglón: 12 y 25 bytes.</li>
+<li><code>total 8.0K</code> no es la suma de los tamaños: es lo que ocupan en el disco, que reparte el espacio en bloques de 4 K. Cada archivo con algo adentro ocupa por lo menos un bloque entero, como una caja de zapatos ocupa su lugar en el clóset aunque traiga un solo calcetín: 4 K de <code>notas.txt</code> más 4 K de <code>tareas.txt</code>. El vacío no ocupa bloque. Cuánto ocupa una carpeta entera y cuánto le queda libre al disco lo miden <code>du</code> y <code>df</code>, en el capítulo 8.</li>
+</ul>
+<p class="sigue">Para ver todo <code>trabajo</code> de un vistazo, en el video uso <code>tree</code>, «árbol». En el Ubuntu Server de Ana no viene instalado, y esto es lo que contesta:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">tree</span>
+<span class="out">Command 'tree' not found, but can be installed with:</span>
+<span class="out">sudo snap install tree  # version 2.1.3+pkg-5852, or</span>
+<span class="out">sudo apt  install tree  # version 2.1.1-2ubuntu3.24.04.2</span>
+<span class="out">See 'snap info tree' for additional versions.</span></code></pre></div>
+<p class="sigue">Es el ayudante de Ubuntu que conociste en el capítulo 0: no encontró el comando y te dice cómo instalarlo. No lo instales todavía; instalar programas es el capítulo 5, y ahí lo hacemos con calma. Mientras, <code>ls -R</code> hace casi lo mismo. La <code>R</code> es de <em>recursive</em>, «recursivo»: enlista una carpeta, luego cada carpeta que tenga adentro, y así hasta el fondo:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -R</span>
+<span class="out">.:</span>
+<span class="out">archivo</span>
+<span class="out">documentos</span>
+<span class="out">fotos</span>
+<span class="out">proyectos</span>
+<span class="out">respaldos</span>
+<span class="out"></span>
+<span class="out">./archivo:</span>
+<span class="out">2026</span>
+<span class="out"></span>
+<span class="out">./archivo/2026:</span>
+<span class="out">enero</span>
+<span class="out"></span>
+<span class="out">./archivo/2026/enero:</span>
+<span class="out"></span>
+<span class="out">./documentos:</span>
+<span class="out">lista.txt</span>
+<span class="out">notas.txt</span>
+<span class="out">tareas.txt</span>
+<span class="out"></span>
+<span class="out">./fotos:</span>
+<span class="out"></span>
+<span class="out">./proyectos:</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">./proyectos/web:</span>
+<span class="out"></span>
+<span class="out">./respaldos:</span></code></pre></div>
+<p>Se lee por bloques. Cada bloque empieza con el nombre de una carpeta y dos puntos, y abajo trae lo que hay en ella. <code>.</code> es la carpeta donde estás, <code>trabajo</code>; <code>./documentos</code> es <code>documentos</code> vista desde aquí. Un bloque sin nada abajo, como <code>./fotos:</code>, es una carpeta vacía. Es menos bonito que <code>tree</code>, pero dice lo mismo, y viene en cualquier Linux.</p>
+<aside class="truco"><img class="pixel" src="../img/tux-cool.svg" alt=""><p><strong>Truco.</strong> <code>ls -R</code> con una carpeta grande es un chorro interminable. Ponle una tubería y <code>head</code>, como en el capítulo 0: <code>ls -R | head -n 20</code> te enseña solo los primeros veinte renglones.</p></aside>
+</section>
+
+<section class="s-editar-de-verdad-con-nano" id="s5-editar-de-verdad-con-nano">
+<h2><span class="num">5</span>Editar de verdad con nano</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="333"><span>▶</span>En el video · <b>5:33</b> · nano: editar un archivo</button>
+<p class="sigue"><code>echo</code> sirve para un renglón. Para escribir de verdad hace falta un editor, y el más amable para empezar es <code>nano</code>. Viene en Ubuntu, también en el servidor. Se abre con el nombre del archivo:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">nano documentos/notas.txt</span></code></pre></div>
+<p class="sigue">La terminal se vuelve el editor. Esto es lo que ve Ana, recortado (en medio hay renglones vacíos, que quité y marqué con <code>…</code>):</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="out">  GNU nano 7.2                  documentos/notas.txt</span>
+<span class="out">mis apuntes</span>
+<span class="out">…</span>
+<span class="out">                                [ Read 1 line ]</span>
+<span class="out">^G Help      ^O Write Out ^W Where Is  ^K Cut       ^T Execute   ^C Location</span>
+<span class="out">^X Exit      ^R Read File ^\ Replace   ^U Paste     ^J Justify   ^/ Go To Line</span></code></pre></div>
+<p>Arriba, la versión y el nombre del archivo. En medio, el contenido: el renglón que puso <code>echo</code>. Abajo, un aviso, <code>[ Read 1 line ]</code>, «leí un renglón», y dos renglones de atajos. El signo <code>^</code> quiere decir la tecla <code>Ctrl</code>: <code>^X</code> es <code>Ctrl+X</code>. (Más adelante verás también <code>M-</code>, que es la tecla <code>Alt</code>: <code>M-A</code> es <code>Alt+A</code>.) Y no hay ratón ni menús: se escribe con el teclado y se mueve uno con las flechas.</p>
+<p>Ana baja con la flecha <code>↓</code> al segundo renglón y escribe dos más. En cuanto cambia algo, aparece un asterisco junto al nombre, arriba: hay cambios sin guardar.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="out">  GNU nano 7.2                  documentos/notas.txt *</span>
+<span class="out">mis apuntes</span>
+<span class="out">Linux es libre</span>
+<span class="out">la terminal no muerde</span>
+<span class="out">…</span></code></pre></div>
+<p class="sigue">Para guardar, <code>Ctrl+O</code>, <em>Write Out</em>, «escribir». <code>nano</code> pregunta con qué nombre, y ya trae puesto el mismo:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="out">File Name to Write: documentos/notas.txt</span>
+<span class="out">^G Help             M-D DOS Format      M-A Append          M-B Backup File</span>
+<span class="out">^C Cancel           M-M Mac Format      M-P Prepend         ^T Browse</span></code></pre></div>
+<p>Con <code>Enter</code> acepta el nombre y guarda. El aviso de abajo lo confirma, y el asterisco de arriba desaparece. (Si al final del texto le diste un <code>Enter</code> de más, te va a decir <code>Wrote 4 lines</code>: el cuarto es un renglón vacío, y no pasa nada.)</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="out">                               [ Wrote 3 lines ]</span></code></pre></div>
+<p class="sigue">Para salir, <code>Ctrl+X</code>, <em>Exit</em>. Vuelves a la shell y lo compruebas, como siempre:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cat documentos/notas.txt</span>
+<span class="out">mis apuntes</span>
+<span class="out">Linux es libre</span>
+<span class="out">la terminal no muerde</span></code></pre></div>
+<aside class="truco"><img class="pixel" src="../img/tux-cool.svg" alt=""><p><strong>Truco.</strong> Si le das <code>Ctrl+X</code> con cambios sin guardar, <code>nano</code> no te deja ir sin preguntar: <code>Save modified buffer?</code>, «¿guardar el texto modificado?». Le contestas con una letra: <code>Y</code> para guardar (y luego <code>Enter</code> para aceptar el nombre), <code>N</code> para salir sin guardar, o <code>Ctrl+C</code> para cancelar y seguir editando. Es la salida de emergencia cuando ya no sabes qué tocaste: <code>Ctrl+X</code> y <code>N</code>.</p></aside>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «Me salió una pantalla rara y no puedo salir». Si abajo ves <code>^X Exit</code>, estás en <code>nano</code>: <code>Ctrl+X</code>. Si abajo ves dos puntos o <code>(END)</code>, estás en el lector del manual del capítulo 0: <code>q</code>. Cada programa que toma toda la pantalla te dice, casi siempre en el renglón de abajo, cómo salir de él.</p></aside>
+</section>
+
+<section class="s-copiar-con-cp" id="s6-copiar-con-cp">
+<h2><span class="num">6</span>Copiar con cp</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="392"><span>▶</span>En el video · <b>6:32</b> · cp: copiar (y -r)</button>
+<p class="sigue">Copiar es <code>cp</code>, de <em>copy</em>. La regla es siempre la misma: <strong>primero qué, luego a dónde</strong><sup class="llamada"><a href="#nota-4">4</a></sup>. Ana respalda sus notas en <code>respaldos</code>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp documentos/notas.txt respaldos/</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls respaldos</span>
+<span class="out">notas.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls documentos</span>
+<span class="out">lista.txt</span>
+<span class="out">notas.txt</span>
+<span class="out">tareas.txt</span></code></pre></div>
+<p class="sigue">Como el destino es una carpeta que existe, la copia se mete ahí con el mismo nombre. Y el segundo <code>ls</code> enseña lo que más confunde al principio: copiar <strong>no</strong> quita el original. <code>notas.txt</code> sigue en <code>documentos</code>; ahora hay dos. La diagonal al final de <code>respaldos/</code> no es obligatoria, pero es buena costumbre: dice «esto es una carpeta», y en la sección 7 vas a ver que, cuando copias o mueves un archivo, sirve de seguro. Copiar <code>lista.txt</code> a respaldos, que en el video era un «Tu turno», se hace igual:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp documentos/lista.txt respaldos/</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls respaldos</span>
+<span class="out">lista.txt</span>
+<span class="out">notas.txt</span></code></pre></div>
+<p class="sigue">Ahora, una carpeta entera:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp proyectos proyectos-copia</span>
+<span class="out">cp: -r not specified; omitting directory 'proyectos'</span></code></pre></div>
+<p>En el video dije que «se queja». Vale la pena leer bien la queja, porque es de las que parecen aviso y no fracaso: «no especificaste <code>-r</code>; me salto la carpeta <code>proyectos</code>». <em>Omitting</em> es «omitir»: <code>cp</code> no copió nada. Si no lo lees, puedes creer que ya tienes tu copia. Para las carpetas hace falta <code>-r</code>, de <em>recursive</em>: copia la carpeta y todo lo que tenga adentro, hasta el fondo.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp -r proyectos proyectos-copia</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -R proyectos-copia</span>
+<span class="out">proyectos-copia:</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/web:</span></code></pre></div>
+<p>La carpeta completa, clonada: <code>proyectos-copia</code> con su <code>web</code> adentro.</p>
+<p class="sigue">Y una trampa que el video no enseña. Si Ana teclea el mismo comando otra vez, por ejemplo con la flecha <code>↑</code> sin darse cuenta:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp -r proyectos proyectos-copia</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -R proyectos-copia</span>
+<span class="out">proyectos-copia:</span>
+<span class="out">proyectos</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/proyectos:</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/proyectos/web:</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/web:</span></code></pre></div>
+<p>Mismo comando, otro resultado. La primera vez <code>proyectos-copia</code> no existía, y <code>cp</code> la creó como copia de <code>proyectos</code>. La segunda vez ya existía, y la regla de siempre dice: si el destino es una carpeta que existe, la copia se mete <strong>adentro</strong>. Por eso ahora hay una <code>proyectos</code> dentro de <code>proyectos-copia</code>. No se perdió nada, pero quedó un tiradero. Lo arreglamos en la sección 8.</p>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> <code>cp a b</code> hace cosas distintas según qué sea <code>b</code>. Si <code>b</code> no existe, la copia se llama <code>b</code>. Si <code>b</code> es una carpeta que existe, la copia queda dentro de <code>b</code> con su nombre de siempre. Y si <code>b</code> es un <strong>archivo</strong> que existe, lo pisa sin preguntar: lo ves en la sección 12.</p></aside>
+<aside class="notas"><ol start="4"><li id="nota-4" value="4">Free Software Foundation (s. f.-a).</li></ol></aside></section>
+
+<section class="s-mover-y-renombrar-con-mv" id="s7-mover-y-renombrar-con-mv">
+<h2><span class="num">7</span>Mover y renombrar con mv</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="451"><span>▶</span>En el video · <b>7:31</b> · mv: mover y renombrar</button>
+<p>Mover y renombrar son el mismo comando, <code>mv</code>, de <em>move</em>. Su propio manual se presenta así: «mover (renombrar) archivos»<sup class="llamada"><a href="#nota-5">5</a></sup>. Primero, mover: Ana decide que las fotos van dentro de documentos.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mv fotos documentos/</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls</span>
+<span class="out">archivo</span>
+<span class="out">documentos</span>
+<span class="out">proyectos</span>
+<span class="out">proyectos-copia</span>
+<span class="out">respaldos</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls documentos</span>
+<span class="out">fotos</span>
+<span class="out">lista.txt</span>
+<span class="out">notas.txt</span>
+<span class="out">tareas.txt</span></code></pre></div>
+<p class="sigue"><code>fotos</code> ya no está en <code>trabajo</code>: ahora cuelga de <code>documentos</code>. A diferencia de <code>cp</code>, <code>mv</code> no deja copia. Y ahora, renombrar. Es «mover» un archivo a la misma carpeta con otro nombre:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mv documentos/notas.txt documentos/apuntes.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls documentos</span>
+<span class="out">apuntes.txt</span>
+<span class="out">fotos</span>
+<span class="out">lista.txt</span>
+<span class="out">tareas.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cat documentos/apuntes.txt</span>
+<span class="out">mis apuntes</span>
+<span class="out">Linux es libre</span>
+<span class="out">la terminal no muerde</span></code></pre></div>
+<p class="sigue"><code>notas.txt</code> ya no está; está <code>apuntes.txt</code>, con el mismo contenido. ¿Por qué mover y renombrar son lo mismo? Porque, por dentro, son exactamente la misma operación: cambiar en qué lista está apuntado un nombre. Te lo enseño con pruebas en la sección 9. Renombrar la lista de respaldos, otro «Tu turno» del video (no tiene nada que ver con el <code>pendientes.txt</code> de <code>~/Documentos</code>: mismo nombre, otra carpeta):</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mv respaldos/lista.txt respaldos/pendientes.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls respaldos</span>
+<span class="out">notas.txt</span>
+<span class="out">pendientes.txt</span></code></pre></div>
+<aside class="truco"><img class="pixel" src="../img/tux-cool.svg" alt=""><p><strong>Truco.</strong> Cuando muevas un <strong>archivo</strong> a una carpeta, termínala con diagonal: <code>mv informe.txt respaldo/</code>. Si <code>respaldo</code> no existe, o escribiste mal el nombre, <code>mv</code> se detiene con un error (<code>Not a directory</code>) en lugar de hacer otra cosa. Sin la diagonal, <code>mv</code> entiende «renómbralo a <code>respaldo</code>», y tu informe cambia de nombre sin moverse a ningún lado. Ese accidente, con su salida real, es el reto 13 de <em>Tu turno</em>.</p>
+<p>Ojo: este seguro solo funciona cuando lo que mueves es un archivo. Si mueves una <strong>carpeta</strong> a <code>respaldo/</code> y <code>respaldo</code> no existe, <code>mv</code> la renombra igual, con diagonal o sin ella, y callado. Para los dos casos, el seguro es <code>-t</code>, «a esta carpeta», que pone el destino primero: <code>mv -t respaldo fotos</code> se niega con <code>target directory 'respaldo': No such file or directory</code> si <code>respaldo</code> no existe. <code>cp</code> también lo tiene: <code>cp -t respaldo informe.txt</code>.</p></aside>
+<aside class="notas"><ol start="5"><li id="nota-5" value="5">Free Software Foundation (s. f.-d).</li></ol></aside></section>
+
+<section class="s-borrar-con-respeto-rm" id="s8-borrar-con-respeto-rm">
+<h2><span class="num">8</span>Borrar con respeto: rm</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="516"><span>▶</span>En el video · <b>8:36</b> · rm: borrar (y el peligro de -rf)</button>
+<p class="sigue">Y la más filosa: borrar. El comando es <code>rm</code>, de <em>remove</em>, «quitar»:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">touch borrame.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls</span>
+<span class="out">archivo</span>
+<span class="out">borrame.txt</span>
+<span class="out">documentos</span>
+<span class="out">proyectos</span>
+<span class="out">proyectos-copia</span>
+<span class="out">respaldos</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rm borrame.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls</span>
+<span class="out">archivo</span>
+<span class="out">documentos</span>
+<span class="out">proyectos</span>
+<span class="out">proyectos-copia</span>
+<span class="out">respaldos</span></code></pre></div>
+<p><code>rm</code> no preguntó ni avisó: callado, como todo lo que sale bien. Y aquí va lo serio. En la terminal <strong>no hay papelera</strong>. No hay carpeta de donde regresarlo ni botón de deshacer. La papelera de los escritorios es un programa que, en vez de borrar, mueve a una carpeta escondida; <code>rm</code> no pasa por ahí. Por qué no hay papelera, de raíz, te lo cuento en la sección 9.</p>
+<p class="sigue">Ahora, el tiradero de la sección 6. <code>rm</code> a secas no quita carpetas<sup class="llamada"><a href="#nota-6">6</a></sup>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rm proyectos-copia</span>
+<span class="out">rm: cannot remove 'proyectos-copia': Is a directory</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rmdir proyectos-copia</span>
+<span class="out">rmdir: failed to remove 'proyectos-copia': Directory not empty</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rm -r proyectos-copia</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rm -r archivo</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls</span>
+<span class="out">documentos</span>
+<span class="out">proyectos</span>
+<span class="out">respaldos</span></code></pre></div>
+<p class="sigue">Tres intentos, tres lecturas:</p>
+<ul>
+<li><code>rm</code> dice «es un directorio»: no quita carpetas si no se lo pides.</li>
+<li><code>rmdir</code>, <em>remove directory</em>, sí quita carpetas, pero solo <strong>vacías</strong>. Dice «la carpeta no está vacía», y no borra nada. Ese es su seguro: si <code>rmdir</code> se queja, es que adentro hay algo que tal vez no quieres perder. Mira qué es antes de seguir.</li>
+<li><code>rm -r</code>, recursivo otra vez, se lleva la carpeta con todo lo que tenga adentro. Ana quitó <code>proyectos-copia</code> y, de paso, <code>archivo</code>, que ya no necesita.</li>
+</ul>
+<p class="sigue">La red de seguridad es <code>-i</code>, de <em>interactive</em>: pregunta antes de cada borrado. Esto hay que verlo con un teclado de verdad, porque espera tu respuesta:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">touch borrame.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rm -i borrame.txt</span>
+<span class="out">rm: remove regular empty file 'borrame.txt'? n</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls borrame.txt</span>
+<span class="out">borrame.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">rm -i borrame.txt</span>
+<span class="out">rm: remove regular empty file 'borrame.txt'? y</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls borrame.txt</span>
+<span class="out">ls: cannot access 'borrame.txt': No such file or directory</span></code></pre></div>
+<p><code>rm</code> pregunta «¿quito el archivo normal vacío <code>borrame.txt</code>?». La primera vez Ana contestó <code>n</code>, de <em>no</em>, y el archivo sigue ahí. La segunda contestó <code>y</code>, de <em>yes</em>, y ya no está. En el video la pregunta aparece como «¿borrar? (s/n)»; en un sistema en inglés, como el de Ana, la pregunta sale en inglés y el «sí» se contesta con <code>y</code>. Una <code>s</code> no cuenta como sí: si tu sistema está en español, la pregunta te va a salir traducida, y la respuesta que vale es la que te pida.</p>
+<p>Y la advertencia del video, con su explicación. <code>rm -rf</code> junta <code>-r</code>, recursivo, con <code>-f</code>, de <em>force</em>, «forzar»: no pregunta nunca y no se queja si algo no existe. Es la combinación que borra un árbol entero sin decir una palabra. Tiene usos legítimos (borrar de un jalón una carpeta de pruebas tuya, que sabes exactamente qué tiene), pero la regla es sencilla: <strong>nunca <code>rm -rf</code> en una ruta que no entiendas completa</strong>, y menos si la copiaste de internet.</p>
+<aside class="servidor"><img class="pixel" src="../img/tux-guerrero.svg" alt=""><p><strong>En un servidor real.</strong> Nadie que lleve tiempo administrando servidores borra a ciegas. Tres costumbres: antes de <code>rm</code>, el mismo renglón con <code>ls</code> en su lugar, para ver qué agarra (en la sección 10 te enseño otra lupa, <code>echo</code>); en vez de borrar algo que no conoces, moverlo a una carpeta de cuarentena con <code>mv</code> y borrarlo días después, cuando nada se haya quejado; y los respaldos, que son lo único que de verdad deshace un <code>rm</code>. Copias y respaldos los retomamos en el capítulo 7.</p></aside>
+<h3>El reto final del video</h3>
+<p class="sigue">En la clase el reto era: crear <code>entrega</code>, copiar ahí <code>documentos/apuntes.txt</code>, renombrar la copia a <code>final.txt</code> y verificar. Así le quedó a Ana:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir entrega</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp documentos/apuntes.txt entrega/</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mv entrega/apuntes.txt entrega/final.txt</span>
+<span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -R</span>
+<span class="out">.:</span>
+<span class="out">documentos</span>
+<span class="out">entrega</span>
+<span class="out">proyectos</span>
+<span class="out">respaldos</span>
+<span class="out"></span>
+<span class="out">./documentos:</span>
+<span class="out">apuntes.txt</span>
+<span class="out">fotos</span>
+<span class="out">lista.txt</span>
+<span class="out">tareas.txt</span>
+<span class="out"></span>
+<span class="out">./documentos/fotos:</span>
+<span class="out"></span>
+<span class="out">./entrega:</span>
+<span class="out">final.txt</span>
+<span class="out"></span>
+<span class="out">./proyectos:</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">./proyectos/web:</span>
+<span class="out"></span>
+<span class="out">./respaldos:</span>
+<span class="out">notas.txt</span>
+<span class="out">pendientes.txt</span></code></pre></div>
+<p>Compáralo con la Figura 1.1: es el mismo árbol. Si el tuyo se ve igual, creaste, copiaste, moviste, renombraste, borraste y verificaste, sin tocar el ratón. Déjalo así: el capítulo 2 empieza aquí.</p>
+<aside class="pruebalo"><img class="pixel" src="../img/tux-guerrero.svg" alt=""><p class="sigue"><strong>Pruébalo tú.</strong> Alto, buen lugar para una pausa. Antes de seguir, tres ejercicios cortos en tu <code>trabajo</code> (las respuestas están al final del capítulo, en <em>Respuestas</em>):</p>
+<ol>
+<li>Crea una carpeta <code>borrador</code>, copia ahí <code>documentos/lista.txt</code> y comprueba con <code>ls borrador</code> que está.</li>
+<li>Intenta borrar <code>borrador</code> con <code>rmdir</code>. ¿Qué te contesta, y por qué? Bórrala bien, con un solo comando.</li>
+<li>Sin teclearlo: ¿qué pasa con <code>cp documentos respaldos/</code>?</li>
+</ol></aside>
+<aside class="notas"><ol start="6"><li id="nota-6" value="6">Free Software Foundation (s. f.-e).</li></ol></aside></section>
+
+<section class="s-el-nombre-y-el-archivo-no-son-lo-mismo" id="s9-el-nombre-y-el-archivo-no-son-lo-mismo">
+<h2><span class="num">9</span>El nombre y el archivo no son lo mismo</h2>
+<p class="sigue">Aquí empieza lo que el video no alcanza a explicar. Para no ensuciar <code>trabajo</code>, Ana se hace una carpeta de pruebas en su casa, <code>~/pruebas</code>, que va a usar hasta el final del capítulo. Hazte una igual:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~$</span> <span class="cmd">mkdir pruebas</span>
+<span class="prompt">ana@linux:~$</span> <span class="cmd">cd pruebas</span></code></pre></div>
+<aside class="wsl"><img class="pixel" src="../img/tux-feliz.svg" alt=""><p><strong>Si tu casa no se parece a la de Ana.</strong> Si llegaste por la ruta rápida, tu carpeta <code>trabajo</code> no existe o no se parece a la de Ana, y dos ejemplos de aquí en adelante la usan. Pega estos cinco renglones en lugar de los dos de Ana de arriba: crean <code>~/pruebas</code> y lo que falte en <code>trabajo</code>, no tocan lo que ya tengas (<code>touch</code> a un archivo que existe solo le pone la hora de ahora) y te dejan en <code>~/pruebas</code> para seguir. Si al copiar del PDF los renglones se te juntan en uno solo, cópialos de uno en uno.</p>
+<div class="terminal copiar"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="cmd">mkdir -p ~/pruebas ~/trabajo/documentos/fotos</span>
+<span class="cmd">mkdir -p ~/trabajo/proyectos/web ~/trabajo/entrega</span>
+<span class="cmd">mkdir -p ~/trabajo/respaldos</span>
+<span class="cmd">cd ~/trabajo/documentos &amp;&amp; touch apuntes.txt lista.txt tareas.txt</span>
+<span class="cmd">cd ~/pruebas</span></code></pre></div></aside>
+<p>Tres preguntas que el video deja sueltas: ¿por qué mover y renombrar son el mismo comando?, ¿por qué mover un archivo enorme es instantáneo y copiarlo tarda?, ¿por qué no hay papelera? Las tres tienen la misma respuesta: <strong>en Linux, el nombre de un archivo no vive en el archivo.</strong></p>
+<p class="sigue">En el disco, un archivo son dos cosas separadas. Una son sus datos con su ficha: dueño, permisos, fechas, tamaño. Esa ficha se llama <strong>inodo</strong> (en este libro le digo «ficha») y tiene un número; su página de manual lo dice así: «cada archivo tiene un inodo que contiene metadatos sobre el archivo»<sup class="llamada"><a href="#nota-7">7</a></sup>, y el nombre no está entre ellos. La otra es el nombre, que vive en la <strong>carpeta</strong>: una carpeta no es más que una lista de renglones «este nombre → aquel número de ficha». <code>ls -i</code> enseña ese número al principio del renglón. Mira qué le hace cada comando:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "version 1" &gt; a.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -li a.txt</span>
+<span class="out">1179690 -rw-rw-r-- 1 ana ana 10 Nov 15 05:<wbr>13 a.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mv a.txt c.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -li c.txt</span>
+<span class="out">1179690 -rw-rw-r-- 1 ana ana 10 Nov 15 05:<wbr>13 c.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cp c.txt d.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -li c.txt d.txt</span>
+<span class="out">1179690 -rw-rw-r-- 1 ana ana 10 Nov 15 05:<wbr>13 c.txt</span>
+<span class="out">1179691 -rw-rw-r-- 1 ana ana 10 Nov 15 05:<wbr>13 d.txt</span></code></pre></div>
+<ul>
+<li><code>mv</code> <strong>no tocó el archivo</strong>: el número sigue siendo <code>1179690</code>. Solo cambió el renglón de la lista, de <code>a.txt</code> a <code>c.txt</code>. Mover a otra carpeta es lo mismo: borrar el renglón de una lista y escribirlo en otra. Por eso «mover» y «renombrar» son un solo comando, y por eso es instantáneo aunque el archivo pese gigas: los datos no se mueven (mientras no cambies de disco; la excepción te la cuento en <em>Para los curiosos</em>).</li>
+<li><code>cp</code> <strong>sí hizo otro archivo</strong>: número nuevo, <code>1179691</code>, con una copia de los datos. Por eso copiar algo grande tarda.</li>
+</ul>
+<p>En tu máquina los números van a ser otros. Lo que importa no es el número, sino cuáles son iguales y cuáles distintos.</p>
+<figure id="fig-1-4">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 312" role="img" aria-label="La carpeta es una libreta de renglones nombre y número; c.txt y e.txt apuntan a la misma caja 1179690, que tiene dos nombres; d.txt apunta a la caja 1179691. Abajo, qué hacen mv, cp y rm." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <!-- libreta -->
+  <rect x="12" y="10" width="240" height="172" rx="9" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <rect x="12" y="10" width="240" height="38" rx="9" fill="#F0E6C8" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="132" y="35" font-size="15" font-weight="700" text-anchor="middle">la carpeta: una libreta</text>
+  <g stroke="#0C0E2C" stroke-width="1.5"><line x1="24" y1="96" x2="240" y2="96"/><line x1="24" y1="136" x2="240" y2="136"/></g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="15">
+    <text x="28" y="78" font-weight="700">c.txt</text><text x="140" y="78">1179690</text>
+    <text x="28" y="120" font-weight="700">d.txt</text><text x="140" y="120">1179691</text>
+    <text x="28" y="162" font-weight="700">e.txt</text><text x="140" y="162">1179690</text>
+  </g>
+  <!-- flechas -->
+  <g stroke="#0C0E2C" stroke-width="3" fill="none">
+    <path d="M232 73 C 300 73, 300 46, 346 46"/>
+    <path d="M232 115 C 300 115, 300 140, 346 140"/>
+    <path d="M232 157 C 310 157, 300 70, 346 70"/>
+  </g>
+  <polygon points="344,38 358,46 344,54"/>
+  <polygon points="344,132 358,140 344,148"/>
+  <polygon points="344,62 358,70 344,78"/>
+  <!-- cajas -->
+  <rect x="360" y="14" width="288" height="78" rx="9" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="378" y="46" font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700">1179690</text>
+  <text x="378" y="76" font-size="14.5">datos y ficha · nombres: 2</text>
+  <rect x="360" y="108" width="288" height="78" rx="9" fill="#F0E6C8" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="378" y="140" font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700">1179691</text>
+  <text x="378" y="170" font-size="14.5">datos y ficha · nombres: 1</text>
+  <!-- qué hace cada comando -->
+  <line x1="12" y1="206" x2="648" y2="206" stroke="#0C0E2C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="17" font-weight="700">
+    <text x="20" y="236">mv</text>
+    <text x="20" y="266">cp</text>
+    <text x="20" y="296">rm</text>
+  </g>
+  <g font-size="15">
+    <text x="62" y="236">reescribe un renglón; la caja no se mueve</text>
+    <text x="62" y="266">escribe un renglón nuevo y hace una caja nueva</text>
+    <text x="62" y="296">tacha un renglón; sin renglones, la caja queda libre</text>
+  </g>
+</svg>
+<figcaption><strong>Figura 1.4.</strong> La carpeta es una libreta de nombres; los archivos son cajas con número. <code>mv</code> reescribe un renglón, <code>cp</code> hace caja nueva y <code>rm</code> tacha un renglón.</figcaption></figure>
+<p class="sigue">Ahora, lo raro: un mismo archivo puede tener <strong>dos nombres</strong>. El comando <code>ln</code>, de <em>link</em>, «enlace», agrega un segundo renglón hacia la misma caja:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ln c.txt e.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -li c.txt d.txt e.txt</span>
+<span class="out">1179690 -rw-rw-r-- 2 ana ana 10 Nov 15 05:<wbr>13 c.txt</span>
+<span class="out">1179691 -rw-rw-r-- 1 ana ana 10 Nov 15 05:<wbr>13 d.txt</span>
+<span class="out">1179690 -rw-rw-r-- 2 ana ana 10 Nov 15 05:<wbr>13 e.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "renglon nuevo" &gt;&gt; e.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat c.txt</span>
+<span class="out">version 1</span>
+<span class="out">renglon nuevo</span></code></pre></div>
+<p class="sigue">Léelo despacio. <code>c.txt</code> y <code>e.txt</code> tienen el mismo número, <code>1179690</code>: no son copia uno del otro, son <strong>el mismo archivo con dos nombres</strong>. Por eso lo que Ana escribió por <code>e.txt</code> aparece al leer <code>c.txt</code>. Y mira la segunda columna: ahora dice <code>2</code>. Es el número que en el capítulo 0 te dije que te saltaras: la <strong>cuenta de nombres</strong> del archivo, que el manual llama cuenta de enlaces<sup class="llamada"><a href="#nota-7">7</a></sup>. <code>d.txt</code>, la copia, tiene su propia caja y un solo nombre. Ahora, Ana borra <code>c.txt</code>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm c.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat e.txt</span>
+<span class="out">version 1</span>
+<span class="out">renglon nuevo</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -li e.txt</span>
+<span class="out">1179690 -rw-rw-r-- 1 ana ana 24 Nov 15 05:<wbr>13 e.txt</span></code></pre></div>
+<p>El archivo sigue vivo. Lo que se fue fue un nombre, y la cuenta bajó a <code>1</code>. De aquí sale la verdad sobre <code>rm</code>: <strong>no borra archivos, borra nombres.</strong> Por dentro le pide al kernel una operación que se llama justamente así, <code>unlink</code>, «desenlazar», y su manual lo dice sin rodeos: borra un nombre del sistema de archivos, y si ese nombre era el último enlace al archivo y ningún programa lo tiene abierto, el archivo se elimina<sup class="llamada"><a href="#nota-8">8</a></sup>. Cuando la cuenta llega a cero y ningún programa lo tiene abierto, el espacio queda libre para que lo use otro archivo. No hay ningún paso intermedio donde el archivo espere: esa es la razón de fondo de que <code>rm</code> no tenga papelera.</p>
+<aside class="servidor"><img class="pixel" src="../img/tux-guerrero.svg" alt=""><p><strong>En un servidor real.</strong> «Borré el log de 20 GB y el disco sigue lleno». Es un clásico, y ya lo puedes explicar: el servicio que escribe ese log lo tiene <strong>abierto</strong>. <code>rm</code> quitó el nombre, pero mientras el programa lo tenga abierto, la caja sigue ocupando su lugar, ya sin nombre en ninguna libreta. Si ya lo borraste, el espacio vuelve cuando el programa lo cierra, y lo normal es reiniciar el servicio (eso es del capítulo 4). Para la próxima: a un log que un programa está usando no se le borra; se le vacía, con una flecha sin comando delante, <code>&gt; app.log</code> (o <code>&gt;| app.log</code> si tienes puesto el seguro de la sección 12), y el espacio se libera al instante. Con los logs del sistema hace falta ser administrador, y ahí la flecha no sirve, porque la prepara tu shell, sin permisos, antes de que <code>sudo</code> arranque: se usa <code>sudo truncate -s 0</code> y el nombre del archivo (<code>sudo</code> lo verás en el capítulo 2). Para cazar archivos borrados que alguien sigue teniendo abiertos existe <code>lsof +L1</code>; sin <code>sudo</code>, solo te enseña tus propios programas. Disco lleno, <code>du</code>, <code>df</code> y compañía: capítulo 8.</p></aside>
+<p>¿Y entonces se puede recuperar? El propio manual de <code>rm</code> admite que, después de borrar un archivo, a veces se puede recuperar parte de su contenido<sup class="llamada"><a href="#nota-9">9</a></sup>. En un disco duro de los de antes, los datos se quedan ahí hasta que otro archivo ocupe ese lugar; en un disco de estado sólido (SSD), el sistema le avisa al disco qué quedó libre, y este puede borrarlo por su cuenta en cualquier momento. Recuperar es trabajo de laboratorio, con herramientas especiales y suerte, no algo que hagas con un comando. Las dos lecturas sirven: si borraste algo tuyo, no cuentes con recuperarlo; si borraste algo secreto, no cuentes con que ya no está.</p>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «Para borrar de verdad está <code>shred</code>». <code>shred</code> escribe basura encima del contenido (y solo si le pones <code>-u</code> borra después el archivo), pero su propio manual avisa que eso supone que el sistema de archivos y el disco escriben encima, en el mismo lugar, que muchos no lo hacen, y que los respaldos pueden guardar copias<sup class="llamada"><a href="#nota-10">10</a></sup>. En un SSD, por ejemplo, no hay garantía. Para algo de verdad secreto, la respuesta es otra: cifrarlo desde el principio.</p></aside>
+<p>Si te pica la curiosidad: las carpetas también tienen su cuenta de nombres, y ahora ya la puedes leer.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -ld ~/trabajo/documentos ~/trabajo/documentos/fotos</span>
+<span class="out">drwxrwxr-x 3 ana ana 4096 Nov 15 05:<wbr>13 /home/ana/trabajo/documentos</span>
+<span class="out">drwxrwxr-x 2 ana ana 4096 Nov 15 05:<wbr>13 /home/ana/trabajo/documentos/fotos</span></code></pre></div>
+<p><code>fotos</code> tiene 2 nombres: el renglón <code>fotos</code> en la lista de <code>documentos</code> y su propio <code>.</code>, que es ella misma. <code>documentos</code> tiene 3: su renglón en <code>trabajo</code>, su <code>.</code>, y el <code>..</code> de <code>fotos</code>, que apunta hacia ella. Cada subcarpeta le suma uno a su madre.</p>
+<p class="sigue">Antes de seguir, Ana limpia lo que ya no va a usar, para que no se le cuele en los ejemplos de la sección 10. Hazlo tú también:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm d.txt e.txt</span></code></pre></div>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> El enlace de <code>ln</code> (sin opciones) no es el enlace simbólico del capítulo 0, el de la <code>l</code> y la flecha <code>-&gt;</code>. El simbólico es un archivo aparte que guarda una ruta, una flecha hacia <strong>otro nombre</strong>; si borras el nombre al que apunta, la flecha queda rota. El de <code>ln</code> es <strong>un segundo nombre de la misma caja</strong>, igual de verdadero que el primero. En <em>Para los curiosos</em> los pongo lado a lado.</p></aside>
+<aside class="notas"><ol start="7"><li id="nota-7" value="7">Linux man-pages project (s. f.-b).</li><li id="nota-8" value="8">Linux man-pages project (s. f.-c).</li><li id="nota-9" value="9">Free Software Foundation (s. f.-e).</li><li id="nota-10" value="10">Free Software Foundation (s. f.-f).</li></ol></aside></section>
+
+<section class="s-quien-entiende-el-asterisco" id="s10-quien-entiende-el-asterisco">
+<h2><span class="num">10</span>Quién entiende el asterisco</h2>
+<p>El asterisco es el comodín más famoso de la terminal, y casi todo el mundo cree que lo entiende el comando. No: lo entiende la shell, y lo resuelve <strong>antes</strong> de que el comando arranque. Saberlo es lo que separa a quien usa comodines de quien los usa sin accidentes.</p>
+<p class="sigue">Cuando das <code>Enter</code>, el comando todavía no recibe nada. Primero la shell reescribe el renglón: cambia la tilde por tu casa, como viste en el capítulo 0, y cambia ciertos signos por listas de nombres. Solo entonces arranca el programa, con el renglón ya reescrito<sup class="llamada"><a href="#nota-11">11</a></sup>. Para ver ese renglón reescrito, la lupa es <code>echo</code>, que no hace más que repetir lo que le llega:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch informe-enero.txt informe-febrero.txt informe-marzo.txt </span><span class="corte">↵</span>
+<span class="cmd">notas.md</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo *.txt</span>
+<span class="out">informe-enero.txt informe-febrero.txt informe-marzo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls *.txt</span>
+<span class="out">informe-enero.txt</span>
+<span class="out">informe-febrero.txt</span>
+<span class="out">informe-marzo.txt</span></code></pre></div>
+<p><code>ls</code> nunca vio un asterisco. Vio tres nombres, porque Bash cambió <code>*.txt</code> por la lista de nombres que encajan, en orden, antes de llamarlo. Lo mismo pasa con <code>cp *.txt</code>, <code>rm *.txt</code> o cualquier otro comando: el asterisco funciona igual en todos porque no es de ninguno.</p>
+<figure id="fig-1-5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 236" role="img" aria-label="Tres pasos: tú tecleas ls *.txt; la shell lo reescribe como ls con tres nombres de informe; el programa ls recibe tres nombres y nunca ve el asterisco. Para ver el paso de en medio, echo *.txt." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <!-- cuadro 1 -->
+  <rect x="8" y="36" width="170" height="130" rx="9" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="18" y="24" font-size="15" font-weight="700">1 · Tú tecleas</text>
+  <text x="93" y="108" font-family="Consolas, 'Courier New', monospace" font-size="18" font-weight="700" text-anchor="middle">ls *.txt</text>
+  <circle cx="111" cy="102" r="17" fill="none" stroke="#E21EC8" stroke-width="3"/>
+  <!-- flecha -->
+  <line x1="180" y1="101" x2="196" y2="101" stroke="#0C0E2C" stroke-width="3.5"/>
+  <polygon points="194,93 208,101 194,109"/>
+  <!-- cuadro 2 -->
+  <rect x="210" y="36" width="230" height="130" rx="9" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="220" y="24" font-size="15" font-weight="700">2 · La shell reescribe</text>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="15">
+    <text x="224" y="72" font-weight="700">ls</text>
+    <text x="250" y="72">informe-enero.txt</text>
+    <text x="250" y="102">informe-febrero.txt</text>
+    <text x="250" y="132">informe-marzo.txt</text>
+  </g>
+  <!-- flecha -->
+  <line x1="442" y1="101" x2="458" y2="101" stroke="#0C0E2C" stroke-width="3.5"/>
+  <polygon points="456,93 470,101 456,109"/>
+  <!-- cuadro 3 -->
+  <rect x="472" y="36" width="180" height="130" rx="9" fill="#F0E6C8" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="482" y="24" font-size="15" font-weight="700">3 · El programa ls</text>
+  <text x="562" y="84" font-size="15" text-anchor="middle">recibe tres</text>
+  <text x="562" y="104" font-size="15" text-anchor="middle">nombres; nunca</text>
+  <text x="562" y="124" font-size="15" text-anchor="middle">ve el asterisco</text>
+  <!-- pie -->
+  <line x1="8" y1="190" x2="652" y2="190" stroke="#0C0E2C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="18" y="220" font-size="15">para ver el paso 2 sin ejecutar nada:</text>
+  <text x="290" y="220" font-family="Consolas, 'Courier New', monospace" font-size="16" font-weight="700">echo *.txt</text>
+</svg>
+<figcaption><strong>Figura 1.5.</strong> Tú tecleas un asterisco; el programa recibe nombres. El paso de en medio lo hace la shell, y <code>echo</code> te lo deja ver.</figcaption></figure>
+<p class="sigue">Los comodines son tres<sup class="llamada"><a href="#nota-12">12</a></sup>:</p>
+<table><thead><tr><th>Signo</th><th>Encaja con</th><th>Ejemplo de Ana</th></tr></thead><tbody>
+<tr><td><code>*</code></td><td>cualquier texto, incluso nada</td><td><code>*.txt</code>: todo lo que termina en <code>.txt</code></td></tr>
+<tr><td><code>?</code></td><td>exactamente un carácter</td><td><code>informe-?????.txt</code>: meses de cinco letras</td></tr>
+<tr><td><code>[ef]</code></td><td>un carácter de los que están entre corchetes (sin comas: una coma ahí sería otro carácter más)</td><td><code>informe-[ef]*.txt</code>: los que siguen con <code>e</code> o con <code>f</code></td></tr>
+</tbody></table>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo informe-?????.txt</span>
+<span class="out">informe-enero.txt informe-marzo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo informe-[ef]*.txt</span>
+<span class="out">informe-enero.txt informe-febrero.txt</span></code></pre></div>
+<p>«enero» y «marzo» tienen cinco letras; «febrero», siete, así que el <code>?????</code> no lo agarra. Y con <code>[ef]</code>, el que empieza con <code>m</code> se queda fuera.</p>
+<p>Tres consecuencias que solo se entienden sabiendo que la shell trabaja primero. <strong>Si nada encaja, el signo se queda tal cual:</strong></p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo *.pdf</span>
+<span class="out">*.pdf</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls *.pdf</span>
+<span class="out">ls: cannot access '*.pdf': No such file or directory</span></code></pre></div>
+<p>No hay ningún <code>.pdf</code>, así que Bash deja la palabra sin cambiar, y <code>ls</code> busca un archivo que se llame, literalmente, asterisco-punto-pdf. El error no es de escritura: es que no hay.</p>
+<p><strong>El asterisco no ve los ocultos:</strong></p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch .oculto.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo *.txt</span>
+<span class="out">informe-enero.txt informe-febrero.txt informe-marzo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo .*</span>
+<span class="out">.oculto.txt</span></code></pre></div>
+<p>Si un nombre empieza con punto, el punto hay que escribirlo<sup class="llamada"><a href="#nota-12">12</a></sup>. Buena noticia: un <code>rm *</code> no se lleva tu configuración. (En versiones de Bash anteriores a la 5.2, <code>echo .*</code> enseña además <code>.</code> y <code>..</code>, la carpeta actual y la de arriba.)</p>
+<p><strong>Un nombre que resulta ser carpeta cambia lo que hace el comando:</strong></p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir datos</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch datos/clientes.csv datos/ventas.csv</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo d*</span>
+<span class="out">datos</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls d*</span>
+<span class="out">clientes.csv</span>
+<span class="out">ventas.csv</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -d d*</span>
+<span class="out">datos</span></code></pre></div>
+<p>Ana quería ver «los nombres que empiezan con d». Bash le pasó <code>datos</code> a <code>ls</code>, y <code>ls</code>, cuando le das una carpeta, enseña <strong>lo de adentro</strong>. La <code>-d</code> que ya viste en el capítulo 0 le dice «habla de la carpeta misma, no de su contenido».</p>
+<p class="sigue">¿Y si quieres un asterisco de verdad, sin que la shell lo toque? Comillas o diagonal invertida:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "*.txt"</span>
+<span class="out">*.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo '*.txt' \*.txt</span>
+<span class="out">*.txt *.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo ~ "~" '~'</span>
+<span class="out">/home/ana ~ ~</span></code></pre></div>
+<p>Entre comillas, la shell deja el asterisco en paz; la diagonal invertida <code>\</code> hace lo mismo con el carácter que tiene pegado. Y fíjate en el último: la tilde sin comillas se volvió <code>/home/ana</code>; con comillas, se quedó como tilde. Es la misma regla para los dos.</p>
+<p>Las dos comillas no son idénticas, eso sí. Las simples, <code>'…'</code>, apagan <strong>todo</strong>; las dobles, <code>"…"</code>, apagan el asterisco, la tilde y los espacios, pero dejan vivos el <code>$</code> y las comillas invertidas, que verás en el capítulo 7, y el <code>!</code> del historial, que verás en <em>Trucos y atajos</em>. Si un texto lleva <code>!</code>, usa comillas simples: <code>echo 'listo!!'</code>. Con dobles, <code>echo "listo!!"</code> le pegaría tu comando anterior.</p>
+<p class="sigue">De aquí sale la costumbre más útil de este capítulo. Antes de un <code>rm</code> con comodines, el mismo renglón con <code>echo</code> en lugar de <code>rm</code>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo informe-*</span>
+<span class="out">informe-enero.txt informe-febrero.txt informe-marzo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm informe-*</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls</span>
+<span class="out">datos</span>
+<span class="out">notas.md</span></code></pre></div>
+<p><code>echo</code> le enseñó a Ana exactamente la lista que iba a recibir <code>rm</code>. La leyó, era lo que quería, y entonces borró.</p>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «El asterisco es de <code>ls</code>, o de <code>rm</code>, o de <code>cp</code>». No: es de la shell, y el comando recibe nombres ya resueltos. Por eso el mismo <code>*</code> sirve igual en todos, y por eso <code>echo</code> te deja ver de antemano lo que va a pasar.</p></aside>
+<aside class="notas"><ol start="11"><li id="nota-11" value="11">Fox y Ramey (s. f.).</li><li id="nota-12" value="12">Linux man-pages project (s. f.-a).</li></ol></aside></section>
+
+<section class="s-llaves-muchos-nombres-de-un-jalon" id="s11-llaves-muchos-nombres-de-un-jalon">
+<h2><span class="num">11</span>Llaves: muchos nombres de un jalón</h2>
+<p class="sigue">El asterisco busca nombres que <strong>ya existen</strong>. Las llaves <code>{ }</code> hacen otra cosa: escriben nombres, existan o no. Pones un pedazo fijo y, entre llaves, las partes que cambian, separadas por comas y sin espacios. La shell escribe una palabra por cada opción<sup class="llamada"><a href="#nota-13">13</a></sup>:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo {a,b,c}</span>
+<span class="out">a b c</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo foto-{1..5}.jpg</span>
+<span class="out">foto-1.jpg foto-2.jpg foto-3.jpg foto-4.jpg foto-5.jpg</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo {01..03}</span>
+<span class="out">01 02 03</span></code></pre></div>
+<p>Con dos puntos, <code>{1..5}</code>, hace una serie; si la escribes con ceros, <code>{01..03}</code>, los respeta. Y aquí se ve para qué sirve: dos llaves en un mismo renglón <strong>se multiplican</strong>.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo clientes/{tienda,taller}/{facturas,contratos}</span>
+<span class="out">clientes/tienda/facturas clientes/tienda/contratos clientes/taller/facturas </span><span class="corte">↵</span>
+<span class="out">clientes/taller/contratos</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir -p clientes/{tienda,taller}/{facturas,contratos}</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -R clientes</span>
+<span class="out">clientes:</span>
+<span class="out">taller</span>
+<span class="out">tienda</span>
+<span class="out"></span>
+<span class="out">clientes/taller:</span>
+<span class="out">contratos</span>
+<span class="out">facturas</span>
+<span class="out"></span>
+<span class="out">clientes/taller/contratos:</span>
+<span class="out"></span>
+<span class="out">clientes/taller/facturas:</span>
+<span class="out"></span>
+<span class="out">clientes/tienda:</span>
+<span class="out">contratos</span>
+<span class="out">facturas</span>
+<span class="out"></span>
+<span class="out">clientes/tienda/contratos:</span>
+<span class="out"></span>
+<span class="out">clientes/tienda/facturas:</span></code></pre></div>
+<p>Dos por dos, cuatro rutas, y con el <code>-p</code> de la sección 2, siete carpetas en un renglón: <code>clientes</code>, las dos de en medio y las cuatro de abajo. Fíjate en el orden de trabajo: primero <code>echo</code>, para leer qué se iba a crear; luego, el comando de verdad.</p>
+<figure id="fig-1-6">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 250" role="img" aria-label="Las llaves se multiplican: mkdir -p clientes con dos llaves de dos opciones da cuatro rutas, y con -p siete carpetas." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <rect x="96" y="10" width="468" height="44" rx="9" fill="#0C0E2C"/>
+  <text x="330" y="38" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#F0E6C8">mkdir -p clientes/<tspan fill="#2DD4BF">{tienda,taller}</tspan>/<tspan fill="#E21EC8" font-size="15">{facturas,contratos}</tspan></text>
+  <!-- abanico -->
+  <g stroke="#0C0E2C" stroke-width="2.5" fill="none">
+    <path d="M330 54 L 165 96"/><path d="M330 54 L 495 96"/>
+    <path d="M330 54 L 165 146"/><path d="M330 54 L 495 146"/>
+  </g>
+  <g stroke="#0C0E2C" stroke-width="3" fill="#FFFFFF">
+    <rect x="20" y="96" width="290" height="36" rx="8"/>
+    <rect x="350" y="96" width="290" height="36" rx="8"/>
+    <rect x="20" y="146" width="290" height="36" rx="8"/>
+    <rect x="350" y="146" width="290" height="36" rx="8"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="15" text-anchor="middle">
+    <text x="165" y="119">clientes/<tspan font-weight="700">tienda</tspan>/facturas</text>
+    <text x="495" y="119">clientes/<tspan font-weight="700">tienda</tspan>/contratos</text>
+    <text x="165" y="169">clientes/<tspan font-weight="700">taller</tspan>/facturas</text>
+    <text x="495" y="169">clientes/<tspan font-weight="700">taller</tspan>/contratos</text>
+  </g>
+  <line x1="20" y1="202" x2="640" y2="202" stroke="#0C0E2C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="330" y="232" font-size="15" text-anchor="middle">2 × 2 = 4 rutas. Con -p se crean también las de en medio: 7 carpetas en total</text>
+</svg>
+<figcaption><strong>Figura 1.6.</strong> Las llaves se multiplican: dos clientes por dos carpetas, cuatro rutas. <code>mkdir -p</code> crea además las de en medio.</figcaption></figure>
+<p class="sigue">El uso de todos los días es el respaldo de cinco teclas:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "hola" &gt; notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo cp notas.txt{,.bak}</span>
+<span class="out">cp notas.txt notas.txt.bak</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cp notas.txt{,.bak}</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls</span>
+<span class="out">clientes</span>
+<span class="out">datos</span>
+<span class="out">notas.md</span>
+<span class="out">notas.txt</span>
+<span class="out">notas.txt.bak</span></code></pre></div>
+<p><code>{,.bak}</code> son llaves con dos opciones: <strong>nada</strong>, antes de la coma, y <code>.bak</code>. Sale el nombre dos veces, tal cual y con <code>.bak</code>, que es justo lo que <code>cp</code> necesita: qué y a dónde. Es lo primero que se hace antes de editar un archivo importante.</p>
+<p>Y la trampa: con un espacio adentro, o con una sola opción, ya no son llaves, y salen tal cual.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo {a, b}</span>
+<span class="out">{a, b}</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo {a}</span>
+<span class="out">{a}</span></code></pre></div>
+<aside class="servidor"><img class="pixel" src="../img/tux-guerrero.svg" alt=""><p><strong>En un servidor real.</strong> Antes de tocar un archivo de configuración, se hace su copia con <code>.bak</code>, en el mismo renglón: <code>sudo cp -a /etc/ssh/sshd_config{,.bak}</code>. La <code>-a</code> hace que la copia conserve las fechas y los permisos del original. Si el cambio sale mal, regresar es un <code>cp</code> al revés. No lo teclees todavía: <code>sudo</code> y los archivos de <code>/etc</code> los vemos en los capítulos 2 y 5; la costumbre, empiézala desde hoy con tus propios archivos. Y un aviso para cuando escribas scripts: las llaves son de Bash, y en un script para <code>sh</code> no funcionan (capítulo 7).</p></aside>
+<aside class="pruebalo"><img class="pixel" src="../img/tux-guerrero.svg" alt=""><p class="sigue"><strong>Pruébalo tú.</strong> Otra pausa, en tu carpeta de pruebas (respuestas al final, en <em>Respuestas</em>):</p>
+<ol>
+<li>Antes de crear nada, ¿qué escribe <code>echo foto-{1..3}.jpg</code>? Ahora crea esos tres archivos con <code>touch</code> y compruébalo con <code>ls foto-*</code>.</li>
+<li>Bórralos con un comodín, pero antes mira con <code>echo</code> qué va a recibir <code>rm</code>.</li>
+<li>Sin teclearlo: ¿qué imprime <code>echo {x,y}{1,2}</code>?</li>
+</ol></aside>
+<aside class="notas"><ol start="13"><li id="nota-13" value="13">Fox y Ramey (s. f.).</li></ol></aside></section>
+
+<section class="s-lo-que-ya-existe-se-pisa-sin-avisar" id="s12-lo-que-ya-existe-se-pisa-sin-avisar">
+<h2><span class="num">12</span>Lo que ya existe se pisa sin avisar</h2>
+<p class="sigue">El video advierte de <code>rm</code>, y con razón. Pero se pierde tanto trabajo o más con <code>cp</code>, <code>mv</code> y <code>&gt;</code>, que destruyen igual de callados y no tienen la misma fama:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "version 1" &gt; a.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "version 2" &gt; b.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cp a.txt b.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat b.txt</span>
+<span class="out">version 1</span></code></pre></div>
+<p><code>b.txt</code> ya existía. <code>cp</code> lo reemplazó sin preguntar y sin decir nada: la «version 2» ya no está en ningún lado. <code>mv a.txt b.txt</code> habría hecho lo mismo. Y ya viste lo que hace <code>&gt;</code> con un archivo que existe. En Linux, callar es lo normal también cuando acabas de pisar algo.</p>
+<p class="sigue">Dos redes de seguridad. La primera es la <code>-i</code> que ya conoces de <code>rm</code>: <code>cp</code> y <code>mv</code> también la tienen, y preguntan antes de pisar<sup class="llamada"><a href="#nota-14">14</a></sup>. Con un teclado de verdad:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat b.txt</span>
+<span class="out">version 1</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cp -i a.txt b.txt</span>
+<span class="out">cp: overwrite 'b.txt'? n</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat b.txt</span>
+<span class="out">version 1</span></code></pre></div>
+<p>«¿Sobrescribo <code>b.txt</code>?». Ana contestó <code>n</code> y <code>b.txt</code> quedó como estaba.</p>
+<p>La segunda es para <code>&gt;</code>. Bash tiene un seguro que se llama <code>noclobber</code>, algo así como «no machacar»: mientras está puesto, <code>&gt;</code> se niega a pisar archivos que ya existen<sup class="llamada"><a href="#nota-15">15</a></sup>.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">set -o noclobber</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "version 3" &gt; a.txt</span>
+<span class="out">bash: a.txt: cannot overwrite existing file</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "version 3" &gt;| a.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">set +o noclobber</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat a.txt</span>
+<span class="out">version 3</span></code></pre></div>
+<p><code>set -o</code> pone el seguro y <code>set +o</code> lo quita (al revés de lo que pensarías: el <code>-</code> pone, el <code>+</code> quita). Con el seguro puesto, Bash se queja y no toca nada; quien firma es Bash, porque la flecha es suya. Si de verdad quieres pisar, <code>&gt;|</code> es «písalo aunque esté el seguro». El seguro dura lo que dure esa terminal; si te gusta, se puede dejar puesto para siempre, y te enseño cómo cuando configuremos la shell en el capítulo 7.</p>
+<p class="sigue">Y el accidente clásico, el que le pasa a todo el mundo una vez. Ana guarda en <code>x.txt</code> la lista de su carpeta <code>documentos</code>, y luego quiere «leer el archivo y volverlo a guardar»:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls ~/trabajo/documentos &gt; x.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">wc -l x.txt</span>
+<span class="out">4 x.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat x.txt &gt; x.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">wc -l x.txt</span>
+<span class="out">0 x.txt</span></code></pre></div>
+<p>Cuatro renglones antes, cero después, y ni un mensaje. Ya sabes por qué: la shell prepara la flecha <strong>antes</strong> de arrancar <code>cat</code>, y preparar <code>&gt;</code> es vaciar el archivo. Cuando <code>cat</code> llegó a leer, ya no había nada que leer. Regla: <strong>nunca el mismo archivo a los dos lados de una flecha.</strong></p>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «Si fuera peligroso, Linux me avisaría». No. <code>rm</code>, <code>cp</code>, <code>mv</code> y <code>&gt;</code> hacen lo que les pides y se callan. Las preguntas solo salen si tú las pides con <code>-i</code>, y el seguro de <code>&gt;</code> solo está si tú lo pones. La terminal confía en ti; la cautela la pones tú.</p></aside>
+<aside class="notas"><ol start="14"><li id="nota-14" value="14">Free Software Foundation (s. f.-a); Free Software Foundation (s. f.-d).</li><li id="nota-15" value="15">Fox y Ramey (s. f.).</li></ol></aside></section>
+
+<section class="s-nombres-con-espacios-mayusculas-y-otras-rarezas" id="s13-nombres-con-espacios-mayusculas-y-otras-rarezas">
+<h2><span class="num">13</span>Nombres con espacios, mayúsculas y otras rarezas</h2>
+<p class="sigue">Esta es la que quedó pendiente en los errores típicos del capítulo 0. Vienes de un mundo donde «Mi documento final (2).docx» es un nombre normal. En la terminal, varios de esos signos significan algo, y el más importante es el espacio: para la shell, <strong>el espacio separa palabras.</strong> Mira lo que le pasa a Ana:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch mi archivo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls</span>
+<span class="out">archivo.txt</span>
+<span class="out">a.txt</span>
+<span class="out">b.txt</span>
+<span class="out">clientes</span>
+<span class="out">datos</span>
+<span class="out">mi</span>
+<span class="out">notas.md</span>
+<span class="out">notas.txt</span>
+<span class="out">notas.txt.bak</span>
+<span class="out">x.txt</span></code></pre></div>
+<p>Quería un archivo y creó dos: <code>mi</code> y <code>archivo.txt</code>. <code>touch</code> recibió dos nombres y obedeció. (El orden de <code>ls</code> depende del idioma de tu sistema. En el de Ana no hace caso de puntos ni de mayúsculas, por eso <code>archivo.txt</code> sale antes de <code>a.txt</code>; en otros, como el de WSL, las mayúsculas van primero y el punto cuenta. Si tu orden no es igual, no pasa nada.) Para que el espacio sea parte del nombre hay que quitarle su significado, con las mismas herramientas de la sección 10: comillas o diagonal invertida<sup class="llamada"><a href="#nota-16">16</a></sup>. (En tu pantalla, <code>ls</code> va a enseñar ese nombre entre comillas, <code>'mi archivo.txt'</code>: no es que las comillas sean parte del nombre; un poco más abajo te digo por qué.)</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch "mi archivo.txt"</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls</span>
+<span class="out">archivo.txt</span>
+<span class="out">a.txt</span>
+<span class="out">b.txt</span>
+<span class="out">clientes</span>
+<span class="out">datos</span>
+<span class="out">mi</span>
+<span class="out">mi archivo.txt</span>
+<span class="out">notas.md</span>
+<span class="out">notas.txt</span>
+<span class="out">notas.txt.bak</span>
+<span class="out">x.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm mi archivo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls</span>
+<span class="out">a.txt</span>
+<span class="out">b.txt</span>
+<span class="out">clientes</span>
+<span class="out">datos</span>
+<span class="out">mi archivo.txt</span>
+<span class="out">notas.md</span>
+<span class="out">notas.txt</span>
+<span class="out">notas.txt.bak</span>
+<span class="out">x.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat mi\ archivo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm 'mi archivo.txt'</span></code></pre></div>
+<p>Léelo como una historia. Con comillas, <code>touch</code> recibió un solo nombre, <code>mi archivo.txt</code>. Luego Ana limpió los dos que sobraban con <code>rm mi archivo.txt</code>, sin comillas a propósito: <code>rm</code> recibió dos nombres, <code>mi</code> y <code>archivo.txt</code>, y se llevó justo los dos de la equivocación. El bueno sobrevivió. Al final, <code>cat mi\ archivo.txt</code> (diagonal antes del espacio) y <code>rm 'mi archivo.txt'</code> (comillas simples) nombran al archivo de verdad: <code>cat</code> no enseña nada porque está vacío, y <code>rm</code> lo borra.</p>
+<p>Fíjate en lo filoso de ese <code>rm</code> sin comillas: si existe un archivo con el nombre de una de las palabras sueltas, se lo lleva. El reto 14 de <em>Tu turno</em> es justo eso.</p>
+<p class="sigue">En tu pantalla, por cierto, <code>ls</code> te avisa de los nombres con espacios: los enseña entre comillas simples. Para verlo, Ana crea <code>mi archivo.txt</code> otra vez, ahora dentro de <code>datos</code>, en una terminal de verdad, donde <code>ls</code> acomoda en columnas:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cd datos</span>
+<span class="prompt">ana@linux:~/pruebas/datos$</span> <span class="cmd">touch "mi archivo.txt"</span>
+<span class="prompt">ana@linux:~/pruebas/datos$</span> <span class="cmd">ls</span>
+<span class="out"> clientes.csv  'mi archivo.txt'   ventas.csv</span>
+<span class="prompt">ana@linux:~/pruebas/datos$</span> <span class="cmd">rm "mi archivo.txt"</span>
+<span class="prompt">ana@linux:~/pruebas/datos$</span> <span class="cmd">cd ..</span></code></pre></div>
+<p>Las comillas no son parte del nombre: son <code>ls</code> diciéndote «ojo, este lleva espacio; si lo tecleas, tecléalo así». Y la tecla <code>Tab</code> hace lo mismo por ti: completa el nombre poniendo la diagonal invertida antes del espacio.</p>
+<p>Las otras rarezas, en corto: un punto al principio, oculto (y el asterisco no lo ve); un guion al principio, problema, porque parece opción (<code>--</code> o <code>./</code>, como en el capítulo 0); la terminación no manda. Y mayúsculas y minúsculas son letras distintas: <code>Carta.txt</code> y <code>carta.txt</code> conviven en la misma carpeta.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch Carta.txt carta.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls</span>
+<span class="out">a.txt</span>
+<span class="out">b.txt</span>
+<span class="out">carta.txt</span>
+<span class="out">Carta.txt</span>
+<span class="out">clientes</span>
+<span class="out">datos</span>
+<span class="out">notas.md</span>
+<span class="out">notas.txt</span>
+<span class="out">notas.txt.bak</span>
+<span class="out">x.txt</span></code></pre></div>
+<p>El consejo de casa, el que sigo yo y el que sigue este libro: nombres en minúsculas, sin espacios ni acentos, con guiones para separar: <code>informe-enero.txt</code>. No porque lo otro esté prohibido, sino porque así nunca tienes que pensar en comillas.</p>
+<aside class="confundas"><img class="pixel" src="../img/tux-alerta.svg" alt=""><p><strong>No te confundas.</strong> «Linux no acepta espacios en los nombres». Sí los acepta, y también acentos y casi cualquier signo. Quien interpreta los espacios es la shell, al leer tu renglón. Con comillas (simples, si el nombre lleva <code>!</code> o <code>$</code>), se acabó el problema.</p></aside>
+<aside class="notas"><ol start="16"><li id="nota-16" value="16">Fox y Ramey (s. f.).</li></ol></aside></section>
+
+<section class="s-lo-que-contesta-y-lo-que-se-queja-y" id="s14-lo-que-contesta-y-lo-que-se-queja-y">
+<h2><span class="num">14</span>Lo que contesta y lo que se queja: &gt;, &gt;&gt; y |</h2>
+<p>En la sección 3 viste que <code>&gt;</code> manda a un archivo lo que un comando iba a escribir en la pantalla. Falta un detalle, y es de los que confunden durante años: un comando escribe en la pantalla por <strong>dos</strong> caminos.</p>
+<p class="sigue">Todo programa nace con dos salidas abiertas. Por una manda lo que <strong>contesta</strong>: la lista de <code>ls</code>, el contenido de <code>cat</code>. Se llama <strong>salida estándar</strong>. Por la otra manda sus <strong>quejas</strong>: los mensajes de error. Se llama <strong>salida de errores</strong><sup class="llamada"><a href="#nota-17">17</a></sup>. Las dos caen en la misma pantalla, y por eso parecen una sola. No lo son. Mira el comando que va a servir de prueba, que pide una carpeta que existe y una que no, para que haya respuesta y queja a la vez:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos</span>
+<span class="out">clientes.csv</span>
+<span class="out">ventas.csv</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos noexiste</span>
+<span class="out">ls: cannot access 'noexiste': No such file or directory</span>
+<span class="out">datos:</span>
+<span class="out">clientes.csv</span>
+<span class="out">ventas.csv</span></code></pre></div>
+<p class="sigue">Respuesta y queja, revueltas en la pantalla. (Con dos carpetas, <code>ls</code> le pone a cada lista su título, <code>datos:</code>.) Ahora, con la flecha:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos noexiste &gt; salida.txt</span>
+<span class="out">ls: cannot access 'noexiste': No such file or directory</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat salida.txt</span>
+<span class="out">datos:</span>
+<span class="out">clientes.csv</span>
+<span class="out">ventas.csv</span></code></pre></div>
+<p>La respuesta se fue al archivo. <strong>La queja siguió saliendo en la pantalla</strong>, porque <code>&gt;</code> solo desvía la salida estándar. Y <code>salida.txt</code> no trae el error: trae solo lo que <code>ls</code> contestó. Es una buena noticia, en realidad: si redirigiste algo y algo salió mal, te enteras.</p>
+<p>La tubería del capítulo 0, <code>|</code>, funciona igual: solo lleva la salida estándar al siguiente comando.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos | wc -l</span>
+<span class="out">2</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos noexiste | wc -l</span>
+<span class="out">ls: cannot access 'noexiste': No such file or directory</span>
+<span class="out">3</span></code></pre></div>
+<p>En el segundo, la queja no entró al tubo: salió a la pantalla por su lado, y <code>wc</code> contó solo tres renglones, el título <code>datos:</code> y los dos archivos.</p>
+<figure id="fig-1-7">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 352" role="img" aria-label="Un comando tiene dos salidas: respuestas (línea continua) y quejas (línea punteada). Sin flecha, las dos van a la pantalla. Con mayor que salida.txt, las respuestas van al archivo y las quejas a la pantalla. Con la tubería hacia wc -l, las respuestas entran a wc y las quejas van a la pantalla." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <!-- leyenda -->
+  <line x1="12" y1="20" x2="62" y2="20" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="70" y="25" font-size="14.5">respuestas (salida estándar)</text>
+  <line x1="350" y1="20" x2="400" y2="20" stroke="#E21EC8" stroke-width="3.5" stroke-dasharray="8 5"/>
+  <text x="408" y="25" font-size="14.5">quejas (salida de errores)</text>
+
+  <!-- fila 1: sin flecha (y0 = 44) -->
+  <rect x="10" y="50" width="170" height="66" rx="9" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="95" y="77" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle">ls datos noexiste</text>
+  <text x="95" y="101" font-size="14" font-style="italic" text-anchor="middle">sin flecha</text>
+  <line x1="180" y1="68" x2="460" y2="68" stroke="#0C0E2C" stroke-width="3.5"/>
+  <polygon points="458,60 472,68 458,76"/>
+  <line x1="180" y1="102" x2="460" y2="102" stroke="#E21EC8" stroke-width="3.5" stroke-dasharray="8 5"/>
+  <polygon points="458,94 472,102 458,110" fill="#E21EC8"/>
+  <rect x="474" y="50" width="176" height="66" rx="7" fill="#0C0E2C"/>
+  <text x="562" y="89" font-size="15" font-weight="700" letter-spacing="1" text-anchor="middle" fill="#F0E6C8">PANTALLA</text>
+
+  <line x1="10" y1="134" x2="650" y2="134" stroke="#F0E6C8" stroke-width="3"/>
+
+  <!-- fila 2: > salida.txt (y0 = 144) -->
+  <rect x="10" y="150" width="170" height="66" rx="9" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="95" y="177" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle">ls datos noexiste</text>
+  <text x="95" y="201" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle">&gt; salida.txt</text>
+  <line x1="180" y1="168" x2="280" y2="168" stroke="#0C0E2C" stroke-width="3.5"/>
+  <polygon points="278,160 292,168 278,176"/>
+  <path d="M294 146 h80 l14 14 v30 h-94 z" fill="#FFFFFF" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="341" y="174" font-family="Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" text-anchor="middle">salida.txt</text>
+  <line x1="180" y1="202" x2="460" y2="202" stroke="#E21EC8" stroke-width="3.5" stroke-dasharray="8 5"/>
+  <polygon points="458,194 472,202 458,210" fill="#E21EC8"/>
+  <rect x="474" y="150" width="176" height="66" rx="7" fill="#0C0E2C"/>
+  <text x="562" y="189" font-size="15" font-weight="700" letter-spacing="1" text-anchor="middle" fill="#F0E6C8">PANTALLA</text>
+
+  <line x1="10" y1="234" x2="650" y2="234" stroke="#F0E6C8" stroke-width="3"/>
+
+  <!-- fila 3: | wc -l (y0 = 244) -->
+  <rect x="10" y="250" width="170" height="66" rx="9" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="3.5"/>
+  <text x="95" y="277" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle">ls datos noexiste</text>
+  <text x="95" y="301" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle">| wc -l</text>
+  <line x1="180" y1="268" x2="280" y2="268" stroke="#0C0E2C" stroke-width="3.5"/>
+  <polygon points="278,260 292,268 278,276"/>
+  <rect x="294" y="248" width="94" height="40" rx="8" fill="#E21EC8" stroke="#0C0E2C" stroke-width="3"/>
+  <text x="341" y="274" font-family="Consolas, 'Courier New', monospace" font-size="14" font-weight="700" text-anchor="middle" fill="#FFFFFF">wc -l</text>
+  <line x1="388" y1="268" x2="460" y2="268" stroke="#0C0E2C" stroke-width="3.5"/>
+  <polygon points="458,260 472,268 458,276"/>
+  <line x1="180" y1="302" x2="460" y2="302" stroke="#E21EC8" stroke-width="3.5" stroke-dasharray="8 5"/>
+  <polygon points="458,294 472,302 458,310" fill="#E21EC8"/>
+  <rect x="474" y="250" width="176" height="66" rx="7" fill="#0C0E2C"/>
+  <text x="562" y="289" font-size="15" font-weight="700" letter-spacing="1" text-anchor="middle" fill="#F0E6C8">PANTALLA</text>
+  <text x="330" y="342" font-size="14.5" font-style="italic" text-anchor="middle">con &gt;, &gt;&gt; y | la línea punteada no cambia de rumbo: las quejas siguen en la pantalla</text>
+</svg>
+<figcaption><strong>Figura 1.7.</strong> Dos salidas que caen en la misma pantalla. <code>&gt;</code>, <code>&gt;&gt;</code> y <code>|</code> solo se llevan la de las respuestas; las quejas siguen llegando a la pantalla.</figcaption></figure>
+<table><thead><tr><th>Signo</th><th>Se lee</th><th>Qué hace</th></tr></thead><tbody>
+<tr><td><code>&gt;</code></td><td>«a este archivo»</td><td>La salida estándar va al archivo. <strong>Si existe, primero lo vacía</strong></td></tr>
+<tr><td><code>&gt;&gt;</code></td><td>«al final de este archivo»</td><td>Igual, pero agrega abajo de lo que hay</td></tr>
+<tr><td><code>|</code></td><td>«a este otro comando»</td><td>La salida estándar del de la izquierda entra al de la derecha</td></tr>
+</tbody></table>
+<p class="sigue">Hay más signos de esta familia, y uno de ellos lo vas a usar tanto que te lo adelanto: un <code>2</code> pegado a la flecha quiere decir «la salida de errores». Y <code>/dev/null</code> es el hoyo del capítulo 0, el que se traga todo:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos noexiste 2&gt; /dev/null</span>
+<span class="out">datos:</span>
+<span class="out">clientes.csv</span>
+<span class="out">ventas.csv</span></code></pre></div>
+<p>La respuesta salió en la pantalla y la queja se fue al hoyo. Sirve cuando un comando escupe muchas quejas que no te importan; en el capítulo 3, al buscar archivos con <code>find</code> por todo el sistema, lo vas a agradecer. Los demás signos (juntar las dos salidas, que un comando lea de un archivo en vez del teclado) ya entiendes de dónde salen; la tabla completa la vemos en el capítulo 7, cuando escribas tus primeros scripts y de verdad los necesites.</p>
+<aside class="truco"><img class="pixel" src="../img/tux-cool.svg" alt=""><p><strong>Truco.</strong> A veces quieres guardar y además ver. Para eso está <code>tee</code>, que se llama como la «T» de plomería: el chorro entra por un lado y sale por dos. <code>tee</code> guarda en un archivo lo que le llega por la tubería y, al mismo tiempo, lo deja pasar a la pantalla. Sirve, por ejemplo, para ver cómo avanza algo largo y quedarte con el registro.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo hola | tee saludo.txt</span>
+<span class="out">hola</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat saludo.txt</span>
+<span class="out">hola</span></code></pre></div>
+<p>Con <code>tee -a</code>, de <em>append</em>, agrega al final en vez de pisar: es el <code>&gt;&gt;</code> de <code>tee</code>.</p></aside>
+<aside class="notas"><ol start="17"><li id="nota-17" value="17">Fox y Ramey (s. f.).</li></ol></aside></section>
+
+<section class="s-trucos-y-atajos" id="trucos-y-atajos">
+<header class="cab-sticker"><img class="pixel" src="../img/tux-cool.svg" alt=""><h2>Trucos y atajos</h2></header>
+<p>Lo que sigue no viene en el video. Son dos familias de mañas: <strong>no volver a teclear</strong> lo que ya tecleaste, y <strong>no aprender a la mala</strong> lo que hizo un comando. Las salidas de esta sección son de la carpeta de pruebas de Ana.</p>
+<h3>!$: la última palabra del comando anterior</h3>
+<p>El caso de todos los días: creas una carpeta y quieres entrar; miras un archivo y quieres abrirlo. En los dos, la ruta es la última palabra del comando anterior, y no hace falta volver a escribirla. <code>!</code> quiere decir «tráeme algo del historial»; <code>$</code>, «la última palabra»<sup class="llamada"><a href="#nota-18">18</a></sup>.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir viajes</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cd !$</span>
+<span class="out">cd viajes</span>
+<span class="prompt">ana@linux:~/pruebas/viajes$</span> <span class="cmd">pwd</span>
+<span class="out">/home/ana/pruebas/viajes</span>
+<span class="prompt">ana@linux:~/pruebas/viajes$</span> <span class="cmd">cd ..</span></code></pre></div>
+<p class="sigue">El renglón <code>cd viajes</code> <strong>no lo tecleó Ana</strong>: lo escribe Bash para enseñarte en qué convirtió el <code>!$</code> antes de ejecutarlo. Léelo siempre. Al final Ana regresa con <code>cd ..</code>; regrésate tú también, que los ejemplos que siguen son desde <code>~/pruebas</code>. Otro:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -l notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat !$</span>
+<span class="out">cat notas.txt</span>
+<span class="out">hola</span></code></pre></div>
+<h3>!! y !*: el comando anterior, entero o sin su nombre</h3>
+<p class="sigue"><code>!!</code> es el comando anterior completo. Solo, hace lo mismo que <code>↑</code> y <code>Enter</code>; su gracia es pegarle cosas. <code>!*</code> son todas las palabras del anterior menos la primera, o sea, todo menos el nombre del comando:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos</span>
+<span class="out">clientes.csv</span>
+<span class="out">ventas.csv</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">!! | wc -l</span>
+<span class="out">ls datos | wc -l</span>
+<span class="out">2</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cp notas.txt respaldo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -l !*</span>
+<span class="out">ls -l notas.txt respaldo.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 respaldo.txt</span></code></pre></div>
+<p>Ana acababa de copiar y quería ver los dos archivos: <code>ls -l !*</code> se los trajo sin escribir los nombres. El uso estrella de <code>!!</code>, <code>sudo !!</code> («lo mismo, pero como administrador»), te lo enseño en el capítulo 2.</p>
+<h3>^mal^bien: repetir corrigiendo</h3>
+<p>Te faltó una letra en un renglón largo. <code>^</code>, lo que estaba mal, <code>^</code>, lo correcto: repite el comando anterior cambiando la <strong>primera</strong> vez que aparece lo que estaba mal<sup class="llamada"><a href="#nota-18">18</a></sup>.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat notas.tx</span>
+<span class="out">cat: notas.tx: No such file or directory</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">^tx^txt</span>
+<span class="out">cat notas.txt</span>
+<span class="out">hola</span></code></pre></div>
+<p>¿Dónde está el <code>^</code>? En el teclado latinoamericano suele ir con <code>AltGr</code> en la tecla de la llave <code>{</code>; en el de España, con <code>Shift</code> en la tecla que está a la derecha de la P. En los dos es una tecla «muerta»: la oprimes y luego la barra espaciadora para que aparezca. Si te cuesta, <code>↑</code> y corregir a mano es igual de bueno.</p>
+<h3>:p: enséñamelo, pero no lo hagas</h3>
+<p><code>:p</code> pegado a <code>!!</code>, <code>!$</code>, <code>!*</code> o <code>!cp</code> enseña lo que se ejecutaría, sin ejecutarlo. De paso, otro atajo: <code>!cp</code> es «el último comando que empezó con <code>cp</code>».</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm respaldo.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">!cp:p</span>
+<span class="out">cp notas.txt respaldo.txt</span></code></pre></div>
+<p>Solo lo enseñó; <code>respaldo.txt</code> no volvió. Es el cinturón de seguridad del historial: si no tienes claro qué trae un <code>!</code>, ponle <code>:p</code> primero. Con <code>rm</code> de por medio, siempre.</p>
+<p class="sigue">Ojo con <code>^mal^bien</code>: ahí el <code>:p</code> va después de un tercer <code>^</code>. Si lo pegas sin ese <code>^</code>, Bash lo toma como parte del texto nuevo y <strong>ejecuta</strong> el comando. Bien puesto, se ve así:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat notas.tx</span>
+<span class="out">cat: notas.tx: No such file or directory</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">^tx^txt^:p</span>
+<span class="out">cat notas.txt</span></code></pre></div>
+<h3>Alt+.: la última palabra, pero viéndola</h3>
+<p><code>Alt</code> y el punto, a medio renglón, escriben ahí mismo la última palabra del comando anterior, igual que <code>!$</code>, pero con una ventaja: la <strong>ves</strong> antes de dar <code>Enter</code>, y la puedes corregir. Si lo vuelves a oprimir, va trayendo la última palabra de comandos más viejos<sup class="llamada"><a href="#nota-18">18</a></sup>. En algunas terminales <code>Alt</code> abre un menú de la ventana; ahí, <code>Esc</code> y luego el punto hacen lo mismo.</p>
+<h3>Editar el renglón sin las flechas</h3>
+<p class="sigue">Seis teclas que, una vez que las usas, ya no sueltas<sup class="llamada"><a href="#nota-18">18</a></sup>:</p>
+<table><thead><tr><th>Tecla</th><th>Qué hace</th><th>Para acordarte</th></tr></thead><tbody>
+<tr><td><code>Ctrl+A</code></td><td>va al principio del renglón</td><td>A, la primera letra</td></tr>
+<tr><td><code>Ctrl+E</code></td><td>va al final</td><td>E de <em>end</em>, «fin»</td></tr>
+<tr><td><code>Ctrl+U</code></td><td>corta desde el cursor hasta el principio</td><td>«¡Uy!, todo mal»</td></tr>
+<tr><td><code>Ctrl+K</code></td><td>corta desde el cursor hasta el final</td><td>K de <em>kill</em>, «matar»</td></tr>
+<tr><td><code>Ctrl+W</code></td><td>corta la palabra de atrás del cursor</td><td>W de <em>word</em>, «palabra»</td></tr>
+<tr><td><code>Ctrl+Y</code></td><td>pega lo último que cortaste</td><td>Y de <em>yank</em>, «jalar»</td></tr>
+</tbody></table>
+<figure id="fig-1-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 250" role="img" aria-label="Un renglón de terminal con el cursor antes de respaldos. Ctrl+U corta hasta el principio, Ctrl+K hasta el final, Ctrl+W la palabra de atrás; Ctrl+A y Ctrl+E llevan a las orillas; Ctrl+Y pega lo cortado." font-family="'Segoe UI', Arial, sans-serif" fill="#0C0E2C">
+  <!-- tramos de arriba -->
+  <g stroke="#0C0E2C" stroke-width="3" fill="none">
+    <path d="M122 62 v-12 h102 v12"/>
+    <path d="M232 62 v-12 h206 v12"/>
+  </g>
+  <rect x="113" y="16" width="120" height="28" rx="6" fill="#E21EC8" stroke="#0C0E2C" stroke-width="2.5"/>
+  <text x="173" y="36" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#FFFFFF">Ctrl+U</text>
+  <rect x="275" y="16" width="120" height="28" rx="6" fill="#E21EC8" stroke="#0C0E2C" stroke-width="2.5"/>
+  <text x="335" y="36" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#FFFFFF">Ctrl+K</text>
+  <!-- el renglón (letra de ancho fijo: 8.25 por carácter) -->
+  <rect x="8" y="68" width="644" height="46" rx="7" fill="#0C0E2C"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="15">
+    <text x="16" y="97" fill="#2DD4BF">ana@linux:~$</text>
+    <text x="123" y="97" fill="#FFFFFF">cp</text>
+    <text x="148" y="97" fill="#FFFFFF">notas.txt</text>
+    <text x="231" y="97" fill="#FFFFFF">respaldos/notas-vieja.txt</text>
+  </g>
+  <rect x="226" y="76" width="4" height="30" fill="#A3E635"/>
+  <!-- tramo de abajo: Ctrl+W -->
+  <path d="M146 122 v12 h78 v-12" stroke="#0C0E2C" stroke-width="3" fill="none"/>
+  <rect x="125" y="142" width="120" height="28" rx="6" fill="#2DD4BF" stroke="#0C0E2C" stroke-width="2.5"/>
+  <text x="185" y="162" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" text-anchor="middle">Ctrl+W</text>
+  <!-- orillas -->
+  <line x1="60" y1="190" x2="60" y2="140" stroke="#0C0E2C" stroke-width="3"/>
+  <path d="M60 140 C 60 128, 110 128, 118 118" stroke="#0C0E2C" stroke-width="3" fill="none"/>
+  <polygon points="110,116 122,112 120,125"/>
+  <text x="60" y="210" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" text-anchor="middle">Ctrl+A</text>
+  <line x1="440" y1="190" x2="440" y2="124" stroke="#0C0E2C" stroke-width="3"/>
+  <polygon points="432,128 440,114 448,128"/>
+  <text x="440" y="210" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" text-anchor="middle">Ctrl+E</text>
+  <text x="462" y="162" font-size="14.5">el cursor (la barrita) está</text>
+  <text x="462" y="181" font-size="14.5">justo antes de respaldos</text>
+  <text x="330" y="240" font-size="15" text-anchor="middle">Ctrl+Y pega lo último que cortaste</text>
+</svg>
+<figcaption><strong>Figura 1.8.</strong> El renglón como regla. <code>Ctrl+A</code> y <code>Ctrl+E</code> te llevan a las orillas; <code>Ctrl+U</code>, <code>Ctrl+K</code> y <code>Ctrl+W</code> cortan un tramo; <code>Ctrl+Y</code> lo pega.</figcaption></figure>
+<p>Lo que cortan <code>Ctrl+U</code>, <code>Ctrl+K</code> y <code>Ctrl+W</code> no se pierde: queda guardado, y <code>Ctrl+Y</code> lo regresa. El caso real: tecleaste un renglón largo y te das cuenta de que antes hacía falta otro comando. <code>Ctrl+U</code> (lo guarda), tecleas el otro, <code>Enter</code>, <code>Ctrl+Y</code>, y ahí está otra vez tu renglón largo.</p>
+<h3>&amp;&amp;, ; y ||: encadenar con criterio</h3>
+<p class="sigue">Tres maneras de poner dos comandos en un renglón<sup class="llamada"><a href="#nota-18">18</a></sup>: <code>&amp;&amp;</code> es «y, si salió bien, sigue»; <code>;</code> es «y luego, pase lo que pase»; <code>||</code> es «y, si falló, haz esto otro». Como <code>viajes</code> ya existe, aquí el <code>mkdir</code> falla las tres veces:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir viajes &amp;&amp; echo "se creo"</span>
+<span class="out">mkdir: cannot create directory ‘viajes’: File exists</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir viajes ; echo "esto sale aunque falle"</span>
+<span class="out">mkdir: cannot create directory ‘viajes’: File exists</span>
+<span class="out">esto sale aunque falle</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir viajes || echo "no se pudo"</span>
+<span class="out">mkdir: cannot create directory ‘viajes’: File exists</span>
+<span class="out">no se pudo</span></code></pre></div>
+<p>Con <code>&amp;&amp;</code>, el segundo no corrió. Con <code>;</code>, sí, aunque el primero falló. Con <code>||</code>, corrió justo porque el primero falló. <code>&amp;&amp;</code> es el que quieres casi siempre, y la razón da escalofríos: piensa en <code>cd carpeta ; rm *</code> contra <code>cd carpeta &amp;&amp; rm *</code>. Si el <code>cd</code> falla, porque escribiste mal el nombre, el primero borra <strong>donde estabas</strong>; el segundo no hace nada.</p>
+<h3>-v: que el comando cuente lo que hizo</h3>
+<p><code>v</code> de <em>verbose</em>, «platicador». Rompe la regla del silencio a propósito: un renglón por cada cosa hecha<sup class="llamada"><a href="#nota-19">19</a></sup>. Sirve mientras aprendes, para no comprobar cada paso con <code>ls</code>, y sirve con comodines, para ver qué agarró el asterisco.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mkdir -pv archivo/2026/enero</span>
+<span class="out">mkdir: created directory 'archivo'</span>
+<span class="out">mkdir: created directory 'archivo/2026'</span>
+<span class="out">mkdir: created directory 'archivo/2026/enero'</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cp -v notas.txt notas-copia.txt</span>
+<span class="out">'notas.txt' -&gt; 'notas-copia.txt'</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mv -v notas-copia.txt notas-vieja.txt</span>
+<span class="out">renamed 'notas-copia.txt' -&gt; 'notas-vieja.txt'</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm -v notas-vieja.txt</span>
+<span class="out">removed 'notas-vieja.txt'</span></code></pre></div>
+<p>Fíjate en lo que dice <code>mv</code>: <em>renamed</em>, «renombrado». Es la sección 9 confesada por el propio comando.</p>
+<aside class="notas"><ol start="18"><li id="nota-18" value="18">Fox y Ramey (s. f.).</li><li id="nota-19" value="19">Free Software Foundation (s. f.-a); Free Software Foundation (s. f.-c).</li></ol></aside></section>
+
+<section class="s-errores-tipicos" id="errores-tipicos">
+<header class="cab-sticker"><img class="pixel" src="../img/tux-alerta.svg" alt=""><h2>Errores típicos</h2></header>
+<p>Todos estos mensajes salieron de verdad en la máquina de Ana. La forma es la del capítulo 0: <em>quién se queja</em> <code>:</code> <em>sobre qué</em> <code>:</code> <em>qué pasó</em>.</p>
+<table><thead><tr><th>Me salió este mensaje</th><th>Qué significa</th><th>Qué revisar</th></tr></thead><tbody>
+<tr><td><code>mkdir: cannot create directory ‘fotos’: File exists</code></td><td>Ya hay algo con ese nombre, carpeta o archivo</td><td><code>ls -ld fotos</code>. Si es una carpeta y solo quieres que exista, <code>mkdir -p</code> no se queja; si es un archivo, <code>-p</code> tampoco puede: cámbiale el nombre a uno de los dos</td></tr>
+<tr><td><code>mkdir: cannot create directory ‘archivo/2026/enero’: No such file or directory</code></td><td>Lo que no existe no es <code>enero</code>: es una carpeta de en medio</td><td>Falta <code>-p</code> (sección 2)</td></tr>
+<tr><td><code>mkdir: cannot create directory ‘/prueba’: Permission denied</code></td><td>No tienes permiso de crear cosas en esa carpeta; aquí, la raíz</td><td>Trabaja dentro de tu casa. Permisos: capítulo 2</td></tr>
+<tr><td><code>touch: cannot touch '/etc/prueba.txt': Permission denied</code></td><td>Lo mismo, con un archivo en <code>/etc</code></td><td>Lo mismo</td></tr>
+<tr><td><code>cp: -r not specified; omitting directory 'proyectos'</code></td><td>Es una carpeta, y sin <code>-r</code> <code>cp</code> se la salta. No copió nada</td><td>Falta <code>-r</code></td></tr>
+<tr><td><code>cp: missing destination file operand after 'a.txt'</code></td><td>Dijiste qué copiar, pero no a dónde</td><td><code>cp</code> siempre lleva dos cosas: qué y a dónde</td></tr>
+<tr><td><code>cp: 'a.txt' and 'a.txt' are the same file</code></td><td>Origen y destino son el mismo archivo</td><td>Te faltó cambiar el segundo nombre</td></tr>
+<tr><td><code>mv: cannot stat 'noexiste.txt': No such file or directory</code></td><td><em>Stat</em> es consultar la ficha: no pudo ni mirar el origen</td><td>El nombre o la carpeta; <code>Tab</code> te lo habría avisado</td></tr>
+<tr><td><code>mv: cannot move 'informe.txt' to 'respaldo/': Not a directory</code></td><td>La diagonal final pidió una carpeta, y no hay ninguna <code>respaldo</code>. Dice <em>Not a directory</em> aunque no exista nada con ese nombre</td><td><code>ls -ld respaldo</code>; el seguro funcionó (reto 13)</td></tr>
+<tr><td><code>mv: cannot stat 'respaldo/': Not a directory</code></td><td>Hay algo llamado <code>respaldo</code>, pero es un archivo, no una carpeta</td><td><code>ls -ld respaldo</code>; ¿un renombrado accidental? (reto 13)</td></tr>
+<tr><td><code>mv: target directory 'respaldo': No such file or directory</code></td><td>Con <code>-t</code>, la carpeta de destino no existe. El seguro funcionó</td><td>Créala con <code>mkdir</code>, o revisa el nombre</td></tr>
+<tr><td><code>mv: target directory 'respaldo': Not a directory</code></td><td>Con <code>-t</code>: hay algo llamado <code>respaldo</code>, pero es un archivo</td><td><code>ls -ld respaldo</code>; ¿un renombrado accidental? (reto 13)</td></tr>
+<tr><td><code>rm: cannot remove 'proyectos-copia': Is a directory</code></td><td><code>rm</code> a secas no quita carpetas</td><td><code>rmdir</code> si está vacía; <code>rm -r</code> si no</td></tr>
+<tr><td><code>rmdir: failed to remove 'proyectos-copia': Directory not empty</code></td><td><code>rmdir</code> solo quita carpetas vacías: es su seguro</td><td>Mira qué hay adentro antes de usar <code>rm -r</code></td></tr>
+<tr><td><code>rm: cannot remove 'reporte': No such file or directory</code></td><td>Si el nombre real lleva espacio, <code>rm</code> recibió pedazos</td><td>Las comillas (sección 13). Y revisa qué se llevó el otro pedazo</td></tr>
+<tr><td><code>ls: cannot access '*.pdf': No such file or directory</code></td><td>Nada encajó con el asterisco, y llegó tal cual</td><td>No es error de escritura: no hay ninguno</td></tr>
+<tr><td><code>bash: a.txt: cannot overwrite existing file</code></td><td>Tienes puesto el seguro <code>noclobber</code> y <code>&gt;</code> no pisa</td><td><code>&gt;&gt;</code> para agregar, <code>&gt;|</code> si de verdad quieres pisar</td></tr>
+<tr><td><code>Command 'tree' not found, but can be installed with:</code></td><td>Ese programa no está instalado; el ayudante de Ubuntu te dice cómo</td><td>Mientras, <code>ls -R</code>. Instalar: capítulo 5</td></tr>
+</tbody></table>
+<p>Fíjate en dos detalles. Varios mensajes dicen <code>No such file or directory</code>, pero el que importa es <em>sobre qué</em>: con <code>mkdir</code> es la carpeta de en medio; con <code>rm</code>, un pedazo de un nombre con espacio. Y el de <code>cp -r</code> es de los pocos que suenan a aviso y son fracaso: «omitting» quiere decir que no hizo nada.</p>
+</section>
+
+<section class="s-tu-turno" id="tu-turno">
+<header class="cab-sticker"><img class="pixel" src="../img/tux-guerrero.svg" alt=""><h2>Tu turno</h2>
+<button class="momento" type="button" data-yt="KGFi0O0WTfc" data-t="576"><span>▶</span>En el video · <b>9:36</b> · Reto final</button></header>
+<p>Los ejercicios con <strong>(leer)</strong> son de interpretar una salida, sin teclear. Los <strong>retos</strong> son casos como los que te van a llegar en la vida real. Hazlos en tu carpeta de pruebas, nunca en <code>trabajo</code>, y sin ver las respuestas, que están al final, en <em>Respuestas</em>.</p>
+<ol>
+<li>En tu carpeta de pruebas, con un solo comando, crea <code>practica/notas/2026</code>. Comprueba con <code>ls -R practica</code> que se crearon las tres carpetas.</li>
+<li><p><strong>(Leer)</strong> ¿Qué carpeta es la que «no existe»? ¿Cómo lo arreglas?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">mkdir archivo/2026/enero</span>
+<span class="out">mkdir: cannot create directory ‘archivo/2026/enero’: No such file or </span><span class="corte">↵</span>
+<span class="out">directory</span></code></pre></div></li>
+<li><p><strong>(Leer)</strong> ¿Cuál de los tres está vacío? ¿Por qué <code>tareas.txt</code> pesa 25 si solo tiene dos renglones cortos?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -lh documentos</span>
+<span class="out">total 8.0K</span>
+<span class="out">-rw-rw-r-- 1 ana ana  0 Nov 15 05:<wbr>13 lista.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 12 Nov 15 05:<wbr>13 notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 25 Nov 15 05:<wbr>13 tareas.txt</span></code></pre></div></li>
+<li>Crea un archivo <code>compras.txt</code> con el renglón <code>tortillas</code> usando <code>echo</code>; agrégale <code>aguacates</code> sin perder las tortillas; compruébalo con <code>cat</code>.</li>
+<li><p><strong>(Leer)</strong> Ana tecleó esto. ¿Tiene ya su copia de <code>proyectos</code>? ¿Qué le faltó?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">cp proyectos proyectos-copia</span>
+<span class="out">cp: -r not specified; omitting directory 'proyectos'</span></code></pre></div></li>
+<li><p><strong>(Leer)</strong> En una carpeta nueva, Ana usó una vez <code>ln</code> y una vez <code>cp</code>. ¿Cuáles de los tres son el mismo archivo, y en qué dos columnas lo ves? ¿Cuál salió de <code>cp</code>? ¿Qué pasa con el contenido si borras <code>uno.txt</code>?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas/album$</span> <span class="cmd">ls -li uno.txt dos.txt tres.txt</span>
+<span class="out">1179670 -rw-rw-r-- 2 ana ana 5 Nov 15 05:<wbr>27 dos.txt</span>
+<span class="out">1179671 -rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>27 tres.txt</span>
+<span class="out">1179670 -rw-rw-r-- 2 ana ana 5 Nov 15 05:<wbr>27 uno.txt</span></code></pre></div></li>
+<li><p><strong>(Leer)</strong> En la misma carpeta, Ana quería ver «lo que empieza con f». ¿Qué recibió <code>ls</code> en realidad? ¿Por qué sale <code>playa.jpg</code>, que no empieza con f? ¿Por qué no sale <code>.foto-oculta.jpg</code>, que sí existe? ¿Qué debió teclear?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas/album$</span> <span class="cmd">mkdir fotos</span>
+<span class="prompt">ana@linux:~/pruebas/album$</span> <span class="cmd">touch foto1.jpg fotos/playa.jpg </span><span class="corte">↵</span>
+<span class="cmd">.foto-oculta.jpg</span>
+<span class="prompt">ana@linux:~/pruebas/album$</span> <span class="cmd">echo f*</span>
+<span class="out">foto1.jpg fotos</span>
+<span class="prompt">ana@linux:~/pruebas/album$</span> <span class="cmd">ls f*</span>
+<span class="out">foto1.jpg</span>
+<span class="out"></span>
+<span class="out">fotos:</span>
+<span class="out">playa.jpg</span></code></pre></div></li>
+<li><p><strong>(Leer)</strong> Después de esto, ¿qué hay dentro de <code>salida.txt</code>? ¿Por qué el error salió en la pantalla?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls datos noexiste &gt; salida.txt</span>
+<span class="out">ls: cannot access 'noexiste': No such file or directory</span></code></pre></div></li>
+<li><p><strong>(Leer)</strong> ¿Cuántos renglones tiene <code>x.txt</code> al final, y por qué?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">wc -l x.txt</span>
+<span class="out">4 x.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat x.txt &gt; x.txt</span></code></pre></div></li>
+<li>En un solo renglón, crea <code>vacaciones/2025</code> y <code>vacaciones/2026</code>, cada una con <code>fotos</code> y <code>boletos</code> adentro. Antes de crearlas, comprueba con <code>echo</code> qué se va a crear.</li>
+<li>Haz un respaldo de <code>compras.txt</code> (el del ejercicio 4) con las llaves, sin escribir el nombre dos veces, y compruébalo con <code>ls</code>.</li>
+<li><strong>Reto (leer).</strong> Te llega este mensaje de Luis, sin captura (es un caso armado): «Llevo una bitácora en <code>bitacora.txt</code>, un renglón por día. Hoy le escribí con <code>echo "viernes: todo bien" &gt; bitacora.txt</code> y desapareció toda la semana. ¿Se borró solo?». ¿Qué le contestas? ¿Qué debió teclear, y qué seguro le recomiendas?</li>
+<li><p><strong>Reto (leer).</strong> Ana quería guardar su informe en la carpeta <code>respaldo</code>. Ahora no lo encuentra y la carpeta no la deja entrar. ¿Qué pasó en realidad? ¿Dónde está el informe? ¿Qué le enseñas para que no le vuelva a pasar?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">ls</span>
+<span class="out">informe.txt</span>
+<span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">mv informe.txt respaldo</span>
+<span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">ls</span>
+<span class="out">respaldo</span>
+<span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">cd respaldo</span>
+<span class="out">bash: cd: respaldo: Not a directory</span></code></pre></div></li>
+<li><p><strong>Reto (leer).</strong> Ana tenía tres cosas en su carpeta y quiso borrar <code>reporte final.txt</code>. Le salió un error, pero además le falta un archivo que no quería borrar. ¿Cuál, y por qué? ¿Cómo debió teclearlo?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">ls</span>
+<span class="out">final.txt</span>
+<span class="out">reporte final.txt</span>
+<span class="out">respaldo</span>
+<span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">rm reporte final.txt</span>
+<span class="out">rm: cannot remove 'reporte': No such file or directory</span>
+<span class="prompt">ana@linux:~/reportes$</span> <span class="cmd">ls</span>
+<span class="out">reporte final.txt</span>
+<span class="out">respaldo</span></code></pre></div></li>
+<li><p><strong>Reto (leer).</strong> Ana sacó una copia de <code>proyectos</code> y, sin darse cuenta, repitió el comando con la flecha <code>↑</code>. Ahora ve esto. ¿Se descompuso algo? ¿De dónde salió esa <code>proyectos</code> de adentro, y cómo deja todo como estaba con un solo comando?</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/trabajo$</span> <span class="cmd">ls -R proyectos-copia</span>
+<span class="out">proyectos-copia:</span>
+<span class="out">proyectos</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/proyectos:</span>
+<span class="out">web</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/proyectos/web:</span>
+<span class="out"></span>
+<span class="out">proyectos-copia/web:</span></code></pre></div></li>
+</ol>
+</section>
+
+<section class="s-respuestas" id="respuestas">
+<header class="cab-sticker"><img class="pixel" src="../img/tux-cool.svg" alt=""><h2>Respuestas</h2></header>
+<ol>
+<li><code>mkdir -p practica/notas/2026</code>. Sin <code>-p</code> falla, porque <code>practica</code> y <code>notas</code> no existen todavía.</li>
+<li>La que falta es <code>archivo/2026</code>, la de en medio (y <code>archivo</code>, si tampoco existía): <code>mkdir</code> solo crea el último eslabón. Se arregla con <code>mkdir -p archivo/2026/enero</code>.</li>
+<li><code>lista.txt</code>, con 0 bytes. <code>tareas.txt</code> pesa 25 porque cada letra y cada espacio cuentan, y cada renglón termina con un carácter invisible de fin de renglón: 13 de «pagar la luz» más 12 de «comprar pan».</li>
+<li><code>echo "tortillas" &gt; compras.txt</code>, luego <code>echo "aguacates" &gt;&gt; compras.txt</code> (dos flechas), y <code>cat compras.txt</code> enseña los dos renglones.</li>
+<li>No. <code>cp</code> dice que se saltó la carpeta (<em>omitting</em>): no copió nada. Le faltó <code>-r</code>: <code>cp -r proyectos proyectos-copia</code>.</li>
+<li><code>uno.txt</code> y <code>dos.txt</code>: tienen el mismo número de ficha, <code>1179670</code>, en la primera columna, y un <code>2</code> en la cuenta de nombres; <code>ln</code> le dio a la misma caja un segundo nombre. <code>tres.txt</code> es una copia: <code>cp</code> hizo caja nueva, con su propio número y un solo nombre. Si borras <code>uno.txt</code>, el contenido sigue ahí bajo el nombre <code>dos.txt</code>, y la cuenta baja a 1. (Ojo: <code>ls</code> los ordena por nombre, no en el orden en que los pediste.)</li>
+<li>Recibió <code>ls foto1.jpg fotos</code>, porque la shell cambió <code>f*</code> por los dos nombres que encajaban. <code>foto1.jpg</code> lo enseña tal cual; <code>fotos</code> es una carpeta, así que <code>ls</code> le pone su título, <code>fotos:</code>, y enseña lo de adentro: <code>playa.jpg</code>. <code>.foto-oculta.jpg</code> no sale porque el asterisco no ve los nombres que empiezan con punto. Para ver solo los nombres que empiezan con <code>f</code>: <code>ls -d f*</code>.</li>
+<li>En <code>salida.txt</code> está solo la respuesta: <code>datos:</code>, <code>clientes.csv</code> y <code>ventas.csv</code>. El error salió en la pantalla porque va por la salida de errores, y <code>&gt;</code> solo desvía la salida estándar.</li>
+<li>Cero. La shell prepara la flecha antes de arrancar <code>cat</code>, y preparar <code>&gt;</code> es vaciar el archivo; cuando <code>cat</code> llegó a leerlo, ya estaba vacío.</li>
+<li>Primero <code>echo vacaciones/{2025,2026}/{fotos,boletos}</code>, que debe enseñar cuatro rutas; luego <code>mkdir -p vacaciones/{2025,2026}/{fotos,boletos}</code>.</li>
+<li><code>cp compras.txt{,.bak}</code>, y <code>ls</code> enseña <code>compras.txt</code> y <code>compras.txt.bak</code>. Si quieres ver antes qué va a hacer: <code>echo cp compras.txt{,.bak}</code>.</li>
+<li>No se borró solo: lo vació la flecha. Una sola <code>&gt;</code> primero vacía el archivo y luego escribe, así que de la semana solo queda el viernes. Debió ser <code>echo "viernes: todo bien" &gt;&gt; bitacora.txt</code>, con dos flechas. El seguro: <code>set -o noclobber</code>, y con él, <code>&gt;</code> se niega a pisar un archivo que ya existe. Lo que perdió solo vuelve si tenía respaldo.</li>
+<li>No había ninguna carpeta <code>respaldo</code>, así que <code>mv</code> hizo lo que hace cuando el destino no existe: <strong>renombró</strong>. El informe está ahí mismo, llamado <code>respaldo</code>, y por eso <code>cd</code> dice que no es un directorio (habla Bash, por su builtin <code>cd</code>). Lo compruebas con <code>cat respaldo</code>, que enseña el contenido del informe. Para dejarlo bien: <code>mv respaldo informe.txt</code>, <code>mkdir respaldo</code> y <code>mv informe.txt respaldo/</code>. Lo que le enseñas: cuando mueves un archivo, terminar con diagonal la carpeta de destino. Con <code>mv informe.txt respaldo/</code>, si la carpeta no existe, <code>mv</code> se detiene con <code>Not a directory</code> en vez de renombrar; para carpetas, <code>mv -t respaldo …</code>. Y si algún día un archivo de verdad no aparece, para buscarlo por todo tu árbol está <code>find</code>, en el capítulo 3.</li>
+<li>Le falta <code>final.txt</code>. Sin comillas, el espacio partió el nombre en dos palabras, y <code>rm</code> recibió dos nombres: <code>reporte</code>, que no existe (de ahí el error), y <code>final.txt</code>, que sí existía y se borró callado. Debió ser <code>rm "reporte final.txt"</code>, o <code>rm reporte\ final.txt</code>, o escribir <code>rm rep</code> y dejar que <code>Tab</code> complete.</li>
+<li>No se descompuso nada. La primera vez, <code>proyectos-copia</code> no existía y <code>cp -r</code> la creó como copia. La segunda vez ya existía, y como el destino era una carpeta existente, <code>cp</code> metió la copia <strong>adentro</strong>. Si quiere conservar la copia buena y quitar la de más: <code>rm -r proyectos-copia/proyectos</code>. (Ana, en la sección 8, prefirió quitar <code>proyectos-copia</code> completa con <code>rm -r proyectos-copia</code>.)</li>
+</ol>
+<h3>Las pausas</h3>
+<p class="sigue">Después de la sección 8:</p>
+<ol>
+<li><code>mkdir borrador</code>, <code>cp documentos/lista.txt borrador/</code> y <code>ls borrador</code>, que enseña <code>lista.txt</code>.</li>
+<li><code>rmdir</code> contesta <code>rmdir: failed to remove 'borrador': Directory not empty</code>: solo quita carpetas vacías, y adentro está la copia. Con un solo comando: <code>rm -r borrador</code>.</li>
+<li>No copia nada: <code>documentos</code> es una carpeta, y sin <code>-r</code> <code>cp</code> contesta <code>cp: -r not specified; omitting directory 'documentos'</code>.</li>
+</ol>
+<p class="sigue">Después de la sección 11:</p>
+<ol>
+<li><code>foto-1.jpg foto-2.jpg foto-3.jpg</code>. Luego <code>touch foto-{1..3}.jpg</code>, y <code>ls foto-*</code> las enlista.</li>
+<li><code>echo foto-*.jpg</code> enseña las tres; si es lo que querías, <code>rm foto-*.jpg</code>.</li>
+<li><code>x1 x2 y1 y2</code>: cada opción de la primera llave se junta con cada opción de la segunda.</li>
+</ol>
+</section>
+
+<section class="s-lo-que-te-llevas" id="lo-que-te-llevas">
+<h2>Lo que te llevas</h2>
+<table><thead><tr><th>Comando</th><th>Viene de</th><th>Para qué</th></tr></thead><tbody>
+<tr><td><code>mkdir</code></td><td><em>make directory</em></td><td>Crear carpetas</td></tr>
+<tr><td><code>mkdir -p</code></td><td><em>parents</em></td><td>Crear también las de en medio; no quejarse si ya existe</td></tr>
+<tr><td><code>touch</code></td><td><em>touch</em>, «tocar»</td><td>Poner al día la fecha de un archivo; si no existe, lo crea vacío</td></tr>
+<tr><td><code>echo "…" &gt; archivo</code></td><td></td><td>Escribir un renglón en un archivo, <strong>vaciándolo antes</strong></td></tr>
+<tr><td><code>echo "…" &gt;&gt; archivo</code></td><td></td><td>Agregar un renglón al final</td></tr>
+<tr><td><code>nano</code></td><td></td><td>Editar texto en la terminal: <code>Ctrl+O</code> guarda, <code>Ctrl+X</code> sale</td></tr>
+<tr><td><code>ls -lh</code>, <code>ls -R</code></td><td><em>human</em>, <em>recursive</em></td><td>Tamaños para humanos; todo el árbol hacia abajo</td></tr>
+<tr><td><code>ls -i</code>, <code>ls -d</code></td><td><em>inode</em>, <em>directory</em></td><td>El número de ficha; la carpeta misma y no su contenido</td></tr>
+<tr><td><code>cp</code>, <code>cp -r</code></td><td><em>copy</em>, <em>recursive</em></td><td>Copiar archivos; copiar carpetas</td></tr>
+<tr><td><code>mv</code>, <code>mv -t</code></td><td><em>move</em>, <em>target</em></td><td>Mover y renombrar; mover a una carpeta que debe existir</td></tr>
+<tr><td><code>rm</code>, <code>rm -r</code></td><td><em>remove</em></td><td>Borrar nombres; borrar carpetas con todo</td></tr>
+<tr><td><code>rmdir</code></td><td><em>remove directory</em></td><td>Borrar carpetas vacías</td></tr>
+<tr><td><code>-i</code>, <code>-v</code></td><td><em>interactive</em>, <em>verbose</em></td><td>Que pregunte antes; que cuente lo que hizo</td></tr>
+<tr><td><code>ln</code></td><td><em>link</em></td><td>Darle a un archivo otro nombre</td></tr>
+<tr><td><code>tee</code></td><td></td><td>Guardar y ver a la vez</td></tr>
+<tr><td><code>2&gt; /dev/null</code></td><td></td><td>Tirar al hoyo las quejas de un comando</td></tr>
+<tr><td><code>*</code>, <code>?</code>, <code>[ ]</code></td><td></td><td>Comodines: nombres que ya existen</td></tr>
+<tr><td><code>{a,b}</code>, <code>{1..5}</code></td><td></td><td>Llaves: escribir varios nombres</td></tr>
+<tr><td><code>!$</code>, <code>!!</code>, <code>!*</code></td><td></td><td>La última palabra, el comando, los argumentos del anterior</td></tr>
+</tbody></table>
+<p class="sigue">Y cinco ideas, que valen más que los comandos:</p>
+<ul>
+<li>El nombre de un archivo vive en su carpeta, no en el archivo. Por eso <code>mv</code> es instantáneo dentro del mismo disco, <code>cp</code> hace otro archivo y <code>rm</code> borra nombres.</li>
+<li>No hay papelera. Antes de borrar, mira; antes de editar, respalda.</li>
+<li>La shell reescribe tu renglón antes de que el comando arranque: comodines, llaves, tilde y espacios son suyos. <code>echo</code> te deja ver el renglón reescrito.</li>
+<li><code>cp</code>, <code>mv</code> y <code>&gt;</code> pisan sin avisar. Las preguntas y los seguros los pones tú.</li>
+<li>Un comando contesta por una salida y se queja por otra. <code>&gt;</code> y <code>|</code> solo se llevan la respuesta.</li>
+</ul>
+</section>
+
+<section class="s-para-los-curiosos" id="para-los-curiosos">
+<h2>Para los curiosos</h2>
+<p>Aquí dejé lo que no hace falta para seguir. Nada de esto se pregunta en <em>Tu turno</em>.</p>
+<h3>Las tres fechas de un archivo</h3>
+<p class="sigue">En la sección 3 te dije que el trabajo principal de <code>touch</code> es poner fechas. Cada archivo guarda tres, y <code>stat</code> las enseña todas, junto con lo demás de su ficha:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">stat notas.txt</span>
+<span class="out">  File: notas.txt</span>
+<span class="out">  Size: 5         	Blocks: 8          IO Block: 4096   regular file</span>
+<span class="out">Device: 252,<wbr>0	Inode: 1179702     Links: 1</span>
+<span class="out">Access: (0664/-rw-rw-r--)  Uid: ( 1001/     ana)   Gid: ( 1001/     ana)</span>
+<span class="out">Access: 2026-11-15 05:<wbr>13:<wbr>40.262565861 +0000</span>
+<span class="out">Modify: 2026-11-15 05:<wbr>13:<wbr>40.260565865 +0000</span>
+<span class="out">Change: 2026-11-15 05:<wbr>13:<wbr>40.260565865 +0000</span>
+<span class="out"> Birth: 2026-11-15 05:<wbr>13:<wbr>40.260565865 +0000</span></code></pre></div>
+<p class="sigue">Ahí está la ficha completa: tamaño, número de ficha (<code>Inode</code>), cuenta de nombres (<code>Links</code>), permisos, dueño, y cuatro fechas. Las tres clásicas son estas<sup class="llamada"><a href="#nota-20">20</a></sup>:</p>
+<table><thead><tr><th>Fecha</th><th>Cuándo cambia</th><th>La enseña</th></tr></thead><tbody>
+<tr><td><code>Modify</code>, modificación</td><td>Cuando cambia el <strong>contenido</strong></td><td><code>ls -l</code></td></tr>
+<tr><td><code>Access</code>, acceso</td><td>Cuando se <strong>lee</strong> el contenido</td><td><code>ls -lu</code></td></tr>
+<tr><td><code>Change</code>, cambio de ficha</td><td>Cuando cambia el contenido <strong>o</strong> la ficha: permisos, dueño, cuenta de nombres</td><td><code>ls -lc</code></td></tr>
+</tbody></table>
+<p>La cuarta, <code>Birth</code>, es cuándo nació el archivo; no todos los sistemas de archivos la guardan. Y una aclaración sobre <code>Access</code>: muchos sistemas, para no escribir en el disco cada vez que algo se lee, la ponen al día solo de vez en cuando<sup class="llamada"><a href="#nota-20">20</a></sup>. No te fíes de ella para saber quién leyó qué.</p>
+<p class="sigue">Con <code>touch -d</code> se le puede poner a un archivo la fecha que quieras. Mira cómo, con eso, las tres fechas dejan de coincidir:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch -d "2026-01-15 10:30" notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -l notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Jan 15  2026 notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat notas.txt</span>
+<span class="out">hola</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -lu notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -lc notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 notas.txt</span></code></pre></div>
+<p class="sigue"><code>ls -l</code> dice enero: es la fecha de modificación, la que puso <code>touch -d</code>. <code>ls -lu</code> dice ahora, porque <code>cat</code> lo acaba de leer. Y <code>ls -lc</code> también dice ahora, porque <code>touch -d</code> cambió la ficha, y eso sí queda anotado. (Las dos de ahora coinciden en el minuto porque todo pasó en el mismo; con <code>stat</code> verías los segundos.) Un detalle de lectura: cuando la fecha tiene más de unos seis meses, <code>ls -l</code> cambia la hora por <strong>el año</strong>. Y una consecuencia para quien investiga: como cualquiera puede cambiar la fecha de modificación de sus propios archivos, esa fecha no es prueba de nada; la de cambio de ficha, en cambio, <code>touch</code> no la puede poner a mano, y por eso es la que se mira primero. <code>touch</code> a secas regresa todo a «ahorita»:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">touch notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -l notas.txt</span>
+<span class="out">-rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 notas.txt</span></code></pre></div>
+<h3>Enlace con ln y enlace simbólico, lado a lado</h3>
+<p>El de la sección 9 es un segundo nombre de la misma caja. El simbólico, <code>ln -s</code>, es otra cosa: un archivo chiquito, con su propio número de ficha, que solo guarda una ruta.</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ln -s notas.txt flecha</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -li notas.txt flecha</span>
+<span class="out">1179716 lrwxrwxrwx 1 ana ana 9 Nov 15 05:<wbr>13 flecha -&gt; notas.txt</span>
+<span class="out">1179702 -rw-rw-r-- 1 ana ana 5 Nov 15 05:<wbr>13 notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat flecha</span>
+<span class="out">hola</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">rm notas.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">cat flecha</span>
+<span class="out">cat: flecha: No such file or directory</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -l flecha</span>
+<span class="out">lrwxrwxrwx 1 ana ana 9 Nov 15 05:<wbr>13 flecha -&gt; notas.txt</span></code></pre></div>
+<p>Números distintos, una <code>l</code> al principio, y un tamaño de 9: los nueve caracteres de <code>notas.txt</code>, la ruta que guarda. Al leerla, <code>cat</code> sigue la flecha y enseña el contenido. Pero al borrar <code>notas.txt</code>, la flecha <strong>se queda rota</strong>: sigue apuntando a un nombre que ya no existe, y <code>cat</code> dice que no existe. Con el enlace de <code>ln</code>, en cambio, el archivo sobrevivía mientras quedara un nombre.</p>
+<h3>Cuando mv sí copia</h3>
+<p class="sigue">En la sección 9 te dije que <code>mv</code> no mueve los datos. Es cierto mientras el origen y el destino estén en el mismo sistema de archivos. Pero el árbol de Linux junta varios, montados en distintas ramas, como viste en el capítulo 0. <code>/dev/shm</code>, por ejemplo, vive en la memoria, no en el disco:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo "viaje" &gt; viajero.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -i viajero.txt</span>
+<span class="out">1179702 viajero.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">mv -v viajero.txt /dev/shm/</span>
+<span class="out">copied 'viajero.txt' -&gt; '/dev/shm/viajero.txt'</span>
+<span class="out">removed 'viajero.txt'</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">ls -i /dev/shm/viajero.txt</span>
+<span class="out">7 /dev/shm/viajero.txt</span></code></pre></div>
+<p>El número cambió, y el propio <code>mv -v</code> ya no dice <em>renamed</em>: dice <em>copied</em> y luego <em>removed</em>. Aquí <code>mv</code> no pudo solo reescribir un renglón, porque la libreta de destino es de otro sistema de archivos. Cuando renombrar no se puede por eso, <code>mv</code> copia y, si la copia salió bien, borra el original<sup class="llamada"><a href="#nota-21">21</a></sup>. (La página citada es de una versión más nueva de las herramientas; en la 24.04 se porta igual, como acabas de ver.) Por eso mover a una memoria USB o a otro disco sí tarda. ¿Y por qué <code>viajero.txt</code> tiene el mismo número que el <code>notas.txt</code> que Ana acababa de borrar? Porque la ficha quedó libre y el sistema la volvió a usar: los números se reciclan.</p>
+<h3>Ver a rm pedir el unlink</h3>
+<p class="sigue">Con el <code>strace</code> del capítulo 0 se ve qué le pide <code>rm</code> al kernel. Con <code>-e trace=unlinkat</code> solo enseña esa petición. Ana crea un archivo de prueba, <code>z.txt</code>, y lo borra espiando:</p>
+<div class="terminal"><div class="barra"><i></i><i></i><i></i></div><pre><code><span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">echo z &gt; z.txt</span>
+<span class="prompt">ana@linux:~/pruebas$</span> <span class="cmd">strace -e trace=unlinkat rm z.txt</span>
+<span class="out">unlinkat(AT_FDCWD, "z.txt", 0)          = 0</span>
+<span class="out">+++ exited with 0 +++</span></code></pre></div>
+<p>Una sola forma por la ventanilla: <code>unlinkat</code>, «desenlazar», con el nombre <code>z.txt</code>, desde la carpeta donde está Ana (<code>AT_FDCWD</code>). El <code>= 0</code> de la derecha es la respuesta del kernel: cero quiere decir «hecho». Eso es todo lo que hace <code>rm</code>: tachar un renglón.</p>
+<aside class="notas"><ol start="20"><li id="nota-20" value="20">Linux man-pages project (s. f.-b).</li><li id="nota-21" value="21">Free Software Foundation (s. f.-b).</li></ol></aside></section>
+
+<section class="s-referencias" id="referencias">
+<h2>Referencias</h2>
+<p>Fox, B. y Ramey, C. (s. f.). <em>bash(1): GNU Bourne-Again SHell</em> (paquete bash 5.2.21-2ubuntu4) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/bash.1.html</p>
+<p>Free Software Foundation. (s. f.-a). <em>cp(1): Copy files and directories</em> (paquete coreutils 9.4-3ubuntu6.3) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/cp.1.html</p>
+<p>Free Software Foundation. (s. f.-b). <em>GNU Coreutils: mv invocation</em> (versión 9.12). Proyecto GNU. Recuperado el 14 de noviembre de 2026, de https://www.gnu.org/software/coreutils/manual/html_node/mv-invocation.html</p>
+<p>Free Software Foundation. (s. f.-c). <em>mkdir(1): Make directories</em> (paquete coreutils 9.4-3ubuntu6.3) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/mkdir.1.html</p>
+<p>Free Software Foundation. (s. f.-d). <em>mv(1): Move (rename) files</em> (paquete coreutils 9.4-3ubuntu6.3) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/mv.1.html</p>
+<p>Free Software Foundation. (s. f.-e). <em>rm(1): Remove files or directories</em> (paquete coreutils 9.4-3ubuntu6.3) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/rm.1.html</p>
+<p>Free Software Foundation. (s. f.-f). <em>shred(1): Overwrite a file to hide its contents, and optionally delete it</em> (paquete coreutils 9.4-3ubuntu6.3) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/shred.1.html</p>
+<p>Free Software Foundation. (s. f.-g). <em>touch(1): Change file timestamps</em> (paquete coreutils 9.4-3ubuntu6.3) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man1/touch.1.html</p>
+<p>Linux man-pages project. (s. f.-a). <em>glob(7): Globbing pathnames</em> (paquete manpages 6.7-2) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man7/glob.7.html</p>
+<p>Linux man-pages project. (s. f.-b). <em>inode(7): File inode information</em> (paquete manpages 6.7-2) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man7/inode.7.html</p>
+<p>Linux man-pages project. (s. f.-c). <em>unlink(2): Delete a name and possibly the file it refers to</em> (paquete manpages-dev 6.7-2) [Página de manual]. Ubuntu Manpages. Recuperado el 14 de noviembre de 2026, de https://manpages.ubuntu.com/manpages/noble/man2/unlink.2.html</p>
+</section>
+
+<section class="s-para-saber-mas" id="para-saber-mas">
+<h2>Para saber más</h2>
+<ul>
+<li><strong>Fox y Ramey (s. f.), secciones <em>EXPANSION</em>, <em>REDIRECTION</em> y <em>HISTORY EXPANSION</em>.</strong> Es la fuente de casi todo lo de las secciones 10 a 14 y de los trucos. En inglés y denso, pero con lo que viste aquí ya se puede leer. En tu máquina está con <code>man bash</code>; para saltar a una sección, <code>/EXPANSION</code> y <code>Enter</code>.</li>
+<li><strong>Linux man-pages project (s. f.-a), <code>glob(7)</code>.</strong> Una página corta: los comodines completos, incluidos los rangos como <code>[a-z]</code>. En tu máquina, <code>man 7 glob</code>.</li>
+<li><strong>Shotts, W. (s. f.). <em>The Linux command line</em>. https://linuxcommand.org/tlcl.php</strong> El libro gratuito que te recomendé en el capítulo 0. Trae capítulos enteros sobre lo que aquí cupo en una sección: manejar archivos, la expansión de la shell y la redirección.</li>
+</ul>
+</section>
+
+<section class="s-lo-que-sigue" id="lo-que-sigue">
+<h2>Lo que sigue</h2>
+<p>Ya tienes tu carpeta <code>trabajo</code>, y sabes crear, copiar, mover y borrar sin perder lo que no querías perder. Pero esos archivos viven en una máquina donde hay más usuarios, y en cada renglón de <code>ls -l</code> hay una columna que todavía no te he explicado: <code>-rw-rw-r--</code>. ¿Quién más puede leer tus apuntes? ¿Quién puede cambiarlos, o borrarlos? Eso son los <strong>permisos</strong>, y son media seguridad de Linux. Los vemos en el capítulo 2, empezando justo donde dejaste tu carpeta <code>trabajo</code>.</p>
+<p>Hoy la terminal dejó de ser una ventana para asomarte. Ya es tu taller.</p>
+</section>
+</article>
+
+<section class="sigue-libro">
+  <img class="pixel" src="../img/tux-guerrero.svg" alt="">
+  <h2>Sigue con el libro</h2>
+  <p>El libro es <b>gratis y abierto</b>: un capítulo por clase, y sale uno nuevo cada semana. Léelo aquí, descárgalo y compártelo.</p>
+  <nav class="entre-caps" aria-label="Otros capítulos">
+<a class="cap-ant" href="../"><small>← Anterior</small>Cap. 0 · Introducción a Linux</a>
+<span class="cap-sig pronto"><small>Siguiente</small>Cap. 2 · Permisos: llega pronto</span>
+</nav>
+  <p class="botones-libro"><a class="b-sec" href="../../linux-desde-cero-capitulo-1.pdf" download>Descargar este capítulo en PDF</a><a class="b-sec" href="/#curso">Ver el curso gratis</a></p>
+  <p class="apoyo">¿Te sirvió? Apoya para que siga gratis, en Patreon o con la suscripción de Facebook.</p>
+  <p class="botones-libro"><a class="b-sec b-apoyo" href="https://www.patreon.com/HackztlanLAB" rel="noopener">Apoyar en Patreon</a></p>
+  <div class="lic">© Hackztlan Lab. Este libro se distribuye bajo la licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0). Puedes copiarlo, compartirlo y adaptarlo sin fines comerciales, dando crédito a Hackztlan Lab y conservando esta misma licencia. Para uso comercial, escríbenos por la página de Facebook de Hackztlan Lab.</div>
+</section>
+</main>
+
+<div class="visor" id="visor" hidden>
+  <div class="visor-caja" role="dialog" aria-modal="true" aria-label="Video de la clase">
+    <div class="visor-barra"><span>Clase #1 · Linux desde cero</span><a href="https://youtu.be/KGFi0O0WTfc" rel="noopener">Ver en YouTube ↗</a><button class="x" type="button" aria-label="Cerrar">×</button></div>
+    <div class="visor-video" id="visor-video"></div>
+  </div>
+</div>
+<script src="../leer.js?v=2" defer></script>
+<!-- Cloudflare Web Analytics (sin cookies) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "acef90b9a541475484cdd19cfdec7b7c"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
